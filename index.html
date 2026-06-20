@@ -1229,12 +1229,9 @@
             const form = e.target;
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
-            
-            const seguroSelect = form.querySelector('[name="tipo_seguro"]');
-            const seguroLabel = seguroSelect.options[seguroSelect.selectedIndex].text;
-            
+
             const data = {
-                tipo_seguro: seguroLabel,
+                tipo_seguro: form.querySelector('[name="tipo_seguro"]').value,
                 pais_destino: form.querySelector('[name="pais_destino"]').value.trim(),
                 fecha_inicio: form.querySelector('[name="fecha_inicio"]').value,
                 fecha_fin: form.querySelector('[name="fecha_fin"]').value,
