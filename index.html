@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agencia de Viajes Naju</title>
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --primary: #00a8cc;
@@ -312,6 +314,59 @@
                 width: 100%;
             }
         }
+
+        /* ==========================================
+           TOAST NOTIFICATION SYSTEM
+           ========================================== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--white);
+            color: var(--dark);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #ccc;
+            font-size: 0.95rem;
+            font-weight: 600;
+            min-width: 300px;
+            max-width: 450px;
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left-color: #2ec4b6;
+        }
+
+        .toast-error {
+            border-left-color: #ff3366;
+        }
+
+        .toast-info {
+            border-left-color: var(--primary);
+        }
+
+        .toast-icon {
+            font-size: 1.25rem;
+        }
     </style>
 </head>
 
@@ -409,15 +464,15 @@
                 <!-- Formulario de Requisitos de Vuelos -->
                 <div class="form-container">
                     <h3 id="formVuelosTitle">Formulario de Reserva y Cotización de Vuelo</h3>
-                    <form onsubmit="handleFormSubmit(event)">
+                    <form id="formVuelos">
                         <div class="form-grid">
                             <div class="form-group"><label id="lblOrig">Origen</label><input type="text"
-                                    value="Managua, Nicaragua (MGA)" readonly></div>
+                                    name="ciudad_origen" value="Managua, Nicaragua (MGA)" readonly></div>
                             <div class="form-group"><label id="lblDest">Destino de Interés</label><input type="text"
-                                    placeholder="Ej. Chicago, París, Cancún" required></div>
+                                    name="ciudad_destino" placeholder="Ej. Chicago, París, Cancún" required></div>
                             <div class="form-group">
                                 <label>Aerolínea de Preferencia</label>
-                                <select required>
+                                <select name="aerolinea_preferida" required>
                                     <option value="avianca">Avianca</option>
                                     <option value="american">American Airlines</option>
                                     <option value="copa">Copa Airlines</option>
@@ -426,25 +481,24 @@
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblSalida">Fecha de Salida</label><input type="date"
-                                    required></div>
+                                    name="fecha_salida" required></div>
                             <div class="form-group"><label id="lblRegreso">Fecha de Vuelta</label><input type="date"
-                                    required></div>
+                                    name="fecha_regreso"></div>
                             <div class="form-group">
                                 <label id="lblClase">Clase de Vuelo</label>
-                                <select id="claseVueloSelect" required>
+                                <select id="claseVueloSelect" name="clase_vuelo" required>
                                     <option value="economica" selected>Clase Económica ($450 - $900)</option>
                                     <option value="media">Clase Media / Premium Economy ($850 - $1500)</option>
                                     <option value="alta">Clase Alta / Business Class ($1800 - $3500)</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblNombreV">Nombre del Pasajero</label><input type="text"
-                                    required></div>
-                            <div class="form-group"><label id="lblEmailV">Email</label><input type="email" required>
-                            </div>
+                                    name="nombre_completo" required></div>
+                            <div class="form-group"><label id="lblEmailV">Email</label><input type="email"
+                                    name="correo" required></div>
                             <div class="form-group"><label id="lblTelV">Teléfono / WhatsApp</label><input type="tel"
-                                    required></div>
-                            <button type="submit" class="btn-submit btnSubmitText">Solicitar Cotización de
-                                Vuelo</button>
+                                    name="telefono" required></div>
+                            <button type="submit" class="btn-submit btnSubmitText">Solicitar Cotización de Vuelo</button>
                         </div>
                     </form>
                 </div>
@@ -515,34 +569,34 @@
                 <!-- Formulario de Requisitos de Paquetes -->
                 <div class="form-container">
                     <h3 id="formPaquetesTitle">Formulario de Selección de Paquete Vacacional</h3>
-                    <form onsubmit="handleFormSubmit(event)">
+                    <form id="formPaquetes">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblPqDest">Destino de Interés</label>
-                                <select required>
+                                <select name="ciudad_destino" required>
                                     <option value="cancun">Cancún Mágico</option>
                                     <option value="europa">Europa Soñada</option>
                                     <option value="orlando">Aventura Orlando</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblPqFecha">Fechas de Viaje</label><input type="text"
-                                    placeholder="Ej. Del 15 al 20 de Septiembre" required></div>
+                                    name="fechas_viaje" placeholder="Ej. Del 15 al 20 de Septiembre" required></div>
                             <div class="form-group"><label id="lblPqPersonas">Número de Personas</label><input
-                                    type="number" min="1" value="1" required></div>
+                                    type="number" name="cantidad_personas" min="1" value="1" required></div>
                             <div class="form-group">
                                 <label id="lblPqHab">Tipo de Habitación</label>
-                                <select required>
+                                <select name="tipo_habitacion" required>
                                     <option value="individual">Individual</option>
                                     <option value="doble" selected>Doble</option>
                                     <option value="triple">Triple</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblPqNombre">Nombre de Contacto</label><input type="text"
-                                    required></div>
-                            <div class="form-group"><label id="lblPqEmail">Email</label><input type="email" required>
-                            </div>
+                                    name="nombre_completo" required></div>
+                            <div class="form-group"><label id="lblPqEmail">Email</label><input type="email"
+                                    name="correo" required></div>
                             <div class="form-group"><label id="lblPqTel">Teléfono / WhatsApp</label><input type="tel"
-                                    required></div>
+                                    name="telefono" required></div>
                             <button type="submit" class="btn-submit btnSubmitText">Apartar Mi Paquete Turístico</button>
                         </div>
                     </form>
@@ -586,33 +640,33 @@
                 <!-- Formulario Cruceros -->
                 <div class="form-container">
                     <h3 id="formCrucerosTitle">Solicitud de Reserva para Cruceros</h3>
-                    <form onsubmit="handleFormSubmit(event)">
+                    <form id="formCruceros">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblCrRuta">Selecciona tu Crucero</label>
-                                <select required>
+                                <select name="crucero_seleccionado" required>
                                     <option value="caribe">Ocean Monarch - Caribe Occidental</option>
                                     <option value="mediterraneo">Sea Majesty - Joyas del Mediterráneo</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblCrFecha">Fecha estimada de Embarque</label><input
-                                    type="date" required></div>
+                                    type="date" name="fecha_embarque" required></div>
                             <div class="form-group"><label id="lblCrPasajeros">Cantidad de Pasajeros</label><input
-                                    type="number" min="1" value="1" required></div>
+                                    type="number" name="cantidad_pasajeros" min="1" value="1" required></div>
                             <div class="form-group">
                                 <label id="lblCrPago">Forma de Pago de Interés</label>
-                                <select required>
+                                <select name="forma_pago" required>
                                     <option value="tarjeta">Tarjeta de Crédito / Débito</option>
                                     <option value="efectivo">Efectivo / Transferencia Bancaria</option>
                                     <option value="financiamiento">Plan de Financiamiento Naju</option>
                                 </select>
                             </div>
-                            <div class="form-group"><label id="lblCrNombre">Nombre</label><input type="text" required>
-                            </div>
-                            <div class="form-group"><label id="lblCrEmail">Email</label><input type="email" required>
-                            </div>
-                            <div class="form-group"><label id="lblCrTel">Teléfono</label><input type="tel" required>
-                            </div>
+                            <div class="form-group"><label id="lblCrNombre">Nombre</label><input type="text"
+                                    name="nombre_completo" required></div>
+                            <div class="form-group"><label id="lblCrEmail">Email</label><input type="email"
+                                    name="correo" required></div>
+                            <div class="form-group"><label id="lblCrTel">Teléfono</label><input type="tel"
+                                    name="telefono" required></div>
                             <button type="submit" class="btn-submit btnSubmitText">Cotizar Crucero</button>
                         </div>
                     </form>
@@ -657,28 +711,28 @@
                 <!-- Formulario Seguros -->
                 <div class="form-container">
                     <h3 id="formSegurosTitle">Alta de Seguro de Viaje Internacional</h3>
-                    <form onsubmit="handleFormSubmit(event)">
+                    <form id="formSeguros">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Selecciona el Plan de Seguro</label>
-                                <select required>
+                                <select name="tipo_seguro" required>
                                     <option value="standard">Plan Global Standard</option>
                                     <option value="schengen">Plan Schengen Premium</option>
                                     <option value="vip">Plan VIP Elite</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblSegPais">País de Destino</label><input type="text"
-                                    placeholder="Ej. España, Estados Unidos" required></div>
+                                    name="pais_destino" placeholder="Ej. España, Estados Unidos" required></div>
                             <div class="form-group"><label id="lblSegDesde">Cobertura Desde</label><input type="date"
-                                    required></div>
+                                    name="fecha_inicio" required></div>
                             <div class="form-group"><label id="lblSegHasta">Cobertura Hasta</label><input type="date"
-                                    required></div>
+                                    name="fecha_fin" required></div>
                             <div class="form-group"><label id="lblSegNombre">Nombre del Asegurado</label><input
-                                    type="text" required></div>
-                            <div class="form-group"><label id="lblSegEmail">Email</label><input type="email" required>
-                            </div>
-                            <div class="form-group"><label id="lblSegTel">Teléfono</label><input type="tel" required>
-                            </div>
+                                    type="text" name="nombre_completo" required></div>
+                            <div class="form-group"><label id="lblSegEmail">Email</label><input type="email"
+                                    name="correo" required></div>
+                            <div class="form-group"><label id="lblSegTel">Teléfono</label><input type="tel"
+                                    name="telefono" required></div>
                             <button type="submit" class="btn-submit btnSubmitText">Emitir Cotización de Seguro</button>
                         </div>
                     </form>
@@ -747,11 +801,11 @@
                 <!-- Formulario Hoteles/Hostales -->
                 <div class="form-container">
                     <h3 id="formHotelesTitle">Reservación de Alojamiento</h3>
-                    <form onsubmit="handleFormSubmit(event)">
+                    <form id="formHoteles">
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblHtlTipo">Elige tu Hospedaje Específico</label>
-                                <select required>
+                                <select name="tipo_alojamiento" required>
                                     <option value="hotel_oasis">Hotel Grand Oasis</option>
                                     <option value="hotel_royal">Hotel Urban Royal</option>
                                     <option value="hostal_tranquilo">Backpackers Quiet Corner (Hostal Tranquilo)
@@ -760,17 +814,17 @@
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblHtlCiudad">Ciudad / Destino</label><input type="text"
-                                    placeholder="Ej. Miami, París, Cancún" required></div>
+                                    name="destino" placeholder="Ej. Miami, París, Cancún" required></div>
                             <div class="form-group"><label id="lblHtlCheckIn">Fecha Check-In</label><input type="date"
-                                    required></div>
+                                    name="fecha_checkin" required></div>
                             <div class="form-group"><label id="lblHtlCheckOut">Fecha Check-Out</label><input type="date"
-                                    required></div>
+                                    name="fecha_checkout" required></div>
                             <div class="form-group"><label id="lblHtlNombre">Nombre del Huésped</label><input
-                                    type="text" required></div>
-                            <div class="form-group"><label id="lblHtlEmail">Email</label><input type="email" required>
-                            </div>
+                                    type="text" name="nombre_completo" required></div>
+                            <div class="form-group"><label id="lblHtlEmail">Email</label><input type="email"
+                                    name="correo" required></div>
                             <div class="form-group"><label id="lblHtlTel">Teléfono / WhatsApp</label><input type="tel"
-                                    required></div>
+                                    name="telefono" required></div>
                             <button type="submit" class="btn-submit btnSubmitText">Buscar Disponibilidad</button>
                         </div>
                     </form>
@@ -839,8 +893,58 @@
 
         let currentLang = 'es';
 
+        // ==========================================
+        // CONFIGURACIÓN DE SUPABASE
+        // ==========================================
+        const SUPABASE_URL = "https://uzagmhguqgdzixwqdvhi.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6YWdtaGd1cWdkeml4d3FkdmhpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NTM3MjgsImV4cCI6MjA5NzUyOTcyOH0.XwxxvRVSeIq7F5mufVrfdmEr6iRjDMZyPAWpPMuLteM";
+        
+        // Inicialización segura del cliente Supabase
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ==========================================
+        // SISTEMA DE NOTIFICACIONES TOAST (PREMIUM)
+        // ==========================================
+        function showToast(message, type = 'success') {
+            let container = document.getElementById('toast-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'toast-container';
+                container.className = 'toast-container';
+                document.body.appendChild(container);
+            }
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            
+            let icon = 'ℹ️';
+            if (type === 'success') icon = '✅';
+            if (type === 'error') icon = '❌';
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icon}</span>
+                <span class="toast-message">${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Animación de entrada
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Ocultar y remover automáticamente tras 4 segundos
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 400);
+            }, 4000);
+        }
+
         window.onload = function () {
-            alert(data[currentLang].welcome);
+            // Bienvenida premium mediante toast
+            showToast(data[currentLang].welcome, 'info');
             renderContent();
             showSection('nosotros');
         };
@@ -898,11 +1002,382 @@
             event.target.classList.add('active');
         }
 
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            alert(data[currentLang].formSuccess);
-            event.target.reset();
+        // ==========================================
+        // VALIDACIÓN DE CAMPOS
+        // ==========================================
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
         }
+
+        function validatePhone(phone) {
+            // Requiere un mínimo de 8 caracteres numéricos
+            return phone.replace(/\D/g, '').length >= 8;
+        }
+
+        // ==========================================
+        // MÉTODOS DE ENVÍO DE DATOS
+        // ==========================================
+        async function submitFlightForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            const data = {
+                ciudad_origen: form.querySelector('[name="ciudad_origen"]').value.trim(),
+                ciudad_destino: form.querySelector('[name="ciudad_destino"]').value.trim(),
+                aerolinea_preferida: form.querySelector('[name="aerolinea_preferida"]').value,
+                fecha_salida: form.querySelector('[name="fecha_salida"]').value,
+                fecha_regreso: form.querySelector('[name="fecha_regreso"]').value || null,
+                clase_vuelo: form.querySelector('[name="clase_vuelo"]').value,
+                nombre_completo: form.querySelector('[name="nombre_completo"]').value.trim(),
+                correo: form.querySelector('[name="correo"]').value.trim(),
+                telefono: form.querySelector('[name="telefono"]').value.trim(),
+                estado: 'pendiente'
+            };
+            
+            if (!data.nombre_completo || !data.correo || !data.telefono || !data.ciudad_destino || !data.fecha_salida) {
+                showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
+                return;
+            }
+            if (!validateEmail(data.correo)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un correo electrónico válido.' : 'Please enter a valid email address.', 'error');
+                return;
+            }
+            if (!validatePhone(data.telefono)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
+                return;
+            }
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+                
+                const { error } = await supabaseClient
+                    .from('flight_requests')
+                    .insert([data]);
+                    
+                if (error) throw error;
+                
+                showToast(
+                    currentLang === 'es' 
+                        ? '¡Tu cotización de vuelo ha sido enviada con éxito!' 
+                        : 'Your flight quote request has been successfully sent!', 
+                    'success'
+                );
+                form.reset();
+            } catch (err) {
+                console.error('Error submitting flight request:', err);
+                showToast(
+                    currentLang === 'es' 
+                        ? 'Ocurrió un error al enviar tu solicitud. Inténtalo de nuevo.' 
+                        : 'An error occurred while sending your request. Please try again.', 
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
+        }
+
+        async function submitPackageForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            const destinoSelect = form.querySelector('[name="ciudad_destino"]');
+            const destinoLabel = destinoSelect.options[destinoSelect.selectedIndex].text;
+            const fechas = form.querySelector('[name="fechas_viaje"]').value.trim();
+            const personas = form.querySelector('[name="cantidad_personas"]').value;
+            const habitacion = form.querySelector('[name="tipo_habitacion"]').value;
+            
+            const nombre = form.querySelector('[name="nombre_completo"]').value.trim();
+            const correo = form.querySelector('[name="correo"]').value.trim();
+            const telefono = form.querySelector('[name="telefono"]').value.trim();
+            
+            if (!nombre || !correo || !telefono || !fechas) {
+                showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
+                return;
+            }
+            if (!validateEmail(correo)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un correo electrónico válido.' : 'Please enter a valid email address.', 'error');
+                return;
+            }
+            if (!validatePhone(telefono)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
+                return;
+            }
+            
+            const observaciones = `Paquete: ${destinoLabel}. Fechas de viaje: ${fechas}. Personas: ${personas}. Tipo de Habitación: ${habitacion}.`;
+            
+            // Establecemos una fecha de salida por defecto (dentro de 14 días)
+            const defaultDepartureDate = new Date();
+            defaultDepartureDate.setDate(defaultDepartureDate.getDate() + 14);
+            const formattedDate = defaultDepartureDate.toISOString().split('T')[0];
+            
+            const data = {
+                ciudad_origen: 'Managua (MGA)',
+                ciudad_destino: destinoLabel,
+                fecha_salida: formattedDate,
+                clase_vuelo: 'economica',
+                nombre_completo: nombre,
+                correo: correo,
+                telefono: telefono,
+                observaciones: observaciones,
+                estado: 'pendiente'
+            };
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+                
+                const { error } = await supabaseClient
+                    .from('flight_requests')
+                    .insert([data]);
+                    
+                if (error) throw error;
+                
+                showToast(
+                    currentLang === 'es' 
+                        ? '¡Tu paquete vacacional ha sido solicitado con éxito!' 
+                        : 'Your holiday package request has been successfully sent!', 
+                    'success'
+                );
+                form.reset();
+            } catch (err) {
+                console.error('Error submitting package request:', err);
+                showToast(
+                    currentLang === 'es' 
+                        ? 'Ocurrió un error al procesar tu reserva. Inténtalo de nuevo.' 
+                        : 'An error occurred while processing your reservation. Please try again.', 
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
+        }
+
+        async function submitCruiseForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            const cruceroSelect = form.querySelector('[name="crucero_seleccionado"]');
+            const cruceroLabel = cruceroSelect.options[cruceroSelect.selectedIndex].text;
+            
+            const data = {
+                crucero_seleccionado: cruceroLabel,
+                fecha_embarque: form.querySelector('[name="fecha_embarque"]').value,
+                cantidad_pasajeros: parseInt(form.querySelector('[name="cantidad_pasajeros"]').value, 10),
+                forma_pago: form.querySelector('[name="forma_pago"]').value,
+                nombre_completo: form.querySelector('[name="nombre_completo"]').value.trim(),
+                correo: form.querySelector('[name="correo"]').value.trim(),
+                telefono: form.querySelector('[name="telefono"]').value.trim(),
+                estado: 'pendiente'
+            };
+            
+            if (!data.nombre_completo || !data.correo || !data.telefono || !data.fecha_embarque || isNaN(data.cantidad_pasajeros)) {
+                showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
+                return;
+            }
+            if (!validateEmail(data.correo)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un correo electrónico válido.' : 'Please enter a valid email address.', 'error');
+                return;
+            }
+            if (!validatePhone(data.telefono)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
+                return;
+            }
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+                
+                const { error } = await supabaseClient
+                    .from('cruise_requests')
+                    .insert([data]);
+                    
+                if (error) throw error;
+                
+                showToast(
+                    currentLang === 'es' 
+                        ? '¡Tu cotización de crucero ha sido enviada con éxito!' 
+                        : 'Your cruise quote request has been successfully sent!', 
+                    'success'
+                );
+                form.reset();
+            } catch (err) {
+                console.error('Error submitting cruise request:', err);
+                showToast(
+                    currentLang === 'es' 
+                        ? 'Ocurrió un error al procesar tu solicitud. Inténtalo de nuevo.' 
+                        : 'An error occurred while sending your request. Please try again.', 
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
+        }
+
+        async function submitInsuranceForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            const seguroSelect = form.querySelector('[name="tipo_seguro"]');
+            const seguroLabel = seguroSelect.options[seguroSelect.selectedIndex].text;
+            
+            const data = {
+                tipo_seguro: seguroLabel,
+                pais_destino: form.querySelector('[name="pais_destino"]').value.trim(),
+                fecha_inicio: form.querySelector('[name="fecha_inicio"]').value,
+                fecha_fin: form.querySelector('[name="fecha_fin"]').value,
+                nombre_completo: form.querySelector('[name="nombre_completo"]').value.trim(),
+                correo: form.querySelector('[name="correo"]').value.trim(),
+                telefono: form.querySelector('[name="telefono"]').value.trim(),
+                estado: 'pendiente'
+            };
+            
+            if (!data.nombre_completo || !data.correo || !data.telefono || !data.pais_destino || !data.fecha_inicio || !data.fecha_fin) {
+                showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
+                return;
+            }
+            if (!validateEmail(data.correo)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un correo electrónico válido.' : 'Please enter a valid email address.', 'error');
+                return;
+            }
+            if (!validatePhone(data.telefono)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
+                return;
+            }
+            if (new Date(data.fecha_fin) < new Date(data.fecha_inicio)) {
+                showToast(
+                    currentLang === 'es' 
+                        ? 'La fecha de fin de cobertura no puede ser anterior a la de inicio.' 
+                        : 'The end date cannot be earlier than the start date.', 
+                    'error'
+                );
+                return;
+            }
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+                
+                const { error } = await supabaseClient
+                    .from('travel_insurance_requests')
+                    .insert([data]);
+                    
+                if (error) throw error;
+                
+                showToast(
+                    currentLang === 'es' 
+                        ? '¡Tu cotización de seguro de viaje ha sido enviada con éxito!' 
+                        : 'Your travel insurance quote request has been successfully sent!', 
+                    'success'
+                );
+                form.reset();
+            } catch (err) {
+                console.error('Error submitting insurance request:', err);
+                showToast(
+                    currentLang === 'es' 
+                        ? 'Ocurrió un error al procesar tu solicitud. Inténtalo de nuevo.' 
+                        : 'An error occurred while sending your request. Please try again.', 
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
+        }
+
+        async function submitHotelForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            const alojamientoSelect = form.querySelector('[name="tipo_alojamiento"]');
+            const alojamientoLabel = alojamientoSelect.options[alojamientoSelect.selectedIndex].text;
+            
+            const data = {
+                tipo_alojamiento: alojamientoLabel,
+                destino: form.querySelector('[name="destino"]').value.trim(),
+                fecha_checkin: form.querySelector('[name="fecha_checkin"]').value,
+                fecha_checkout: form.querySelector('[name="fecha_checkout"]').value,
+                nombre_completo: form.querySelector('[name="nombre_completo"]').value.trim(),
+                correo: form.querySelector('[name="correo"]').value.trim(),
+                telefono: form.querySelector('[name="telefono"]').value.trim(),
+                estado: 'pendiente'
+            };
+            
+            if (!data.nombre_completo || !data.correo || !data.telefono || !data.destino || !data.fecha_checkin || !data.fecha_checkout) {
+                showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
+                return;
+            }
+            if (!validateEmail(data.correo)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un correo electrónico válido.' : 'Please enter a valid email address.', 'error');
+                return;
+            }
+            if (!validatePhone(data.telefono)) {
+                showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
+                return;
+            }
+            if (new Date(data.fecha_checkout) < new Date(data.fecha_checkin)) {
+                showToast(
+                    currentLang === 'es' 
+                        ? 'La fecha de check-out no puede ser anterior a la de check-in.' 
+                        : 'The check-out date cannot be earlier than check-in.', 
+                    'error'
+                );
+                return;
+            }
+            
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
+                
+                const { error } = await supabaseClient
+                    .from('accommodation_requests')
+                    .insert([data]);
+                    
+                if (error) throw error;
+                
+                showToast(
+                    currentLang === 'es' 
+                        ? '¡Tu reserva de alojamiento ha sido registrada con éxito!' 
+                        : 'Your lodging reservation request has been successfully registered!', 
+                    'success'
+                );
+                form.reset();
+            } catch (err) {
+                console.error('Error submitting accommodation request:', err);
+                showToast(
+                    currentLang === 'es' 
+                        ? 'Ocurrió un error al procesar tu reserva. Inténtalo de nuevo.' 
+                        : 'An error occurred while processing your request. Please try again.', 
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
+        }
+
+        // ==========================================
+        // REGISTRO DE EVENTOS Y ENLACE DE FORMULARIOS
+        // ==========================================
+        document.getElementById('formVuelos').addEventListener('submit', submitFlightForm);
+        document.getElementById('formPaquetes').addEventListener('submit', submitPackageForm);
+        document.getElementById('formCruceros').addEventListener('submit', submitCruiseForm);
+        document.getElementById('formSeguros').addEventListener('submit', submitInsuranceForm);
+        document.getElementById('formHoteles').addEventListener('submit', submitHotelForm);
     </script>
 </body>
 
