@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agencia de Viajes Naju</title>
+    <style>
+        :root {
+            --primary: #00a8cc; 
+            --secondary: #ff7e67; 
+            --dark: #1f4068; 
+            --light: #f4f6f9; 
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--dark); overflow-x: hidden; }
+
+        header {
+            background: linear-gradient(rgba(31, 64, 104, 0.75), rgba(0, 168, 204, 0.5)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+            position: relative;
+        }
+
+        .lang-switch {
+            position: absolute; top: 20px; right: 20px;
+            background: var(--secondary); color: var(--white); border: none;
+            padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold;
+            transition: 0.3s; z-index: 100;
+        }
+        .lang-switch:hover { background: #e0634c; }
+
+        .logo-name { font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+        .logo-name span { color: var(--secondary); }
+        .tagline { font-size: 1.6rem; margin-bottom: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+
+        .nav-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+        .btn-nav {
+            background-color: var(--secondary); color: var(--white); border: none;
+            padding: 15px 35px; font-size: 1.1rem; font-weight: bold; border-radius: 50px;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn-nav:hover { background-color: var(--white); color: var(--dark); transform: translateY(-3px); }
+
+        .main-content { max-width: 1200px; margin: -50px auto 40px auto; position: relative; z-index: 10; padding: 0 20px; }
+        .section-panel { display: none; background: var(--white); border-radius: 20px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .section-panel.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .about-bg {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: var(--white); border-radius: 20px; padding: 60px 40px; text-align: center; margin-bottom: 30px;
+        }
+        .about-bg h2 { font-size: 2.5rem; margin-bottom: 20px; color: var(--secondary); }
+
+        /* Estilos de Servicios Avanzados */
+        .services-menu { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 10px; }
+        .btn-sub-service { 
+            background: #eef9fc; color: var(--dark); border: 2px solid var(--primary);
+            padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; white-space: nowrap;
+        }
+        .btn-sub-service.active { background: var(--primary); color: var(--white); }
+
+        .service-detail-block { display: none; }
+        .service-detail-block.active { display: block; }
+
+        .info-box { background: #f8fafc; border-left: 5px solid var(--primary); padding: 20px; margin-bottom: 25px; border-radius: 0 10px 10px 0; }
+        .info-box h4 { color: var(--dark); margin-bottom: 8px; font-size: 1.1rem; }
+        
+        .itinerary-day { margin-bottom: 15px; padding-left: 15px; border-left: 2px dashed var(--secondary); }
+        .itinerary-day strong { color: var(--secondary); }
+
+        /* Formulario Estilizado */
+        .form-container { background: #fffcf9; border: 2px solid #ffebe7; padding: 30px; border-radius: 15px; margin-top: 30px; }
+        .form-container h3 { color: var(--dark); margin-bottom: 20px; border-bottom: 2px solid var(--secondary); padding-bottom: 5px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 0.9rem; font-weight: 600; color: #555; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; background: white; }
+        .form-group input:focus, .form-group select:focus { outline: 2px solid var(--primary); }
+        
+        .btn-submit { grid-column: 1 / -1; background: var(--secondary); color: var(--white); border: none; padding: 15px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-submit:hover { background: var(--dark); }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 20px; flex-grow: 1; }
+
+        @media (max-width: 768px) { .logo-name { font-size: 2.3rem; } .btn-nav { width: 100%; } }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ E IDIOMA -->
+    <header>
+        <button class="lang-switch" onclick="toggleLanguage()" id="langBtn">English</button>
+        <div class="logo-container">
+            <h1 class="logo-name" id="logoText">Agencia de Viajes <span>Naju</span></h1>
+        </div>
+        <p class="tagline" id="taglineText">Tu agencia de viajes de confianza en Nicaragua</p>
+        
+        <div class="nav-buttons">
+            <button class="btn-nav" onclick="showSection('nosotros')" id="btnBtnNosotros">¿Quiénes Somos?</button>
+            <button class="btn-nav" onclick="showSection('servicios')" id="btnBtnServicios">Servicios</button>
+            <button class="btn-nav" onclick="showSection('destinos')" id="btnBtnDestinos">Destinos Turísticos</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- SECCIÓN: QUIÉNES SOMOS -->
+        <section id="nosotros" class="section-panel active">
+            <div class="about-bg">
+                <h2 id="aboutTitle">Nuestra Historia</h2>
+                <p id="aboutDesc">En Agencia de Viajes Naju, transformamos tus sueños de viaje en realidades inolvidables. Con más de 10 años de experiencia en el mercado nicaragüense, nos destacamos por ofrecer atención personalizada, seguridad y las mejores alianzas globales para que conozcas el mundo sin preocupaciones.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: SERVICIOS -->
+        <section id="servicios" class="section-panel">
+            <!-- Sub-Navegación de Servicios Internos -->
+            <div class="services-menu">
+                <button class="btn-sub-service active" onclick="showSubService('vuelos')" id="subVuelosTab">Boletos de Avión</button>
+                <button class="btn-sub-service" onclick="showSubService('paquetes')" id="subPaquetesTab">Paquetes Turísticos</button>
+                <button class="btn-sub-service" onclick="showSubService('cruceros')" id="subCrucerosTab">Cruceros</button>
+                <button class="btn-sub-service" onclick="showSubService('seguros')" id="subSegurosTab">Seguros de Viaje</button>
+                <button class="btn-sub-service" onclick="showSubService('hoteles')" id="subHotelesTab">Hoteles y Hostales</button>
+            </div>
+
+            <!-- SUB-SERVICIO: BOLETOS DE AVIÓN -->
+            <div id="sub-vuelos" class="service-detail-block active">
+                <h3 style="margin-bottom: 20px; color: var(--primary);">Vuelos Internacionales desde Nicaragua (MGA)</h3>
+                
+                <div class="grid-container" style="margin-bottom: 30px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--primary); margin-bottom:10px;">Avianca</h4>
+                            <p><strong>Rutas directas:</strong> Miami, San Salvador, San José.</p>
+                            <p><strong>Duración:</strong> Miami 2h 45m | Conexiones rápidas a Sudamérica.</p>
+                            <p><strong>Políticas de Equipaje:</strong> XS solo artículo personal. S incluye maleta de mano de 10kg. M y L incluyen maleta en bodega de 23kg.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--primary); margin-bottom:10px;">American Airlines</h4>
+                            <p><strong>Rutas directas:</strong> Miami (Hub principal de conexiones).</p>
+                            <p><strong>Duración:</strong> Directo 2h 40m a Florida.</p>
+                            <p><strong>Políticas de Equipaje:</strong> Artículo personal gratuito. Maleta de mano permitida en clase económica estándar. Bodega tiene costo extra en tarifas básicas.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--primary); margin-bottom:10px;">Copa Airlines</h4>
+                            <p><strong>Rutas:</strong> Conexión mediante el Hub de las Américas en Panamá.</p>
+                            <p><strong>Duración:</strong> 1h 30m a Panamá | Conexiones globales inmediatas.</p>
+                            <p><strong>Políticas de Equipaje:</strong> Permite artículo personal y equipaje de mano de 10kg en todas las tarifas excepto "Basic". Maleta documentada incluida en tarifas clásicas.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--primary); margin-bottom:10px;">Iberia</h4>
+                            <p><strong>Rutas:</strong> Conexión combinada con operadoras aliadas hacia Madrid.</p>
+                            <p><strong>Duración:</strong> Aproximadamente 13h 40m con escalas en Centroamérica.</p>
+                            <p><strong>Políticas de Equipaje:</strong> Maleta de mano de 10kg de dimensiones estándar. Equipaje de bodega incluido en tarifas óptimas y ejecutivas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Requisitos de Vuelos -->
+                <div class="form-container">
+                    <h3 id="formVuelosTitle">Formulario de Reserva y Cotización de Vuelo</h3>
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group"><label id="lblOrig">Origen</label><input type="text" value="Managua, Nicaragua (MGA)" readonly></div>
+                            <div class="form-group"><label id="lblDest">Destino de Interés</label><input type="text" placeholder="Ej. Chicago, París, Cancún" required></div>
+                            <div class="form-group">
+                                <label>Aerolínea de Preferencia</label>
+                                <select required>
+                                    <option value="avianca">Avianca</option>
+                                    <option value="american">American Airlines</option>
+                                    <option value="copa">Copa Airlines</option>
+                                    <option value="iberia">Iberia</option>
+                                    <option value="cualquiera">Cualquiera / Mejor opción disponible</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblSalida">Fecha de Salida</label><input type="date" required></div>
+                            <div class="form-group"><label id="lblRegreso">Fecha de Vuelta</label><input type="date" required></div>
+                            <div class="form-group">
+                                <label id="lblClase">Clase de Vuelo</label>
+                                <select id="claseVueloSelect" required>
+                                    <option value="economica" selected>Clase Económica ($450 - $900)</option>
+                                    <option value="media">Clase Media / Premium Economy ($850 - $1500)</option>
+                                    <option value="alta">Clase Alta / Business Class ($1800 - $3500)</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblNombreV">Nombre del Pasajero</label><input type="text" required></div>
+                            <div class="form-group"><label id="lblEmailV">Email</label><input type="email" required></div>
+                            <div class="form-group"><label id="lblTelV">Teléfono / WhatsApp</label><input type="tel" required></div>
+                            <button type="submit" class="btn-submit btnSubmitText">Solicitar Cotización de Vuelo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SUB-SERVICIO: PAQUETES TURÍSTICOS -->
+            <div id="sub-paquetes" class="service-detail-block">
+                <h3 id="paquetesMainTitle" style="color: var(--primary); margin-bottom: 20px;">Nuestros Paquetes Todo Incluido</h3>
+                <div class="grid-container">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80" alt="Cancun">
+                        <div class="card-body">
+                            <h3>Cancún Mágico (4 Días / 3 Noches)</h3>
+                            <div class="itinerary-day"><strong>Día 1:</strong> Traslado del aeropuerto al Hotel Riviera Sun. Tarde libre para playa.</div>
+                            <div class="itinerary-day"><strong>Día 2:</strong> Desayuno buffet. Tour guiado a la zona arqueológica de Chichén Itzá con almuerzo.</div>
+                            <div class="itinerary-day"><strong>Día 3:</strong> Desayuno. Tour de Snórkel en Isla Mujeres. Tiempo libre para compras.</div>
+                            <div class="itinerary-day"><strong>Día 4:</strong> Desayuno, tiempo libre para actividades personales y traslado al aeropuerto.</div>
+                            <p style="font-size:0.85rem; color:#666; margin-top:10px;"><strong>Punto de encuentro:</strong> Oficina Naju Central, Managua. Salida: 04:00 AM.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" alt="Paris">
+                        <div class="card-body">
+                            <h3>Europa Soñada (5 Días / 4 Noches)</h3>
+                            <div class="itinerary-day"><strong>Día 1:</strong> Recibimiento en aeropuerto Charles de Gaulle, traslado al Hotel Lumiere.</div>
+                            <div class="itinerary-day"><strong>Día 2:</strong> Desayuno continental. Tour guiado Torre Eiffel, Arco del Triunfo y Museo del Louvre.</div>
+                            <div class="itinerary-day"><strong>Día 3:</strong> Día libre para explorar las calles de París o EuroDisney opcional.</div>
+                            <div class="itinerary-day"><strong>Día 4:</strong> Desayuno. Crucero panorámico por el Río Sena al atardecer.</div>
+                            <div class="itinerary-day"><strong>Día 5:</strong> Desayuno, check-out y traslado privado hacia el aeropuerto.</div>
+                            <p style="font-size:0.85rem; color:#666; margin-top:10px;"><strong>Punto de encuentro:</strong> Aeropuerto Sandino (MGA). Salida: 06:00 PM.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80" alt="Orlando">
+                        <div class="card-body">
+                            <h3>Aventura Orlando (5 Días / 4 Noches)</h3>
+                            <div class="itinerary-day"><strong>Día 1:</strong> Traslado de aeropuerto a Hotel Universal Express. Entrega de pases.</div>
+                            <div class="itinerary-day"><strong>Día 2:</strong> Desayuno. Día completo en Magic Kingdom con traslados directos.</div>
+                            <div class="itinerary-day"><strong>Día 3:</strong> Desayuno. Tour en Universal Studios e Islands of Adventure.</div>
+                            <div class="itinerary-day"><strong>Día 4:</strong> Mañana libre de compras en Outlets. Tarde de visita a Disney Springs.</div>
+                            <div class="itinerary-day"><strong>Día 5:</strong> Desayuno, traslado coordinado privado al aeropuerto.</div>
+                            <p style="font-size:0.85rem; color:#666; margin-top:10px;"><strong>Punto de encuentro:</strong> Aeropuerto Sandino (MGA). Salida: 07:00 AM.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Requisitos de Paquetes -->
+                <div class="form-container">
+                    <h3 id="formPaquetesTitle">Formulario de Selección de Paquete Vacacional</h3>
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label id="lblPqDest">Destino de Interés</label>
+                                <select required>
+                                    <option value="cancun">Cancún Mágico</option>
+                                    <option value="europa">Europa Soñada</option>
+                                    <option value="orlando">Aventura Orlando</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblPqFecha">Fechas de Viaje</label><input type="text" placeholder="Ej. Del 15 al 20 de Septiembre" required></div>
+                            <div class="form-group"><label id="lblPqPersonas">Número de Personas</label><input type="number" min="1" value="1" required></div>
+                            <div class="form-group">
+                                <label id="lblPqHab">Tipo de Habitación</label>
+                                <select required>
+                                    <option value="individual">Individual</option>
+                                    <option value="doble" selected>Doble</option>
+                                    <option value="triple">Triple</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblPqNombre">Nombre de Contacto</label><input type="text" required></div>
+                            <div class="form-group"><label id="lblPqEmail">Email</label><input type="email" required></div>
+                            <div class="form-group"><label id="lblPqTel">Teléfono / WhatsApp</label><input type="tel" required></div>
+                            <button type="submit" class="btn-submit btnSubmitText">Apartar Mi Paquete Turístico</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SUB-SERVICIO: CRUCEROS -->
+            <div id="sub-cruceros" class="service-detail-block">
+                <h3 id="cruiseTitle" style="color: var(--primary); margin-bottom: 20px;">Aventuras en Alta Mar - Selecciona tu Crucero</h3>
+                
+                <div class="grid-container" style="margin-bottom: 25px;">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=500&q=80" alt="Caribe">
+                        <div class="card-body">
+                            <h4>Ocean Monarch - Ruta Caribe Occidental</h4>
+                            <p style="margin: 5px 0 10px;"><strong>Ruta:</strong> Miami ➔ Cozumel (Llegada 08:00 / Salida 17:00) ➔ Roatán (Llegada 07:00 / Salida 16:00) ➔ Miami.</p>
+                            <p><strong>Amenidades:</strong> 4 Restaurantes de especialidades, Área de niños supervisada, Shows teatrales estilo Broadway, 3 Piscinas gigantes y jacuzzis.</p>
+                            <p><strong>Formas de pago:</strong> Tarjeta internacional, Efectivo a bordo, Financiamiento Naju.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=500&q=80" alt="Mediterraneo">
+                        <div class="card-body">
+                            <h4>Sea Majesty - Joyas del Mediterráneo</h4>
+                            <p style="margin: 5px 0 10px;"><strong>Ruta:</strong> Barcelona ➔ Roma (Llegada 09:00 / Salida 19:00) ➔ Cannes (Llegada 08:00 / Salida 18:00) ➔ Barcelona.</p>
+                            <p><strong>Amenidades:</strong> Gastronomía gourmet de chefs internacionales, Casino, Spa de lujo, Parque acuático para niños, 2 Piscinas infinitas, Shows de circo en vivo.</p>
+                            <p><strong>Formas de pago:</strong> Crédito, Transferencias bancarias, Depósitos en cuotas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Cruceros -->
+                <div class="form-container">
+                    <h3 id="formCrucerosTitle">Solicitud de Reserva para Cruceros</h3>
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label id="lblCrRuta">Selecciona tu Crucero</label>
+                                <select required>
+                                    <option value="caribe">Ocean Monarch - Caribe Occidental</option>
+                                    <option value="mediterraneo">Sea Majesty - Joyas del Mediterráneo</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblCrFecha">Fecha estimada de Embarque</label><input type="date" required></div>
+                            <div class="form-group"><label id="lblCrPasajeros">Cantidad de Pasajeros</label><input type="number" min="1" value="1" required></div>
+                            <div class="form-group">
+                                <label id="lblCrPago">Forma de Pago de Interés</label>
+                                <select required>
+                                    <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                                    <option value="efectivo">Efectivo / Transferencia Bancaria</option>
+                                    <option value="financiamiento">Plan de Financiamiento Naju</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblCrNombre">Nombre</label><input type="text" required></div>
+                            <div class="form-group"><label id="lblCrEmail">Email</label><input type="email" required></div>
+                            <div class="form-group"><label id="lblCrTel">Teléfono</label><input type="tel" required></div>
+                            <button type="submit" class="btn-submit btnSubmitText">Cotizar Crucero</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SUB-SERVICIO: SEGUROS DE VIAJE -->
+            <div id="sub-seguros" class="service-detail-block">
+                <h3 id="insuranceTitle" style="color: var(--primary); margin-bottom: 20px;">Protección Global Naju Safe - Elige tu Cobertura</h3>
+                
+                <div class="grid-container" style="margin-bottom: 25px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--secondary);">Plan Global Standard</h4>
+                            <p><strong>Cobertura Médica:</strong> Hasta $50,000 USD.</p>
+                            <p><strong>Incluye:</strong> Emergencias médicas básicas, repatriación sanitaria elemental, asistencia telefónica 24/7 en español.</p>
+                            <p>Ideal para viajes cortos en la región de Latinoamérica.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--primary);">Plan Schengen Premium (Obligatorio Europa)</h4>
+                            <p><strong>Cobertura Médica:</strong> Hasta $150,000 USD.</p>
+                            <p><strong>Incluye:</strong> Emergencias médicas completas, repatriación total, pérdida de equipaje documentado, reembolso por cancelación de vuelo y asistencia médica telefónica 24/7 global.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 style="color:var(--dark);">Plan VIP Elite</h4>
+                            <p><strong>Cobertura Médica:</strong> Hasta $300,000 USD.</p>
+                            <p><strong>Incluye:</strong> Todo lo anterior con montos extendidos, cobertura de aparatos tecnológicos por robo, asistencia legal en el extranjero y cancelación de viaje sin restricciones graves.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Seguros -->
+                <div class="form-container">
+                    <h3 id="formSegurosTitle">Alta de Seguro de Viaje Internacional</h3>
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Selecciona el Plan de Seguro</label>
+                                <select required>
+                                    <option value="standard">Plan Global Standard</option>
+                                    <option value="schengen">Plan Schengen Premium</option>
+                                    <option value="vip">Plan VIP Elite</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblSegPais">País de Destino</label><input type="text" placeholder="Ej. España, Estados Unidos" required></div>
+                            <div class="form-group"><label id="lblSegDesde">Cobertura Desde</label><input type="date" required></div>
+                            <div class="form-group"><label id="lblSegHasta">Cobertura Hasta</label><input type="date" required></div>
+                            <div class="form-group"><label id="lblSegNombre">Nombre del Asegurado</label><input type="text" required></div>
+                            <div class="form-group"><label id="lblSegEmail">Email</label><input type="email" required></div>
+                            <div class="form-group"><label id="lblSegTel">Teléfono</label><input type="tel" required></div>
+                            <button type="submit" class="btn-submit btnSubmitText">Emitir Cotización de Seguro</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SUB-SERVICIO: HOTELES Y HOSTALES -->
+            <div id="sub-hoteles" class="service-detail-block">
+                <h3 id="lodgingMainTitle" style="color: var(--primary); margin-bottom: 20px;">Opciones de Hospedaje Elegidas para Ti</h3>
+                
+                <h4 style="margin-bottom:15px; color:var(--dark);">Categoría: Hoteles Premium</h4>
+                <div class="grid-container" style="margin-bottom: 30px;">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=500&q=80" alt="Hotel 1">
+                        <div class="card-body">
+                            <h3>Hotel Grand Oasis</h3>
+                            <p><strong>Habitaciones:</strong> Suites de Lujo y Deluxe Matrimonial.</p>
+                            <p><strong>Servicios:</strong> WiFi ilimitado, Piscinas infinitas, Aire Acondicionado centralizado y Desayuno buffet continental.</p>
+                            <p style="color:var(--secondary);"><strong>Cancelación:</strong> Gratuita con 48 horas de anticipación.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80" alt="Hotel 2">
+                        <div class="card-body">
+                            <h3>Hotel Urban Royal</h3>
+                            <p><strong>Habitaciones:</strong> Ejecutiva Individual, Doble Estándar.</p>
+                            <p><strong>Servicios:</strong> Gimnasio 24h, WiFi empresarial, Aire acondicionado, Desayuno a la carta e instalaciones ejecutivas.</p>
+                            <p style="color:var(--secondary);"><strong>Cancelación:</strong> Modificación flexible de fechas disponible.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin-bottom:15px; color:var(--dark);">Categoría: Hostales Alternativos</h4>
+                <div class="grid-container" style="margin-bottom:25px;">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80" alt="Hostal 1">
+                        <div class="card-body">
+                            <h3>Backpackers Quiet Corner</h3>
+                            <p><strong>Estructura:</strong> Habitaciones compartidas de 4 a 6 literas y baños compartidos limpios.</p>
+                            <p><strong>Ambiente:</strong> Completamente <strong>Tranquilo y Relajado</strong>. Diseñado para nómadas digitales, descanso y lectura con áreas silenciosas.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1623625434462-e5e42318ae4f?auto=format&fit=crop&w=500&q=80" alt="Hostal 2">
+                        <div class="card-body">
+                            <h3>The Party & Social Hostel</h3>
+                            <p><strong>Estructura:</strong> Dormitorios compartidos de 8 camas, lockers de seguridad y baños comunitarios.</p>
+                            <p><strong>Ambiente:</strong> Divertido, dinámico y <strong>Fiestero</strong>. Cuenta con barra de cocteles, música en vivo por las noches y juegos de integración social.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Hoteles/Hostales -->
+                <div class="form-container">
+                    <h3 id="formHotelesTitle">Reservación de Alojamiento</h3>
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label id="lblHtlTipo">Elige tu Hospedaje Específico</label>
+                                <select required>
+                                    <option value="hotel_oasis">Hotel Grand Oasis</option>
+                                    <option value="hotel_royal">Hotel Urban Royal</option>
+                                    <option value="hostal_tranquilo">Backpackers Quiet Corner (Hostal Tranquilo)</option>
+                                    <option value="hostal_fiesta">The Party & Social Hostel (Hostal Fiestero)</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label id="lblHtlCiudad">Ciudad / Destino</label><input type="text" placeholder="Ej. Miami, París, Cancún" required></div>
+                            <div class="form-group"><label id="lblHtlCheckIn">Fecha Check-In</label><input type="date" required></div>
+                            <div class="form-group"><label id="lblHtlCheckOut">Fecha Check-Out</label><input type="date" required></div>
+                            <div class="form-group"><label id="lblHtlNombre">Nombre del Huésped</label><input type="text" required></div>
+                            <div class="form-group"><label id="lblHtlEmail">Email</label><input type="email" required></div>
+                            <div class="form-group"><label id="lblHtlTel">Teléfono / WhatsApp</label><input type="tel" required></div>
+                            <button type="submit" class="btn-submit btnSubmitText">Buscar Disponibilidad</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: DESTINOS -->
+        <section id="destinos" class="section-panel">
+            <div class="grid-container" id="destinationsGrid"></div>
+        </section>
+
+    </main>
+
+    <script>
+        const data = {
+            es: {
+                welcome: "¡Bienvenido a Agencia de Viajes Naju!",
+                tagline: "Agencia de viajes en Nicaragua",
+                btnNosotros: "¿Quiénes Somos?",
+                btnServicios: "Servicios",
+                btnDestinos: "Destinos Turísticos",
+                aboutTitle: "Nuestra Historia",
+                aboutDesc: "En Agencia de Viajes Naju, transformamos tus sueños de viaje en realidades inolvidables. Con más de 10 años de experiencia en el mercado nicaragüense, nos destacamos por ofrecer atención personalizada, seguridad y las mejores alianzas globales para que conozcas el mundo sin preocupaciones.",
+                formSuccess: "¡Tus datos han sido procesados con éxito! Un agente Naju te enviará la cotización formal.",
+                labels: {
+                    orig: "Origen", dest: "Destino de Interés", salida: "Fecha de Salida", regreso: "Fecha de Vuelta", clase: "Clase de Vuelo",
+                    nv: "Nombre del Pasajero", ev: "Email", tv: "Teléfono / WhatsApp", pqD: "Destino o Paquete de Interés", pqF: "Fechas Estimadas",
+                    pqP: "Número de Personas", pqH: "Tipo de Habitación"
+                },
+                destinos: [
+                    { t: "Chicago", d: "La espectacular ciudad del viento y sus rascacielos.", img: "https://images.unsplash.com/photo-1494522351093-00a0265b1350?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Los Ángeles", d: "Camina por Hollywood y las playas de Santa Mónica.", img: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80" },
+                    { t: "París", d: "Descubre la Torre Eiffel y museos históricos.", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Cancún", d: "Playas de arena blanca y arqueología maya.", img: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Miami", d: "Sol, compras de outlets y vida nocturna vibrante.", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Río de Janeiro", d: "Disfruta el Cristo Redentor y playas de Copacabana.", img: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Corea del Sur", d: "Modernidad futurista mezclada con templos antiguos.", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80" }
+                ]
+            },
+            en: {
+                welcome: "Welcome to Naju Travel Agency!",
+                tagline: "Travel agency in Nicaragua",
+                btnNosotros: "About Us",
+                btnServicios: "Services",
+                btnDestinos: "Tourist Destinations",
+                aboutTitle: "Our History",
+                aboutDesc: "At Naju Travel Agency, we transform your travel dreams into unforgettable experiences. With more than 10 years in the market, we offer safety and global connectivity.",
+                formSuccess: "Your request has been successfully submitted! A Naju agent will reach out shortly.",
+                labels: {
+                    orig: "Origin", dest: "Destination", salida: "Departure Date", regreso: "Return Date", clase: "Flight Class",
+                    nv: "Passenger Name", ev: "Email", tv: "Phone / WhatsApp", pqD: "Package / Destination of Interest", pqF: "Estimated Dates",
+                    pqP: "Number of People", pqH: "Room Type"
+                },
+                destinos: [
+                    { t: "Chicago", d: "The spectacular windy city and its skyline.", img: "https://images.unsplash.com/photo-1494522351093-00a0265b1350?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Los Angeles", d: "Walk down the Fame Avenue and relax at Santa Monica beaches.", img: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Paris", d: "The city of love, art, and the majestic Eiffel Tower.", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Cancun", d: "White sand beaches and turquoise waters in Mexican paradise.", img: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Miami", d: "Enjoy vibrant nightlife, amazing shopping, and Florida's sun.", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80" },
+                    { t: "Rio de Janeiro", d: "Samba, Christ the Redeemer, and iconic Copacabana beaches.", img: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=500&q=80" },
+                    { t: "South Korea", d: "Perfect mix of futuristic technology and ancient temples.", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80" }
+                ]
+            }
+        };
+
+        let currentLang = 'es';
+
+        window.onload = function() {
+            alert(data[currentLang].welcome);
+            renderContent();
+            showSection('nosotros');
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            document.getElementById('langBtn').innerText = currentLang === 'es' ? 'English' : 'Español';
+            renderContent();
+        }
+
+        function renderContent() {
+            const currentData = data[currentLang];
+            document.getElementById('taglineText').innerText = currentData.tagline;
+            document.getElementById('btnBtnNosotros').innerText = currentData.btnNosotros;
+            document.getElementById('btnBtnServicios').innerText = currentData.btnServicios;
+            document.getElementById('btnBtnDestinos').innerText = currentData.btnDestinos;
+            document.getElementById('aboutTitle').innerText = currentData.aboutTitle;
+            document.getElementById('aboutDesc').innerText = currentData.aboutDesc;
+
+            // Form Labels
+            document.getElementById('lblOrig').innerText = currentData.labels.orig;
+            document.getElementById('lblDest').innerText = currentData.labels.dest;
+            document.getElementById('lblSalida').innerText = currentData.labels.salida;
+            document.getElementById('lblRegreso').innerText = currentData.labels.regreso;
+            document.getElementById('lblClase').innerText = currentData.labels.clase;
+            document.getElementById('lblNombreV').innerText = currentData.labels.nv;
+            document.getElementById('lblEmailV').innerText = currentData.labels.ev;
+            document.getElementById('lblTelV').innerText = currentData.labels.tv;
+
+            document.getElementById('lblPqDest').innerText = currentData.labels.pqD;
+            document.getElementById('lblPqFecha').innerText = currentData.labels.pqF;
+            document.getElementById('lblPqPersonas').innerText = currentData.labels.pqP;
+            document.getElementById('lblPqHab').innerText = currentData.labels.pqH;
+
+            const destinationsGrid = document.getElementById('destinationsGrid');
+            destinationsGrid.innerHTML = currentData.destinos.map(dest => `
+                <div class="card">
+                    <img src="${dest.img}" alt="${dest.t}">
+                    <div class="card-body"><h3>${dest.t}</h3><p>${dest.d}</p></div>
+                </div>
+            `).join('');
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section-panel').forEach(panel => panel.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showSubService(subId) {
+            document.querySelectorAll('.btn-sub-service').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.service-detail-block').forEach(block => block.classList.remove('active'));
+            
+            document.getElementById('sub-' + subId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert(data[currentLang].formSuccess);
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
