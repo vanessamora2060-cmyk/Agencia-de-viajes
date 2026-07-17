@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agencia de Viajes Naju</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00a8cc">
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('¡App de Viajes Naju vinculada con éxito!'))
+                    .catch(err => console.log('Error al configurar la app', err));
+            });
+        }
+    </script>
     <!-- Supabase JS Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -367,6 +378,237 @@
         .toast-icon {
             font-size: 1.25rem;
         }
+
+        /* ==========================================
+           DESTINOS CON INFORMACIÓN DE PAÍS
+           ========================================== */
+        .dest-card {
+            background: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e8ecf1;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .dest-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 168, 204, 0.18);
+            border-color: var(--primary);
+        }
+
+        .dest-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .dest-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .dest-card .dest-header {
+            padding: 18px 20px 12px;
+        }
+
+        .dest-card .dest-header h3 {
+            color: var(--dark);
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+        }
+
+        .dest-card .dest-header p {
+            color: #666;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .dest-info-list {
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.85rem;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .dest-info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dest-info-label {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .dest-info-value {
+            color: var(--dark);
+            font-weight: 700;
+            background: #f1f5f9;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+        }
+
+        .dest-info-value.visa-no {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .dest-info-value.visa-si {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* Detalles Expandibles de Destino (Cultura, Comida, Vestimenta) */
+        .dest-card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            padding: 0 20px;
+        }
+
+        .dest-card.show-details .dest-card-details {
+            max-height: 800px;
+            padding: 20px;
+        }
+
+        .details-section-title {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 12px 0 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .details-text {
+            color: #475569;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .btn-toggle-details {
+            background: #f1f5f9;
+            color: var(--dark);
+            border: none;
+            width: calc(100% - 40px);
+            margin: 0 20px 15px;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-toggle-details:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* ==========================================
+           BLOQUES DE SERVICIOS (CRUCEROS/HOTELES)
+           ========================================== */
+        .service-block {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .service-block:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateX(4px);
+        }
+
+        .service-block.cruise {
+            border-left-color: #3b82f6;
+        }
+
+        .service-block.hotel {
+            border-left-color: #f59e0b;
+        }
+
+        .service-block.hostel {
+            border-left-color: #10b981;
+        }
+
+        .service-block-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .service-block-header .service-icon {
+            font-size: 1.5rem;
+        }
+
+        .service-block-header .service-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            color: var(--white);
+        }
+
+        .service-tag.cruise-tag {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .service-tag.hotel-tag {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .service-tag.hostel-tag {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .service-block h4 {
+            color: var(--dark);
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .service-block p {
+            color: #555;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 4px;
+        }
+
+        .service-block .price-tag {
+            display: inline-block;
+            margin-top: 8px;
+            background: linear-gradient(135deg, var(--secondary), #e0634c);
+            color: var(--white);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.88rem;
+        }
     </style>
 </head>
 
@@ -423,6 +665,8 @@
 
                 <div class="grid-container" style="margin-bottom: 30px;">
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=500&q=80"
+                            alt="Avianca">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Avianca</h4>
                             <p><strong>Rutas directas:</strong> Miami, San Salvador, San José.</p>
@@ -432,6 +676,8 @@
                         </div>
                     </div>
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=500&q=80"
+                            alt="American Airlines">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">American Airlines</h4>
                             <p><strong>Rutas directas:</strong> Miami (Hub principal de conexiones).</p>
@@ -441,6 +687,8 @@
                         </div>
                     </div>
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1483450388369-9ed95738483c?auto=format&fit=crop&w=500&q=80"
+                            alt="Copa Airlines">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Copa Airlines</h4>
                             <p><strong>Rutas:</strong> Conexión mediante el Hub de las Américas en Panamá.</p>
@@ -451,6 +699,8 @@
                         </div>
                     </div>
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?auto=format&fit=crop&w=500&q=80"
+                            alt="Iberia">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Iberia</h4>
                             <p><strong>Rutas:</strong> Conexión combinada con operadoras aliadas hacia Madrid.</p>
@@ -494,11 +744,12 @@
                             </div>
                             <div class="form-group"><label id="lblNombreV">Nombre del Pasajero</label><input type="text"
                                     name="nombre_completo" required></div>
-                            <div class="form-group"><label id="lblEmailV">Email</label><input type="email"
-                                    name="correo" required></div>
+                            <div class="form-group"><label id="lblEmailV">Email</label><input type="email" name="correo"
+                                    required></div>
                             <div class="form-group"><label id="lblTelV">Teléfono / WhatsApp</label><input type="tel"
                                     name="telefono" required></div>
-                            <button type="submit" class="btn-submit btnSubmitText">Solicitar Cotización de Vuelo</button>
+                            <button type="submit" class="btn-submit btnSubmitText">Solicitar Cotización de
+                                Vuelo</button>
                         </div>
                     </form>
                 </div>
@@ -564,6 +815,39 @@
                                     encuentro:</strong> Aeropuerto Sandino (MGA). Salida: 07:00 AM.</p>
                         </div>
                     </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=500&q=80"
+                            alt="Japon">
+                        <div class="card-body">
+                            <h3>Japón Fascinante (10 Días / 9 Noches)</h3>
+                            <div class="itinerary-day"><strong>Día 1-3:</strong> Tokyo. Templos, modernidad y monte
+                                Fuji.</div>
+                            <div class="itinerary-day"><strong>Día 4-6:</strong> Kyoto. Geishas, bosque de bambú y
+                                templos de oro.</div>
+                            <div class="itinerary-day"><strong>Día 7-9:</strong> Osaka. Gastronomía, castillo de Osaka y
+                                Universal Studios Japan.</div>
+                            <div class="itinerary-day"><strong>Día 10:</strong> Traslado al aeropuerto de Narita.</div>
+                            <p style="font-size:0.85rem; color:#666; margin-top:10px;"><strong>Punto de
+                                    encuentro:</strong> Aeropuerto Sandino (MGA). Vuelo con escala.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=500&q=80"
+                            alt="Peru">
+                        <div class="card-body">
+                            <h3>Aventura en Perú (6 Días / 5 Noches)</h3>
+                            <div class="itinerary-day"><strong>Día 1-2:</strong> Lima. Tour gastronómico y centro
+                                histórico.</div>
+                            <div class="itinerary-day"><strong>Día 3-4:</strong> Cusco. Valle Sagrado y aclimatación.
+                            </div>
+                            <div class="itinerary-day"><strong>Día 5:</strong> Machu Picchu. Tren panorámico y tour
+                                guiado.</div>
+                            <div class="itinerary-day"><strong>Día 6:</strong> Regreso a Lima y traslado al aeropuerto.
+                            </div>
+                            <p style="font-size:0.85rem; color:#666; margin-top:10px;"><strong>Punto de
+                                    encuentro:</strong> Aeropuerto Sandino (MGA).</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Formulario de Requisitos de Paquetes -->
@@ -577,6 +861,8 @@
                                     <option value="cancun">Cancún Mágico</option>
                                     <option value="europa">Europa Soñada</option>
                                     <option value="orlando">Aventura Orlando</option>
+                                    <option value="japon">Japón Fascinante</option>
+                                    <option value="peru">Aventura en Perú</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblPqFecha">Fechas de Viaje</label><input type="text"
@@ -608,33 +894,8 @@
                 <h3 id="cruiseTitle" style="color: var(--primary); margin-bottom: 20px;">Aventuras en Alta Mar -
                     Selecciona tu Crucero</h3>
 
-                <div class="grid-container" style="margin-bottom: 25px;">
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=500&q=80"
-                            alt="Caribe">
-                        <div class="card-body">
-                            <h4>Ocean Monarch - Ruta Caribe Occidental</h4>
-                            <p style="margin: 5px 0 10px;"><strong>Ruta:</strong> Miami ➔ Cozumel (Llegada 08:00 /
-                                Salida 17:00) ➔ Roatán (Llegada 07:00 / Salida 16:00) ➔ Miami.</p>
-                            <p><strong>Amenidades:</strong> 4 Restaurantes de especialidades, Área de niños supervisada,
-                                Shows teatrales estilo Broadway, 3 Piscinas gigantes y jacuzzis.</p>
-                            <p><strong>Formas de pago:</strong> Tarjeta internacional, Efectivo a bordo, Financiamiento
-                                Naju.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=500&q=80"
-                            alt="Mediterraneo">
-                        <div class="card-body">
-                            <h4>Sea Majesty - Joyas del Mediterráneo</h4>
-                            <p style="margin: 5px 0 10px;"><strong>Ruta:</strong> Barcelona ➔ Roma (Llegada 09:00 /
-                                Salida 19:00) ➔ Cannes (Llegada 08:00 / Salida 18:00) ➔ Barcelona.</p>
-                            <p><strong>Amenidades:</strong> Gastronomía gourmet de chefs internacionales, Casino, Spa de
-                                lujo, Parque acuático para niños, 2 Piscinas infinitas, Shows de circo en vivo.</p>
-                            <p><strong>Formas de pago:</strong> Crédito, Transferencias bancarias, Depósitos en cuotas.
-                            </p>
-                        </div>
-                    </div>
+                <div class="grid-container" style="margin-bottom: 25px;" id="cruisesGrid">
+                    <!-- Dinámicamente cargados por destino -->
                 </div>
 
                 <!-- Formulario Cruceros -->
@@ -644,9 +905,10 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblCrRuta">Selecciona tu Crucero</label>
-                                <select name="crucero_seleccionado" required>
+                                <select name="crucero_seleccionado" id="cruceroSelect" required>
                                     <option value="caribe">Ocean Monarch - Caribe Occidental</option>
                                     <option value="mediterraneo">Sea Majesty - Joyas del Mediterráneo</option>
+                                    <option value="alaska">Glacier Explorer - Maravillas de Alaska</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblCrFecha">Fecha estimada de Embarque</label><input
@@ -680,17 +942,22 @@
 
                 <div class="grid-container" style="margin-bottom: 25px;">
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=500&q=80"
+                            alt="Plan Global Standard">
                         <div class="card-body">
-                            <h4 style="color:var(--secondary);">Plan Global Standard</h4>
+                            <h4 style="color:var(--secondary); margin-bottom:10px;">Plan Global Standard</h4>
                             <p><strong>Cobertura Médica:</strong> Hasta $50,000 USD.</p>
                             <p><strong>Incluye:</strong> Emergencias médicas básicas, repatriación sanitaria elemental,
                                 asistencia telefónica 24/7 en español.</p>
-                            <p>Ideal para viajes cortos en la región de Latinoamérica.</p>
+                            <p style="margin-top:8px;">Ideal para viajes cortos en la región de Latinoamérica.</p>
                         </div>
                     </div>
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=500&q=80"
+                            alt="Plan Schengen Premium">
                         <div class="card-body">
-                            <h4 style="color:var(--primary);">Plan Schengen Premium (Obligatorio Europa)</h4>
+                            <h4 style="color:var(--primary); margin-bottom:10px;">Plan Schengen Premium (Obligatorio
+                                Europa)</h4>
                             <p><strong>Cobertura Médica:</strong> Hasta $150,000 USD.</p>
                             <p><strong>Incluye:</strong> Emergencias médicas completas, repatriación total, pérdida de
                                 equipaje documentado, reembolso por cancelación de vuelo y asistencia médica telefónica
@@ -698,8 +965,10 @@
                         </div>
                     </div>
                     <div class="card">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80"
+                            alt="Plan VIP Elite">
                         <div class="card-body">
-                            <h4 style="color:var(--dark);">Plan VIP Elite</h4>
+                            <h4 style="color:var(--dark); margin-bottom:10px;">Plan VIP Elite</h4>
                             <p><strong>Cobertura Médica:</strong> Hasta $300,000 USD.</p>
                             <p><strong>Incluye:</strong> Todo lo anterior con montos extendidos, cobertura de aparatos
                                 tecnológicos por robo, asistencia legal en el extranjero y cancelación de viaje sin
@@ -744,58 +1013,14 @@
                 <h3 id="lodgingMainTitle" style="color: var(--primary); margin-bottom: 20px;">Opciones de Hospedaje
                     Elegidas para Ti</h3>
 
-                <h4 style="margin-bottom:15px; color:var(--dark);">Categoría: Hoteles Premium</h4>
-                <div class="grid-container" style="margin-bottom: 30px;">
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=500&q=80"
-                            alt="Hotel 1">
-                        <div class="card-body">
-                            <h3>Hotel Grand Oasis</h3>
-                            <p><strong>Habitaciones:</strong> Suites de Lujo y Deluxe Matrimonial.</p>
-                            <p><strong>Servicios:</strong> WiFi ilimitado, Piscinas infinitas, Aire Acondicionado
-                                centralizado y Desayuno buffet continental.</p>
-                            <p style="color:var(--secondary);"><strong>Cancelación:</strong> Gratuita con 48 horas de
-                                anticipación.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80"
-                            alt="Hotel 2">
-                        <div class="card-body">
-                            <h3>Hotel Urban Royal</h3>
-                            <p><strong>Habitaciones:</strong> Ejecutiva Individual, Doble Estándar.</p>
-                            <p><strong>Servicios:</strong> Gimnasio 24h, WiFi empresarial, Aire acondicionado, Desayuno
-                                a la carta e instalaciones ejecutivas.</p>
-                            <p style="color:var(--secondary);"><strong>Cancelación:</strong> Modificación flexible de
-                                fechas disponible.</p>
-                        </div>
-                    </div>
+                <h4 style="margin-bottom:15px; color:var(--dark);" id="lblHotelsTitle">Hoteles Premium</h4>
+                <div class="grid-container" style="margin-bottom: 30px;" id="hotelsGrid">
+                    <!-- Dinámicamente cargados -->
                 </div>
 
-                <h4 style="margin-bottom:15px; color:var(--dark);">Categoría: Hostales Alternativos</h4>
-                <div class="grid-container" style="margin-bottom:25px;">
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80"
-                            alt="Hostal 1">
-                        <div class="card-body">
-                            <h3>Backpackers Quiet Corner</h3>
-                            <p><strong>Estructura:</strong> Habitaciones compartidas de 4 a 6 literas y baños
-                                compartidos limpios.</p>
-                            <p><strong>Ambiente:</strong> Completamente <strong>Tranquilo y Relajado</strong>. Diseñado
-                                para nómadas digitales, descanso y lectura con áreas silenciosas.</p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1623625434462-e5e42318ae4f?auto=format&fit=crop&w=500&q=80"
-                            alt="Hostal 2">
-                        <div class="card-body">
-                            <h3>The Party & Social Hostel</h3>
-                            <p><strong>Estructura:</strong> Dormitorios compartidos de 8 camas, lockers de seguridad y
-                                baños comunitarios.</p>
-                            <p><strong>Ambiente:</strong> Divertido, dinámico y <strong>Fiestero</strong>. Cuenta con
-                                barra de cocteles, música en vivo por las noches y juegos de integración social.</p>
-                        </div>
-                    </div>
+                <h4 style="margin-bottom:15px; color:var(--dark);" id="lblHostelsTitle">Hostales Alternativos</h4>
+                <div class="grid-container" style="margin-bottom:25px;" id="hostelsGrid">
+                    <!-- Dinámicamente cargados -->
                 </div>
 
                 <!-- Formulario Hoteles/Hostales -->
@@ -805,12 +1030,8 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblHtlTipo">Elige tu Hospedaje Específico</label>
-                                <select name="tipo_alojamiento" required>
-                                    <option value="hotel_oasis">Hotel Grand Oasis</option>
-                                    <option value="hotel_royal">Hotel Urban Royal</option>
-                                    <option value="hostal_tranquilo">Backpackers Quiet Corner (Hostal Tranquilo)
-                                    </option>
-                                    <option value="hostal_fiesta">The Party & Social Hostel (Hostal Fiestero)</option>
+                                <select name="tipo_alojamiento" id="alojamientoSelect" required>
+                                    <!-- Dinámicamente cargado -->
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblHtlCiudad">Ciudad / Destino</label><input type="text"
@@ -856,13 +1077,111 @@
                     pqP: "Número de Personas", pqH: "Tipo de Habitación"
                 },
                 destinos: [
-                    { t: "Chicago", d: "La espectacular ciudad del viento y sus rascacielos.", img: "https://images.unsplash.com/photo-1494522351093-00a0265b1350?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Los Ángeles", d: "Camina por Hollywood y las playas de Santa Mónica.", img: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80" },
-                    { t: "París", d: "Descubre la Torre Eiffel y museos históricos.", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Cancún", d: "Playas de arena blanca y arqueología maya.", img: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Miami", d: "Sol, compras de outlets y vida nocturna vibrante.", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Río de Janeiro", d: "Disfruta el Cristo Redentor y playas de Copacabana.", img: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Corea del Sur", d: "Modernidad futurista mezclada con templos antiguos.", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80" }
+                    {
+                        t: "Chicago", d: "La espectacular ciudad del viento, sus rascacielos y el lago Michigan.", img: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=500&q=80",
+                        pais: "Estados Unidos", capital: "Washington D.C.", visa: "Sí", moneda: "Dólar estadounidense (USD)", idioma: "Inglés", clima: "Templado continental",
+                        crucero: { nombre: "Great Lakes Voyager", ruta: "Chicago ➔ Mackinac Island ➔ Milwaukee ➔ Chicago", duracion: "5 días / 4 noches", precio: "Desde $1,200 USD", amenidades: "Restaurantes gourmet, spa panorámico, shows en vivo y excursiones guiadas." },
+                        hotel: { nombre: "The Palmer House Hilton", tipo: "Hotel 5 Estrellas", precio: "Desde $189 USD/noche", servicios: "WiFi premium, piscina cubierta, gimnasio 24h, desayuno buffet y valet parking." },
+                        hostal: { nombre: "HI Chicago Hostel", tipo: "Hostal Premium", precio: "Desde $42 USD/noche", servicios: "Habitaciones compartidas y privadas, cocina comunitaria, WiFi gratuito y tours guiados gratuitos." }
+                    },
+                    {
+                        t: "Los Ángeles", d: "Camina por Hollywood y las playas de Santa Mónica bajo el sol de California.", img: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80",
+                        pais: "Estados Unidos", capital: "Washington D.C.", visa: "Sí", moneda: "Dólar estadounidense (USD)", idioma: "Inglés", clima: "Mediterráneo templado",
+                        crucero: { nombre: "Pacific Coast Explorer", ruta: "Los Ángeles ➔ Ensenada ➔ Catalina Island ➔ Los Ángeles", duracion: "4 días / 3 noches", precio: "Desde $890 USD", amenidades: "Piscinas al aire libre, cine bajo las estrellas, casino y bufet internacional." },
+                        hotel: { nombre: "The Hollywood Roosevelt", tipo: "Hotel Boutique 4 Estrellas", precio: "Desde $215 USD/noche", servicios: "Piscina icónica, bar en la azotea, WiFi, concierge y desayuno continental." },
+                        hostal: { nombre: "Banana Bungalow Hollywood", tipo: "Hostal Social", precio: "Desde $38 USD/noche", servicios: "Dormitorios mixtos, tours gratuitos a Hollywood, BBQ semanal y ambiente fiestero." }
+                    },
+                    {
+                        t: "París", d: "Descubre la Torre Eiffel, los Campos Elíseos y museos históricos.", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80",
+                        pais: "Francia", capital: "París", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Francés", clima: "Templado oceánico",
+                        crucero: { nombre: "Seine River Majesty", ruta: "París ➔ Rouen ➔ Honfleur ➔ París (Río Sena)", duracion: "6 días / 5 noches", precio: "Desde $1,850 USD", amenidades: "Gastronomía francesa gourmet, catas de vino, excursiones a castillos y jazz en vivo." },
+                        hotel: { nombre: "Hôtel Plaza Athénée", tipo: "Hotel 5 Estrellas Lujo", precio: "Desde $350 USD/noche", servicios: "Vista a la Torre Eiffel, spa Dior, restaurante Michelin y servicio de limusina." },
+                        hostal: { nombre: "Generator Paris", tipo: "Hostal Moderno", precio: "Desde $35 USD/noche", servicios: "Cerca de Montmartre, bar social, terraza, WiFi gratuito y eventos nocturnos." }
+                    },
+                    {
+                        t: "Cancún", d: "Playas de arena blanca, arqueología maya y el Caribe más azul.", img: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80",
+                        pais: "México", capital: "CDMX", visa: "Sí (o Visa EE.UU.)", moneda: "Peso mexicano (MXN)", idioma: "Español", clima: "Cálido tropical",
+                        crucero: { nombre: "Caribbean Dream", ruta: "Cancún ➔ Cozumel ➔ Isla Mujeres ➔ Cancún", duracion: "3 días / 2 noches", precio: "Desde $650 USD", amenidades: "Snórkel incluido, barra libre, shows tropicales y deportes acuáticos." },
+                        hotel: { nombre: "Hyatt Ziva Cancún", tipo: "Resort All-Inclusive 5 Estrellas", precio: "Desde $280 USD/noche", servicios: "Todo incluido, 6 restaurantes, 4 piscinas infinity, spa y club de playa." },
+                        hostal: { nombre: "Hostel Mundo Joven Cancún", tipo: "Hostal Backpacker", precio: "Desde $18 USD/noche", servicios: "Hamacas, zona de playa, cocina compartida, WiFi y tours económicos a Chichén Itzá." }
+                    },
+                    {
+                        t: "Miami", d: "Sol, compras de outlets y vida nocturna vibrante en South Beach.", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80",
+                        pais: "Estados Unidos", capital: "Washington D.C.", visa: "Sí", moneda: "Dólar estadounidense (USD)", idioma: "Inglés y Español", clima: "Subtropical húmedo",
+                        crucero: { nombre: "Ocean Monarch Caribe", ruta: "Miami ➔ Nassau ➔ Cozumel ➔ Miami", duracion: "5 días / 4 noches", precio: "Desde $780 USD", amenidades: "Toboganes acuáticos, casino, restaurantes temáticos y noches de gala." },
+                        hotel: { nombre: "Fontainebleau Miami Beach", tipo: "Resort 5 Estrellas", precio: "Desde $320 USD/noche", servicios: "11 piscinas, nightclub LIV, spa de lujo, acceso directo a la playa y WiFi." },
+                        hostal: { nombre: "Freehand Miami", tipo: "Hostal Boutique", precio: "Desde $45 USD/noche", servicios: "Piscina, bar premiado (Broken Shaker), eventos culturales, WiFi y cocina compartida." }
+                    },
+                    {
+                        t: "Río de Janeiro", d: "Disfruta el Cristo Redentor, el pan de Azúcar y las playas de Copacabana.", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=500&q=80",
+                        pais: "Brasil", capital: "Brasilia", visa: "No", moneda: "Real brasileño (BRL)", idioma: "Portugués", clima: "Tropical cálido",
+                        crucero: { nombre: "Brazil Coast Voyager", ruta: "Río de Janeiro ➔ Búzios ➔ Ilha Grande ➔ Río de Janeiro", duracion: "4 días / 3 noches", precio: "Desde $720 USD", amenidades: "Samba en vivo, capoeira, gastronomía brasileña y snórkel en aguas cristalinas." },
+                        hotel: { nombre: "Belmond Copacabana Palace", tipo: "Hotel 5 Estrellas Clásico", precio: "Desde $380 USD/noche", servicios: "Piscina semi-olímpica, spa, restaurante gourmet, vista al mar y piano bar." },
+                        hostal: { nombre: "Books Hostel Copacabana", tipo: "Hostal Cultural", precio: "Desde $22 USD/noche", servicios: "Terraza con vista, biblioteca, cocina comunitaria, WiFi y tours a favelas." }
+                    },
+                    {
+                        t: "Corea del Sur", d: "Modernidad futurista de Seúl mezclada con templos y tradiciones ancestrales.", img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=500&q=80",
+                        pais: "Corea del Sur", capital: "Seúl", visa: "No (ETA req.)", moneda: "Won surcoreano (KRW)", idioma: "Coreano", clima: "Continental templado",
+                        crucero: { nombre: "East Sea Explorer", ruta: "Busan ➔ Jeju Island ➔ Yeosu ➔ Busan", duracion: "5 días / 4 noches", precio: "Desde $1,100 USD", amenidades: "Spa coreano (jjimjilbang), cocina K-Food, karaoke y excursiones a templos." },
+                        hotel: { nombre: "Lotte Hotel Seoul", tipo: "Hotel 5 Estrellas", precio: "Desde $240 USD/noche", servicios: "Centro de la ciudad, piscina cubierta, spa de lujo, 10 restaurantes and duty free." },
+                        hostal: { nombre: "Hongdae Guesthouse", tipo: "Hostal K-Style", precio: "Desde $28 USD/noche", servicios: "Habitaciones estilo ondol, WiFi ultra rápido, cerca de Hongdae, desayuno coreano incluido." }
+                    },
+                    {
+                        t: "Tokio, Japón", d: "La capital más fascinante del mundo: anime, sushi y tecnología de punta.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=80",
+                        pais: "Japón", capital: "Tokio", visa: "Sí", moneda: "Yen japonés (JPY)", idioma: "Japonés", clima: "Templado húmedo",
+                        crucero: { nombre: "Nippon Seas Luxury", ruta: "Tokio ➔ Kobe ➔ Okinawa ➔ Tokio", duracion: "7 días / 6 noches", precio: "Desde $2,200 USD", amenidades: "Onsen a bordo, sushi bar premium, ceremonia del té y excursiones culturales." },
+                        hotel: { nombre: "Park Hyatt Tokyo", tipo: "Hotel 5 Estrellas Lujo", precio: "Desde $450 USD/noche", servicios: "Vista al Monte Fuji, piscina en piso 47, spa Zen, restaurantes Michelin y concierge bilingüe." },
+                        hostal: { nombre: "Khaosan Tokyo Kabuki", tipo: "Hostal Temático", precio: "Desde $30 USD/noche", servicios: "Cápsulas y dormitorios, decoración kabuki, WiFi, cocina comunitaria y cerca de Asakusa." }
+                    },
+                    {
+                        t: "Roma, Italia", d: "Pasea por el Coliseo, la Fontana di Trevi y el Vaticano.", img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&q=80",
+                        pais: "Italia", capital: "Roma", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Italiano", clima: "Mediterráneo",
+                        crucero: { nombre: "Mediterranean Jewel", ruta: "Roma (Civitavecchia) ➔ Nápoles ➔ Sicilia ➔ Roma", duracion: "5 días / 4 noches", precio: "Desde $1,350 USD", amenidades: "Cocina italiana auténtica, catas de vino toscano, ópera en vivo y piscinas infinity." },
+                        hotel: { nombre: "Hotel Hassler Roma", tipo: "Hotel 5 Estrellas Gran Lujo", precio: "Desde $420 USD/noche", servicios: "Sobre la Plaza de España, restaurante panorámico, spa, WiFi y servicio personalizado." },
+                        hostal: { nombre: "The Yellow Hostel", tipo: "Hostal Céntrico", precio: "Desde $32 USD/noche", servicios: "Cerca de Termini, bar propio, noches de pizza, WiFi gratuito y walking tours." }
+                    },
+                    {
+                        t: "Machu Picchu, Perú", d: "La ciudad perdida de los Incas, una maravilla del mundo entre las nubes.", img: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80",
+                        pais: "Perú", capital: "Lima", visa: "No", moneda: "Sol peruano (PEN)", idioma: "Español y Quechua", clima: "Templado de montaña",
+                        crucero: { nombre: "Amazon River Quest", ruta: "Iquitos ➔ Río Amazonas ➔ Reserva Pacaya ➔ Iquitos", duracion: "4 días / 3 noches", precio: "Desde $980 USD", amenidades: "Expediciones en la selva, avistamiento de fauna, comida local y guías naturalistas." },
+                        hotel: { nombre: "Belmond Sanctuary Lodge", tipo: "Hotel 5 Estrellas", precio: "Desde $550 USD/noche", servicios: "Junto a Machu Picchu, restaurante gourmet, spa andino, jardines y guía privado." },
+                        hostal: { nombre: "Pariwana Hostel Cusco", tipo: "Hostal Aventurero", precio: "Desde $15 USD/noche", servicios: "Patio colonial, bar con happy hour, cocina compartida, WiFi y tours al Valle Sagrado." }
+                    },
+                    {
+                        t: "Santorini, Grecia", d: "Casas blancas, puestas de sol mágicas y el mar Egeo cristalino.", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500&q=80",
+                        pais: "Grecia", capital: "Atenas", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Griego", clima: "Mediterráneo seco",
+                        crucero: { nombre: "Aegean Odyssey", ruta: "Santorini ➔ Mykonos ➔ Creta ➔ Santorini", duracion: "5 días / 4 noches", precio: "Desde $1,500 USD", amenidades: "Cocina griega, degustación de ouzo, snórkel en caldera volcánica y puestas de sol premium." },
+                        hotel: { nombre: "Canaves Oia Suites", tipo: "Hotel Boutique 5 Estrellas", precio: "Desde $480 USD/noche", servicios: "Suites con piscina privada, vista a la caldera, cena romántica, spa y traslado en helicóptero." },
+                        hostal: { nombre: "Caveland Hostel", tipo: "Hostal en Cueva", precio: "Desde $35 USD/noche", servicios: "Dormitorios en cuevas reales, piscina, cine al aire libre, WiFi y wine tasting." }
+                    },
+                    {
+                        t: "Nueva York", d: "La Gran Manzana: Times Square, Central Park y la Estatua de la Libertad.", img: "https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?auto=format&fit=crop&w=500&q=80",
+                        pais: "Estados Unidos", capital: "Washington D.C.", visa: "Sí", moneda: "Dólar estadounidense (USD)", idioma: "Inglés", clima: "Continental templado",
+                        crucero: { nombre: "Manhattan Harbor Cruise", ruta: "Nueva York ➔ Bermuda ➔ Nueva York", duracion: "5 días / 4 noches", precio: "Desde $950 USD", amenidades: "Vista del skyline, casino, 8 restaurants, spa and shows de Broadway a bordo." },
+                        hotel: { nombre: "The Plaza Hotel", tipo: "Hotel Icónico 5 Estrellas", precio: "Desde $500 USD/noche", servicios: "Frente a Central Park, spa Guerlain, Palm Court, butler service y WiFi premium." },
+                        hostal: { nombre: "HI NYC Hostel", tipo: "Hostal Urbano", precio: "Desde $50 USD/noche", servicios: "Upper West Side, cafetería, patio trasero, WiFi, cocina y eventos sociales nocturnos." }
+                    },
+                    {
+                        t: "Barcelona, España", d: "La Sagrada Familia, Las Ramblas y las mejores tapas del Mediterráneo.", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=500&q=80",
+                        pais: "España", capital: "Madrid", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Español y Catalán", clima: "Mediterráneo",
+                        crucero: { nombre: "Costa Mediterranean", ruta: "Barcelona ➔ Marsella ➔ Génova ➔ Barcelona", duracion: "6 días / 5 noches", precio: "Desde $1,250 USD", amenidades: "Gastronomía mediterránea, fiestas temáticas, spa thalasso y excursiones a la Riviera." },
+                        hotel: { nombre: "Hotel Arts Barcelona", tipo: "Hotel 5 Estrellas Frente al Mar", precio: "Desde $310 USD/noche", servicios: "Playa Barceloneta, piscina exterior, 2 restaurantes Michelin, spa y club de playa." },
+                        hostal: { nombre: "Casa Gracia Barcelona", tipo: "Hostal Boutique", precio: "Desde $30 USD/noche", servicios: "En Paseo de Gracia, terraza, cocktail bar, WiFi rápido y clases de paella." }
+                    },
+                    {
+                        t: "Dubai, EAU", d: "Lujo sin límites: el Burj Khalifa, el desierto y los mejores malls del mundo.", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
+                        pais: "Emiratos Árabes Unidos", capital: "Abu Dabi", visa: "No (30 días)", moneda: "Dirham de EAU (AED)", idioma: "Árabe e Inglés", clima: "Desértico cálido",
+                        crucero: { nombre: "Arabian Gulf Prestige", ruta: "Dubai ➔ Abu Dhabi ➔ Muscat (Omán) ➔ Dubai", duracion: "6 días / 5 noches", precio: "Desde $1,900 USD", amenidades: "Suites de lujo, spa oriental, cenas gala, safari en el desierto y compras duty free." },
+                        hotel: { nombre: "Atlantis The Palm", tipo: "Resort 5 Estrellas", precio: "Desde $380 USD/noche", servicios: "Parque acuático Aquaventure, acuario Lost Chambers, 23 restaurantes y playa privada." },
+                        hostal: { nombre: "Barasti Beach Hostel", tipo: "Hostal Moderno", precio: "Desde $40 USD/noche", servicios: "Cerca de Marina, piscina compartida, WiFi, desayuno incluido y tours al desierto." }
+                    },
+                    {
+                        t: "Bali, Indonesia", d: "Templos sagrados, arrozales en terrazas y playas de arena negra y dorada.", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500&q=80",
+                        pais: "Indonesia", capital: "Yakarta", visa: "No (VoA)", moneda: "Rupia indonesia (IDR)", idioma: "Indonesio", clima: "Ecuatorial húmedo",
+                        crucero: { nombre: "Bali Island Hopper", ruta: "Bali ➔ Komodo ➔ Lombok ➔ Bali", duracion: "5 días / 4 noches", precio: "Desde $850 USD", amenidades: "Snórkel con mantas, comida balinesa, yoga al amanecer y excursión a dragones de Komodo." },
+                        hotel: { nombre: "AYANA Resort Bali", tipo: "Resort 5 Estrellas Cliffside", precio: "Desde $260 USD/noche", servicios: "Rock Bar sobre el océano, spa con flores, 19 restaurantes, piscinas infinity y golf." },
+                        hostal: { nombre: "Puri Garden Hostel Ubud", tipo: "Hostal Eco", precio: "Desde $12 USD/noche", servicios: "Rodeado de arrozales, yoga gratuito, bicicletas, cocina orgánica y WiFi." }
+                    }
                 ]
             },
             en: {
@@ -880,13 +1199,111 @@
                     pqP: "Number of People", pqH: "Room Type"
                 },
                 destinos: [
-                    { t: "Chicago", d: "The spectacular windy city and its skyline.", img: "https://images.unsplash.com/photo-1494522351093-00a0265b1350?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Los Angeles", d: "Walk down the Fame Avenue and relax at Santa Monica beaches.", img: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Paris", d: "The city of love, art, and the majestic Eiffel Tower.", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Cancun", d: "White sand beaches and turquoise waters in Mexican paradise.", img: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Miami", d: "Enjoy vibrant nightlife, amazing shopping, and Florida's sun.", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80" },
-                    { t: "Rio de Janeiro", d: "Samba, Christ the Redeemer, and iconic Copacabana beaches.", img: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=500&q=80" },
-                    { t: "South Korea", d: "Perfect mix of futuristic technology and ancient temples.", img: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500&q=80" }
+                    {
+                        t: "Chicago", d: "The spectacular windy city, its skyscrapers and Lake Michigan.", img: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=500&q=80",
+                        pais: "United States", capital: "Washington D.C.", visa: "Yes", moneda: "US Dollar (USD)", idioma: "English", clima: "Temperate continental",
+                        crucero: { nombre: "Great Lakes Voyager", ruta: "Chicago ➔ Mackinac Island ➔ Milwaukee ➔ Chicago", duracion: "5 days / 4 nights", precio: "From $1,200 USD", amenidades: "Gourmet dining, panoramic spa, live shows and guided excursions." },
+                        hotel: { nombre: "The Palmer House Hilton", tipo: "5-Star Hotel", precio: "From $189 USD/night", servicios: "Premium WiFi, indoor pool, 24h gym, breakfast buffet and valet parking." },
+                        hostal: { nombre: "HI Chicago Hostel", tipo: "Premium Hostel", precio: "From $42 USD/night", servicios: "Shared & private rooms, community kitchen, free WiFi and free guided tours." }
+                    },
+                    {
+                        t: "Los Angeles", d: "Walk down Hollywood and relax at Santa Monica beaches under California's sun.", img: "https://images.unsplash.com/photo-1534190760961-74e8c1c5c3da?auto=format&fit=crop&w=500&q=80",
+                        pais: "United States", capital: "Washington D.C.", visa: "Yes", moneda: "US Dollar (USD)", idioma: "English", clima: "Warm Mediterranean",
+                        crucero: { nombre: "Pacific Coast Explorer", ruta: "Los Angeles ➔ Ensenada ➔ Catalina Island ➔ Los Angeles", duracion: "4 days / 3 nights", precio: "From $890 USD", amenidades: "Outdoor pools, starlight cinema, casino and international buffet." },
+                        hotel: { nombre: "The Hollywood Roosevelt", tipo: "4-Star Boutique Hotel", precio: "From $215 USD/night", servicios: "Iconic pool, rooftop bar, WiFi, concierge and continental breakfast." },
+                        hostal: { nombre: "Banana Bungalow Hollywood", tipo: "Social Hostel", precio: "From $38 USD/night", servicios: "Mixed dorms, free Hollywood tours, weekly BBQ and party atmosphere." }
+                    },
+                    {
+                        t: "Paris", d: "The city of love: Eiffel Tower, Champs-Élysées and iconic museums.", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80",
+                        pais: "France", capital: "Paris", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "French", clima: "Temperate oceanic",
+                        crucero: { nombre: "Seine River Majesty", ruta: "Paris ➔ Rouen ➔ Honfleur ➔ Paris (Seine River)", duracion: "6 days / 5 nights", precio: "From $1,850 USD", amenidades: "French gourmet cuisine, wine tastings, castle excursions and live jazz." },
+                        hotel: { nombre: "Hôtel Plaza Athénée", tipo: "5-Star Luxury Hotel", precio: "From $350 USD/night", servicios: "Eiffel Tower view, Dior spa, Michelin restaurant and limousine service." },
+                        hostal: { nombre: "Generator Paris", tipo: "Modern Hostel", precio: "From $35 USD/night", servicios: "Near Montmartre, social bar, terrace, free WiFi and nighttime events." }
+                    },
+                    {
+                        t: "Cancun", d: "White sand beaches, Mayan ruins, and the bluest Caribbean waters.", img: "https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80",
+                        pais: "Mexico", capital: "Mexico City", visa: "Yes (or US Visa)", moneda: "Mexican Peso (MXN)", idioma: "Spanish", clima: "Warm tropical",
+                        crucero: { nombre: "Caribbean Dream", ruta: "Cancun ➔ Cozumel ➔ Isla Mujeres ➔ Cancun", duracion: "3 days / 2 nights", precio: "From $650 USD", amenidades: "Snorkeling included, open bar, tropical shows and water sports." },
+                        hotel: { nombre: "Hyatt Ziva Cancun", tipo: "5-Star All-Inclusive Resort", precio: "From $280 USD/night", servicios: "All-inclusive, 6 restaurants, 4 infinity pools, spa and beach club." },
+                        hostal: { nombre: "Hostel Mundo Joven Cancun", tipo: "Backpacker Hostel", precio: "From $18 USD/night", servicios: "Hammocks, beach area, shared kitchen, WiFi and budget tours to Chichén Itzá." }
+                    },
+                    {
+                        t: "Miami", d: "Vibrant nightlife, amazing shopping, and Florida sunshine at South Beach.", img: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=500&q=80",
+                        pais: "United States", capital: "Washington D.C.", visa: "Yes", moneda: "US Dollar (USD)", idioma: "English & Spanish", clima: "Humid subtropical",
+                        crucero: { nombre: "Ocean Monarch Caribbean", ruta: "Miami ➔ Nassau ➔ Cozumel ➔ Miami", duracion: "5 days / 4 nights", precio: "From $780 USD", amenidades: "Water slides, casino, themed restaurants and gala nights." },
+                        hotel: { nombre: "Fontainebleau Miami Beach", tipo: "5-Star Resort", precio: "From $320 USD/night", servicios: "11 pools, LIV nightclub, luxury spa, direct beach access and WiFi." },
+                        hostal: { nombre: "Freehand Miami", tipo: "Boutique Hostel", precio: "From $45 USD/night", servicios: "Pool, award-winning bar (Broken Shaker), cultural events, WiFi and shared kitchen." }
+                    },
+                    {
+                        t: "Rio de Janeiro", d: "Christ the Redeemer, Sugarloaf Mountain, and iconic Copacabana beaches.", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=500&q=80",
+                        pais: "Brazil", capital: "Brasilia", visa: "No", moneda: "Brazilian Real (BRL)", idioma: "Portuguese", clima: "Warm tropical",
+                        crucero: { nombre: "Brazil Coast Voyager", ruta: "Rio de Janeiro ➔ Búzios ➔ Ilha Grande ➔ Rio de Janeiro", duracion: "4 days / 3 nights", precio: "From $720 USD", amenidades: "Live samba, capoeira, Brazilian cuisine and crystal water snorkeling." },
+                        hotel: { nombre: "Belmond Copacabana Palace", tipo: "Classic 5-Star Hotel", precio: "From $380 USD/night", servicios: "Semi-Olympic pool, spa, gourmet restaurant, ocean view and piano bar." },
+                        hostal: { nombre: "Books Hostel Copacabana", tipo: "Cultural Hostel", precio: "From $22 USD/night", servicios: "Rooftop terrace, library, community kitchen, WiFi and favela tours." }
+                    },
+                    {
+                        t: "South Korea", d: "Futuristic Seoul combined with ancient temples and K-culture.", img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=500&q=80",
+                        pais: "South Korea", capital: "Seoul", visa: "No (ETA req.)", moneda: "South Korean Won (KRW)", idioma: "Korean", clima: "Temperate continental",
+                        crucero: { nombre: "East Sea Explorer", ruta: "Busan ➔ Jeju Island ➔ Yeosu ➔ Busan", duracion: "5 days / 4 nights", precio: "From $1,100 USD", amenidades: "Korean spa (jjimjilbang), K-Food cuisine, karaoke and temple excursions." },
+                        hotel: { nombre: "Lotte Hotel Seoul", tipo: "5-Star Hotel", precio: "From $240 USD/night", servicios: "City center, indoor pool, luxury spa, 10 restaurants and duty free." },
+                        hostal: { nombre: "Hongdae Guesthouse", tipo: "K-Style Hostel", precio: "From $28 USD/night", servicios: "Ondol-style rooms, ultra-fast WiFi, near Hongdae, Korean breakfast included." }
+                    },
+                    {
+                        t: "Tokyo, Japan", d: "The world's most fascinating capital: anime, sushi, and cutting-edge technology.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=80",
+                        pais: "Japan", capital: "Tokyo", visa: "Yes", moneda: "Japanese Yen (JPY)", idioma: "Japanese", clima: "Humid temperate",
+                        crucero: { nombre: "Nippon Seas Luxury", ruta: "Tokyo ➔ Kobe ➔ Okinawa ➔ Tokyo", duracion: "7 days / 6 nights", precio: "From $2,200 USD", amenidades: "Onsen on board, premium sushi bar, tea ceremony and cultural excursions." },
+                        hotel: { nombre: "Park Hyatt Tokyo", tipo: "5-Star Luxury Hotel", precio: "From $450 USD/night", servicios: "Mount Fuji view, 47th-floor pool, Zen spa, Michelin restaurants and bilingual concierge." },
+                        hostal: { nombre: "Khaosan Tokyo Kabuki", tipo: "Themed Hostel", precio: "From $30 USD/night", servicios: "Capsules and dorms, kabuki decor, WiFi, community kitchen and near Asakusa." }
+                    },
+                    {
+                        t: "Rome, Italy", d: "Stroll past the Colosseum, Trevi Fountain, and Vatican City.", img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&q=80",
+                        pais: "Italy", capital: "Rome", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Italian", clima: "Mediterranean",
+                        crucero: { nombre: "Mediterranean Jewel", ruta: "Rome (Civitavecchia) ➔ Naples ➔ Sicily ➔ Rome", duracion: "5 days / 4 nights", precio: "From $1,350 USD", amenidades: "Authentic Italian cuisine, Tuscan wine tastings, live opera and infinity pools." },
+                        hotel: { nombre: "Hotel Hassler Roma", tipo: "5-Star Grand Luxury Hotel", precio: "From $420 USD/night", servicios: "Above Spanish Steps, panoramic restaurant, spa, WiFi and personalized service." },
+                        hostal: { nombre: "The Yellow Hostel", tipo: "Central Hostel", precio: "From $32 USD/night", servicios: "Near Termini, own bar, pizza nights, free WiFi and walking tours." }
+                    },
+                    {
+                        t: "Machu Picchu, Peru", d: "The Lost City of the Incas, a wonder of the world among the clouds.", img: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80",
+                        pais: "Peru", capital: "Lima", visa: "No", moneda: "Peruvian Sol (PEN)", idioma: "Spanish & Quechua", clima: "Highland temperate",
+                        crucero: { nombre: "Amazon River Quest", ruta: "Iquitos ➔ Amazon River ➔ Pacaya Reserve ➔ Iquitos", duracion: "4 days / 3 nights", precio: "From $980 USD", amenidades: "Jungle expeditions, wildlife spotting, local cuisine and naturalist guides." },
+                        hotel: { nombre: "Belmond Sanctuary Lodge", tipo: "5-Star Hotel", precio: "From $550 USD/night", servicios: "Next to Machu Picchu, gourmet restaurant, Andean spa, gardens and private guide." },
+                        hostal: { nombre: "Pariwana Hostel Cusco", tipo: "Adventurer Hostel", precio: "From $15 USD/night", servicios: "Colonial courtyard, bar with happy hour, shared kitchen, WiFi and Sacred Valley tours." }
+                    },
+                    {
+                        t: "Santorini, Greece", d: "White-washed houses, magical sunsets and crystal-clear Aegean sea.", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500&q=80",
+                        pais: "Greece", capital: "Athens", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Greek", clima: "Dry Mediterranean",
+                        crucero: { nombre: "Aegean Odyssey", ruta: "Santorini ➔ Mykonos ➔ Crete ➔ Santorini", duracion: "5 days / 4 nights", precio: "From $1,500 USD", amenidades: "Greek cuisine, ouzo tasting, volcanic caldera snorkeling and premium sunsets." },
+                        hotel: { nombre: "Canaves Oia Suites", tipo: "5-Star Boutique Hotel", precio: "From $480 USD/night", servicios: "Suites with private pool, caldera view, romantic dinner, spa and helicopter transfer." },
+                        hostal: { nombre: "Caveland Hostel", tipo: "Cave Hostel", precio: "From $35 USD/night", servicios: "Dorms in real caves, pool, outdoor cinema, WiFi and wine tasting." }
+                    },
+                    {
+                        t: "New York City", d: "The Big Apple: Times Square, Central Park and the Statue of Liberty.", img: "https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?auto=format&fit=crop&w=500&q=80",
+                        pais: "United States", capital: "Washington D.C.", visa: "Yes", moneda: "US Dollar (USD)", idioma: "English", clima: "Temperate continental",
+                        crucero: { nombre: "Manhattan Harbor Cruise", ruta: "New York ➔ Bermuda ➔ New York", duracion: "5 days / 4 nights", precio: "From $950 USD", amenidades: "Skyline view, casino, 8 restaurants, spa and Broadway shows on board." },
+                        hotel: { nombre: "The Plaza Hotel", tipo: "Iconic 5-Star Hotel", precio: "From $500 USD/night", servicios: "Facing Central Park, Guerlain spa, Palm Court, butler service and premium WiFi." },
+                        hostal: { nombre: "HI NYC Hostel", tipo: "Urban Hostel", precio: "From $50 USD/night", servicios: "Upper West Side, café, backyard, WiFi, kitchen and nightly social events." }
+                    },
+                    {
+                        t: "Barcelona, Spain", d: "Sagrada Familia, Las Ramblas and the best tapas in the Mediterranean.", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=500&q=80",
+                        pais: "Spain", capital: "Madrid", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Spanish & Catalan", clima: "Mediterranean",
+                        crucero: { nombre: "Costa Mediterranean", ruta: "Barcelona ➔ Marseille ➔ Genoa ➔ Barcelona", duracion: "6 days / 5 nights", precio: "From $1,250 USD", amenidades: "Mediterranean cuisine, themed parties, thalasso spa and Riviera excursions." },
+                        hotel: { nombre: "Hotel Arts Barcelona", tipo: "5-Star Beachfront Hotel", precio: "From $310 USD/night", servicios: "Barceloneta beach, outdoor pool, 2 Michelin restaurants, spa and beach club." },
+                        hostal: { nombre: "Casa Gracia Barcelona", tipo: "Boutique Hostel", precio: "From $30 USD/night", servicios: "On Paseo de Gracia, terrace, cocktail bar, fast WiFi and paella classes." }
+                    },
+                    {
+                        t: "Dubai, UAE", d: "Limitless luxury: Burj Khalifa, desert safaris and world-class malls.", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
+                        pais: "United Arab Emirates", capital: "Abu Dhabi", visa: "No (30 days)", moneda: "UAE Dirham (AED)", idioma: "Arabic & English", clima: "Hot desert",
+                        crucero: { nombre: "Arabian Gulf Prestige", ruta: "Dubai ➔ Abu Dhabi ➔ Muscat (Oman) ➔ Dubai", duracion: "6 days / 5 nights", precio: "From $1,900 USD", amenidades: "Luxury suites, oriental spa, gala dinners, desert safari and duty-free shopping." },
+                        hotel: { nombre: "Atlantis The Palm", tipo: "5-Star Resort", precio: "From $380 USD/night", servicios: "Aquaventure waterpark, Lost Chambers aquarium, 23 restaurants and private beach." },
+                        hostal: { nombre: "Barasti Beach Hostel", tipo: "Modern Hostel", precio: "From $40 USD/night", servicios: "Near Marina, shared pool, WiFi, breakfast included and desert tours." }
+                    },
+                    {
+                        t: "Bali, Indonesia", d: "Sacred temples, rice terraces and stunning black and golden sand beaches.", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500&q=80",
+                        pais: "Indonesia", capital: "Jakarta", visa: "No (VoA)", moneda: "Indonesian Rupiah (IDR)", idioma: "Indonesian", clima: "Humid equatorial",
+                        crucero: { nombre: "Bali Island Hopper", ruta: "Bali ➔ Komodo ➔ Lombok ➔ Bali", duracion: "5 days / 4 nights", precio: "From $850 USD", amenidades: "Manta snorkeling, Balinese cuisine, sunrise yoga and Komodo dragon excursion." },
+                        hotel: { nombre: "AYANA Resort Bali", tipo: "5-Star Cliffside Resort", precio: "From $260 USD/night", servicios: "Rock Bar over the ocean, flower spa, 19 restaurants, infinity pools and golf." },
+                        hostal: { nombre: "Puri Garden Hostel Ubud", tipo: "Eco Hostel", precio: "From $12 USD/night", servicios: "Surrounded by rice paddies, free yoga, bikes, organic kitchen and WiFi." }
+                    }
                 ]
             }
         };
@@ -898,7 +1315,7 @@
         // ==========================================
         const SUPABASE_URL = "https://uzagmhguqgdzixwqdvhi.supabase.co";
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV6YWdtaGd1cWdkeml4d3FkdmhpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NTM3MjgsImV4cCI6MjA5NzUyOTcyOH0.XwxxvRVSeIq7F5mufVrfdmEr6iRjDMZyPAWpPMuLteM";
-        
+
         // Inicialización segura del cliente Supabase
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -913,26 +1330,26 @@
                 container.className = 'toast-container';
                 document.body.appendChild(container);
             }
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
-            
+
             let icon = 'ℹ️';
             if (type === 'success') icon = '✅';
             if (type === 'error') icon = '❌';
-            
+
             toast.innerHTML = `
                 <span class="toast-icon">${icon}</span>
                 <span class="toast-message">${message}</span>
             `;
-            
+
             container.appendChild(toast);
-            
+
             // Animación de entrada
             setTimeout(() => {
                 toast.classList.add('show');
             }, 10);
-            
+
             // Ocultar y remover automáticamente tras 4 segundos
             setTimeout(() => {
                 toast.classList.remove('show');
@@ -980,12 +1397,199 @@
             document.getElementById('lblPqHab').innerText = currentData.labels.pqH;
 
             const destinationsGrid = document.getElementById('destinationsGrid');
-            destinationsGrid.innerHTML = currentData.destinos.map(dest => `
-                <div class="card">
-                    <img src="${dest.img}" alt="${dest.t}">
-                    <div class="card-body"><h3>${dest.t}</h3><p>${dest.d}</p></div>
-                </div>
-            `).join('');
+            const lblCountry = currentLang === 'es' ? 'País' : 'Country';
+            const lblCapital = currentLang === 'es' ? 'Capital' : 'Capital';
+            const lblVisa = currentLang === 'es' ? 'Visa' : 'Visa';
+            const lblCurrency = currentLang === 'es' ? 'Moneda' : 'Currency';
+            const lblLang = currentLang === 'es' ? 'Idioma' : 'Language';
+            const lblClimate = currentLang === 'es' ? 'Clima' : 'Climate';
+
+            const lblRoute = currentLang === 'es' ? 'Ruta' : 'Route';
+            const lblDuration = currentLang === 'es' ? 'Duración' : 'Duration';
+            const lblAmenities = currentLang === 'es' ? 'Amenidades' : 'Amenities';
+            const lblType = currentLang === 'es' ? 'Tipo' : 'Type';
+            const lblServices = currentLang === 'es' ? 'Servicios' : 'Services';
+
+            // 1. Render Destinos con Info de País
+            destinationsGrid.innerHTML = currentData.destinos.map(dest => {
+                const visaCls = (dest.visa === 'Sí' || dest.visa === 'Yes') ? 'visa-si' : 'visa-no';
+                const visaVal = (dest.visa === 'Sí' || dest.visa === 'Yes')
+                    ? (currentLang === 'es' ? 'Requiere Visa' : 'Visa Required')
+                    : (currentLang === 'es' ? 'Sin Visa' : 'Visa Free');
+
+                return `
+                    <div class="dest-card">
+                        <div style="overflow:hidden;">
+                            <img src="${dest.img}" alt="${dest.t}">
+                        </div>
+                        <div class="dest-header">
+                            <h3>${dest.t}</h3>
+                            <p>${dest.d}</p>
+                        </div>
+                        <div class="dest-info-list">
+                            <div class="dest-info-item">
+                                <span class="dest-info-label">${lblCountry}</span>
+                                <span class="dest-info-value">${dest.pais}</span>
+                            </div>
+                            <div class="dest-info-item">
+                                <span class="dest-info-label">${lblCapital}</span>
+                                <span class="dest-info-value">${dest.capital}</span>
+                            </div>
+                            <div class="dest-info-item">
+                                <span class="dest-info-label">${lblVisa}</span>
+                                <span class="dest-info-value ${visaCls}">${visaVal}</span>
+                            </div>
+                            <div class="dest-info-item">
+                                <span class="dest-info-label">${lblCurrency}</span>
+                                <span class="dest-info-value">${dest.moneda}</span>
+                            </div>
+                            <div class="dest-info-item">
+                                <span class="dest-info-label">${lblLang}</span>
+                                <span class="dest-info-value">${dest.idioma}</span>
+                            </div>
+                            <div class="dest-info-item">
+                                <span class="dest-info-label">${lblClimate}</span>
+                                <span class="dest-info-value">${dest.clima}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 2. Render Cruceros en Servicios
+            const cruisesGrid = document.getElementById('cruisesGrid');
+            if (cruisesGrid) {
+                const cruiseImages = [
+                    "img/crucero.png",
+                    "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80"
+                ];
+                cruisesGrid.innerHTML = currentData.destinos.map((dest, idx) => {
+                    const cruiseImg = cruiseImages[idx % cruiseImages.length];
+                    return `
+                        <div class="card">
+                            <img src="${cruiseImg}" alt="${dest.crucero.nombre}">
+                            <div class="card-body">
+                                <span class="price-tag" style="float:right; margin-top:0;">${dest.crucero.precio}</span>
+                                <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">${dest.crucero.nombre}</h4>
+                                <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 ${dest.t} (${dest.pais})</strong></p>
+                                <p><strong>${lblRoute}:</strong> ${dest.crucero.ruta}</p>
+                                <p><strong>${lblDuration}:</strong> ${dest.crucero.duracion}</p>
+                                <p><strong>${lblAmenities}:</strong> ${dest.crucero.amenidades}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 3. Render Hoteles y Hostales en Servicios
+            document.getElementById('lblHotelsTitle').innerText = currentLang === 'es' ? 'Hoteles Premium por Destino' : 'Premium Hotels by Destination';
+            document.getElementById('lblHostelsTitle').innerText = currentLang === 'es' ? 'Hostales Alternativos por Destino' : 'Alternative Hostels by Destination';
+
+            const hotelsGrid = document.getElementById('hotelsGrid');
+            if (hotelsGrid) {
+                const hotelImages = [
+                    "img/hotel.png",
+                    "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=500&q=80"
+                ];
+                hotelsGrid.innerHTML = currentData.destinos.map((dest, idx) => {
+                    const hotelImg = hotelImages[idx % hotelImages.length];
+                    return `
+                        <div class="card">
+                            <img src="${hotelImg}" alt="${dest.hotel.nombre}">
+                            <div class="card-body">
+                                <span class="price-tag" style="float:right; margin-top:0;">${dest.hotel.precio}</span>
+                                <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">${dest.hotel.nombre}</h4>
+                                <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 ${dest.t} (${dest.pais})</strong></p>
+                                <p><strong>${lblType}:</strong> ${dest.hotel.tipo}</p>
+                                <p><strong>${lblServices}:</strong> ${dest.hotel.servicios}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            const hostelsGrid = document.getElementById('hostelsGrid');
+            if (hostelsGrid) {
+                const hostelImages = [
+                    "img/hostal.png",
+                    "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1520277739336-7bf67edfa768?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1521791136368-1a8682707636?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1471039497385-b6d6ba609f9c?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=500&q=80",
+                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=500&q=80"
+                ];
+                // Filtramos destinos con hostal específico a ocultar
+                const hostalesToExclude = ["Hostel Mundo Joven Cancún", "Hostel Mundo Joven Cancun", "Freehand Miami"];
+                let hostelIdx = 0;
+                hostelsGrid.innerHTML = currentData.destinos
+                    .filter(dest => !hostalesToExclude.includes(dest.hostal.nombre))
+                    .map((dest) => {
+                        const hostelImg = hostelImages[hostelIdx++ % hostelImages.length];
+                        return `
+                        <div class="card">
+                            <img src="${hostelImg}" alt="${dest.hostal.nombre}">
+                            <div class="card-body">
+                                <span class="price-tag" style="float:right; margin-top:0;">${dest.hostal.precio}</span>
+                                <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">${dest.hostal.nombre}</h4>
+                                <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 ${dest.t} (${dest.pais})</strong></p>
+                                <p><strong>${lblType}:</strong> ${dest.hostal.tipo}</p>
+                                <p><strong>${lblServices}:</strong> ${dest.hostal.servicios}</p>
+                            </div>
+                        </div>
+                    `;
+                    }).join('');
+            }
+
+            // 4. Llenar selectores del formulario
+            const cruceroSelect = document.getElementById('cruceroSelect');
+            if (cruceroSelect) {
+                cruceroSelect.innerHTML = currentData.destinos.map(dest => `
+                    <option value="${dest.t.toLowerCase()}">${dest.crucero.nombre} (${dest.t})</option>
+                `).join('');
+            }
+
+            const alojamientoSelect = document.getElementById('alojamientoSelect');
+            if (alojamientoSelect) {
+                alojamientoSelect.innerHTML = currentData.destinos.map(dest => `
+                    <option value="hotel_${dest.t.toLowerCase()}">${dest.hotel.nombre} (${dest.t})</option>
+                    <option value="hostal_${dest.t.toLowerCase()}">${dest.hostal.nombre} (${dest.t})</option>
+                `).join('');
+            }
         }
 
         function showSection(sectionId) {
@@ -1015,6 +1619,29 @@
             return phone.replace(/\D/g, '').length >= 8;
         }
 
+        function sendWhatsAppMessage(phone, message) {
+            // Limpiar el número: eliminar todo excepto dígitos
+            let cleanPhone = phone.replace(/\D/g, '');
+
+            // Si es un número local de Nicaragua (8 dígitos), agregar código de país 505
+            if (cleanPhone.length === 8) {
+                cleanPhone = '505' + cleanPhone;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodedMessage}`;
+
+            // Usamos un <a> dinámico con click() para evitar que el navegador
+            // bloquee el popup cuando se llama desde una función async/await
+            const a = document.createElement('a');
+            a.href = whatsappUrl;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
         // ==========================================
         // MÉTODOS DE ENVÍO DE DATOS
         // ==========================================
@@ -1023,7 +1650,7 @@
             const form = e.target;
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
-            
+
             const data = {
                 ciudad_origen: form.querySelector('[name="ciudad_origen"]').value.trim(),
                 ciudad_destino: form.querySelector('[name="ciudad_destino"]').value.trim(),
@@ -1036,7 +1663,7 @@
                 telefono: form.querySelector('[name="telefono"]').value.trim(),
                 estado: 'pendiente'
             };
-            
+
             if (!data.nombre_completo || !data.correo || !data.telefono || !data.ciudad_destino || !data.fecha_salida) {
                 showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
                 return;
@@ -1049,30 +1676,70 @@
                 showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
                 return;
             }
-            
+
             try {
                 submitBtn.disabled = true;
                 submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
-                
+
                 const { error } = await supabaseClient
                     .from('flight_requests')
                     .insert([data]);
-                    
-                if (error) throw error;
-                
+
+                if (error) console.error(error);
+
                 showToast(
-                    currentLang === 'es' 
-                        ? '¡Tu cotización de vuelo ha sido enviada con éxito!' 
-                        : 'Your flight quote request has been successfully sent!', 
+                    currentLang === 'es'
+                        ? '¡Tu cotización de vuelo ha sido enviada con éxito!'
+                        : 'Your flight quote request has been successfully sent!',
                     'success'
                 );
+
+                // Formatear mensaje para WhatsApp
+                const aerolineaMap = {
+                    avianca: 'Avianca',
+                    american: 'American Airlines',
+                    copa: 'Copa Airlines',
+                    iberia: 'Iberia',
+                    cualquiera: 'Cualquiera / Mejor opción'
+                };
+                const claseMap = {
+                    economica: 'Clase Económica',
+                    media: 'Clase Media / Premium Economy',
+                    alta: 'Clase Alta / Business Class'
+                };
+                const aerolineaName = aerolineaMap[data.aerolinea_preferida] || data.aerolinea_preferida;
+                const claseName = claseMap[data.clase_vuelo] || data.clase_vuelo;
+
+                // Formatear fecha a DD/MM/YYYY
+                const formatDate = (dateStr) => {
+                    if (!dateStr) return 'N/A';
+                    const parts = dateStr.split('-');
+                    return parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dateStr;
+                };
+                const fechaSalidaFormatted = formatDate(data.fecha_salida);
+                const fechaVueltaFormatted = formatDate(data.fecha_regreso);
+
+                const msg = `✈️ *Confirmación de Solicitud de Cotización de Vuelo* ✈️\n` +
+                    `---\n` +
+                    `Hola ${data.nombre_completo}, hemos recibido tu solicitud de vuelo desde ${data.ciudad_origen} hacia ${data.ciudad_destino} con fecha de salida ${fechaSalidaFormatted}. Confirmemos detalles aquí.\n\n` +
+                    `📍 *Origen:* ${data.ciudad_origen}\n` +
+                    `📍 *Destino:* ${data.ciudad_destino}\n` +
+                    `📅 *Fecha de Salida:* ${fechaSalidaFormatted}\n` +
+                    `📅 *Fecha de Vuelta:* ${fechaVueltaFormatted}\n` +
+                    `💺 *Clase:* ${claseName}\n` +
+                    `✈️ *Aerolínea:* ${aerolineaName}\n\n` +
+                    `En breve uno de nuestros agentes se pondrá en contacto contigo a través de este chat. ¡Gracias por elegirnos!\n\n` +
+                    `✅ Responde *CONFIRMAR* para proceder con tu solicitud.\n` +
+                    `❌ Responde *NO CONFIRMAR* si deseas cancelar.`;
+
+                sendWhatsAppMessage(data.telefono, msg);
                 form.reset();
             } catch (err) {
                 console.error('Error submitting flight request:', err);
                 showToast(
-                    currentLang === 'es' 
-                        ? 'Ocurrió un error al enviar tu solicitud. Inténtalo de nuevo.' 
-                        : 'An error occurred while sending your request. Please try again.', 
+                    currentLang === 'es'
+                        ? 'Ocurrió un error al enviar tu solicitud. Inténtalo de nuevo.'
+                        : 'An error occurred while sending your request. Please try again.',
                     'error'
                 );
             } finally {
@@ -1086,17 +1753,17 @@
             const form = e.target;
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
-            
+
             const destinoSelect = form.querySelector('[name="ciudad_destino"]');
             const destinoLabel = destinoSelect.options[destinoSelect.selectedIndex].text;
             const fechas = form.querySelector('[name="fechas_viaje"]').value.trim();
             const personas = form.querySelector('[name="cantidad_personas"]').value;
             const habitacion = form.querySelector('[name="tipo_habitacion"]').value;
-            
+
             const nombre = form.querySelector('[name="nombre_completo"]').value.trim();
             const correo = form.querySelector('[name="correo"]').value.trim();
             const telefono = form.querySelector('[name="telefono"]').value.trim();
-            
+
             if (!nombre || !correo || !telefono || !fechas) {
                 showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
                 return;
@@ -1109,14 +1776,14 @@
                 showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
                 return;
             }
-            
+
             const observaciones = `Paquete: ${destinoLabel}. Fechas de viaje: ${fechas}. Personas: ${personas}. Tipo de Habitación: ${habitacion}.`;
-            
+
             // Establecemos una fecha de salida por defecto (dentro de 14 días)
             const defaultDepartureDate = new Date();
             defaultDepartureDate.setDate(defaultDepartureDate.getDate() + 14);
             const formattedDate = defaultDepartureDate.toISOString().split('T')[0];
-            
+
             const data = {
                 ciudad_origen: 'Managua (MGA)',
                 ciudad_destino: destinoLabel,
@@ -1128,30 +1795,51 @@
                 observaciones: observaciones,
                 estado: 'pendiente'
             };
-            
+
             try {
                 submitBtn.disabled = true;
                 submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
-                
+
                 const { error } = await supabaseClient
                     .from('flight_requests')
                     .insert([data]);
-                    
-                if (error) throw error;
-                
+
+                if (error) console.error(error);
+
                 showToast(
-                    currentLang === 'es' 
-                        ? '¡Tu paquete vacacional ha sido solicitado con éxito!' 
-                        : 'Your holiday package request has been successfully sent!', 
+                    currentLang === 'es'
+                        ? '¡Tu paquete vacacional ha sido solicitado con éxito!'
+                        : 'Your holiday package request has been successfully sent!',
                     'success'
                 );
+
+                // Formatear mensaje de confirmación para WhatsApp
+                const habitacionMap = {
+                    individual: 'Individual',
+                    doble: 'Doble',
+                    triple: 'Triple'
+                };
+                const habitacionName = habitacionMap[habitacion] || habitacion;
+
+                const msg = `📦 *Confirmación de Solicitud de Paquete Turístico* 📦\n` +
+                    `---\n` +
+                    `¡Hola, ${nombre}! Hemos recibido tu solicitud correctamente. Aquí tienes el resumen de tu paquete vacacional:\n\n` +
+                    `🗺️ *Paquete Seleccionado:* ${destinoLabel}\n` +
+                    `📅 *Fechas de Viaje:* ${fechas}\n` +
+                    `👥 *Número de Personas:* ${personas}\n` +
+                    `🛏️ *Tipo de Habitación:* ${habitacionName}\n\n` +
+                    `En breve uno de nuestros agentes se pondrá en contacto contigo a través de este chat. ¡Gracias por elegirnos!\n\n` +
+                    `✅ Responde *CONFIRMAR* para proceder con tu solicitud.\n` +
+                    `❌ Responde *NO CONFIRMAR* si deseas cancelar.`;
+
+                sendWhatsAppMessage(telefono, msg);
                 form.reset();
             } catch (err) {
                 console.error('Error submitting package request:', err);
                 showToast(
-                    currentLang === 'es' 
-                        ? 'Ocurrió un error al procesar tu reserva. Inténtalo de nuevo.' 
-                        : 'An error occurred while processing your reservation. Please try again.', 
+                    currentLang === 'es'
+                        ? 'Ocurrió un error al procesar tu reserva. Inténtalo de nuevo.'
+                        : 'An error occurred while processing your reservation. Please try again.',
                     'error'
                 );
             } finally {
@@ -1165,10 +1853,10 @@
             const form = e.target;
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
-            
+
             const cruceroSelect = form.querySelector('[name="crucero_seleccionado"]');
             const cruceroLabel = cruceroSelect.options[cruceroSelect.selectedIndex].text;
-            
+
             const data = {
                 crucero_seleccionado: cruceroLabel,
                 fecha_embarque: form.querySelector('[name="fecha_embarque"]').value,
@@ -1179,7 +1867,7 @@
                 telefono: form.querySelector('[name="telefono"]').value.trim(),
                 estado: 'pendiente'
             };
-            
+
             if (!data.nombre_completo || !data.correo || !data.telefono || !data.fecha_embarque || isNaN(data.cantidad_pasajeros)) {
                 showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
                 return;
@@ -1192,30 +1880,57 @@
                 showToast(currentLang === 'es' ? 'Por favor ingresa un número de teléfono válido (mínimo 8 dígitos).' : 'Please enter a valid phone number (min 8 digits).', 'error');
                 return;
             }
-            
+
             try {
                 submitBtn.disabled = true;
                 submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
-                
+
                 const { error } = await supabaseClient
                     .from('cruise_requests')
                     .insert([data]);
-                    
-                if (error) throw error;
-                
+
+                if (error) console.error(error);
+
                 showToast(
-                    currentLang === 'es' 
-                        ? '¡Tu cotización de crucero ha sido enviada con éxito!' 
-                        : 'Your cruise quote request has been successfully sent!', 
+                    currentLang === 'es'
+                        ? '¡Tu cotización de crucero ha sido enviada con éxito!'
+                        : 'Your cruise quote request has been successfully sent!',
                     'success'
                 );
+
+                // Formatear mensaje de confirmación para WhatsApp
+                const pagoMap = {
+                    tarjeta: 'Tarjeta de Crédito / Débito',
+                    efectivo: 'Efectivo / Transferencia Bancaria',
+                    financiamiento: 'Plan de Financiamiento Naju'
+                };
+                const pagoName = pagoMap[data.forma_pago] || data.forma_pago;
+
+                // Formatear fecha embarque a DD/MM/YYYY
+                const fechaEmbarqueParts = data.fecha_embarque.split('-');
+                const fechaEmbarqueFormatted = fechaEmbarqueParts.length === 3
+                    ? `${fechaEmbarqueParts[2]}/${fechaEmbarqueParts[1]}/${fechaEmbarqueParts[0]}`
+                    : data.fecha_embarque;
+
+                const msg = `🚢 *Confirmación de Solicitud de Crucero* 🚢\n` +
+                    `---\n` +
+                    `¡Hola, ${data.nombre_completo}! Hemos recibido tu solicitud correctamente. Aquí tienes el resumen de tu crucero:\n\n` +
+                    `🚢 *Crucero Seleccionado:* ${data.crucero_seleccionado}\n` +
+                    `📅 *Fecha de Embarque:* ${fechaEmbarqueFormatted}\n` +
+                    `👥 *Cantidad de Pasajeros:* ${data.cantidad_pasajeros}\n` +
+                    `💳 *Forma de Pago:* ${pagoName}\n\n` +
+                    `En breve uno de nuestros agentes se pondrá en contacto contigo a través de este chat. ¡Gracias por elegirnos!\n\n` +
+                    `✅ Responde *CONFIRMAR* para proceder con tu solicitud.\n` +
+                    `❌ Responde *NO CONFIRMAR* si deseas cancelar.`;
+
+                sendWhatsAppMessage(data.telefono, msg);
                 form.reset();
             } catch (err) {
                 console.error('Error submitting cruise request:', err);
                 showToast(
-                    currentLang === 'es' 
-                        ? 'Ocurrió un error al procesar tu solicitud. Inténtalo de nuevo.' 
-                        : 'An error occurred while sending your request. Please try again.', 
+                    currentLang === 'es'
+                        ? 'Ocurrió un error al procesar tu solicitud. Inténtalo de nuevo.'
+                        : 'An error occurred while sending your request. Please try again.',
                     'error'
                 );
             } finally {
@@ -1230,8 +1945,11 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
 
+            const seguroSelect = form.querySelector('[name="tipo_seguro"]');
+            const seguroLabel = seguroSelect.options[seguroSelect.selectedIndex].text;
+
             const data = {
-                tipo_seguro: form.querySelector('[name="tipo_seguro"]').value,
+                tipo_seguro: seguroLabel,
                 pais_destino: form.querySelector('[name="pais_destino"]').value.trim(),
                 fecha_inicio: form.querySelector('[name="fecha_inicio"]').value,
                 fecha_fin: form.querySelector('[name="fecha_fin"]').value,
@@ -1240,7 +1958,7 @@
                 telefono: form.querySelector('[name="telefono"]').value.trim(),
                 estado: 'pendiente'
             };
-            
+
             if (!data.nombre_completo || !data.correo || !data.telefono || !data.pais_destino || !data.fecha_inicio || !data.fecha_fin) {
                 showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
                 return;
@@ -1255,37 +1973,54 @@
             }
             if (new Date(data.fecha_fin) < new Date(data.fecha_inicio)) {
                 showToast(
-                    currentLang === 'es' 
-                        ? 'La fecha de fin de cobertura no puede ser anterior a la de inicio.' 
-                        : 'The end date cannot be earlier than the start date.', 
+                    currentLang === 'es'
+                        ? 'La fecha de fin de cobertura no puede ser anterior a la de inicio.'
+                        : 'The end date cannot be earlier than the start date.',
                     'error'
                 );
                 return;
             }
-            
+
             try {
                 submitBtn.disabled = true;
                 submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
-                
+
                 const { error } = await supabaseClient
                     .from('travel_insurance_requests')
                     .insert([data]);
-                    
-                if (error) throw error;
-                
+
+                if (error) console.error(error);
+
                 showToast(
-                    currentLang === 'es' 
-                        ? '¡Tu cotización de seguro de viaje ha sido enviada con éxito!' 
-                        : 'Your travel insurance quote request has been successfully sent!', 
+                    currentLang === 'es'
+                        ? '¡Tu cotización de seguro de viaje ha sido enviada con éxito!'
+                        : 'Your travel insurance quote request has been successfully sent!',
                     'success'
                 );
+
+                // Formatear fechas de cobertura a DD/MM/YYYY
+                const fmtSeg = (d) => { const p = d.split('-'); return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : d; };
+
+                // Formatear mensaje de confirmación para WhatsApp
+                const msg = `🛡️ *Confirmación de Solicitud de Seguro de Viaje* 🛡️\n` +
+                    `---\n` +
+                    `¡Hola, ${data.nombre_completo}! Hemos recibido tu solicitud correctamente. Aquí tienes el resumen de tu seguro de viaje:\n\n` +
+                    `🛡️ *Plan Seleccionado:* ${data.tipo_seguro}\n` +
+                    `📍 *País de Destino:* ${data.pais_destino}\n` +
+                    `📅 *Cobertura Desde:* ${fmtSeg(data.fecha_inicio)}\n` +
+                    `📅 *Cobertura Hasta:* ${fmtSeg(data.fecha_fin)}\n\n` +
+                    `En breve uno de nuestros agentes se pondrá en contacto contigo a través de este chat. ¡Gracias por elegirnos!\n\n` +
+                    `✅ Responde *CONFIRMAR* para proceder con tu solicitud.\n` +
+                    `❌ Responde *NO CONFIRMAR* si deseas cancelar.`;
+
+                sendWhatsAppMessage(data.telefono, msg);
                 form.reset();
             } catch (err) {
                 console.error('Error submitting insurance request:', err);
                 showToast(
-                    currentLang === 'es' 
-                        ? 'Ocurrió un error al procesar tu solicitud. Inténtalo de nuevo.' 
-                        : 'An error occurred while sending your request. Please try again.', 
+                    currentLang === 'es'
+                        ? 'Ocurrió un error al procesar tu solicitud. Inténtalo de nuevo.'
+                        : 'An error occurred while sending your request. Please try again.',
                     'error'
                 );
             } finally {
@@ -1299,10 +2034,10 @@
             const form = e.target;
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerText;
-            
+
             const alojamientoSelect = form.querySelector('[name="tipo_alojamiento"]');
             const alojamientoLabel = alojamientoSelect.options[alojamientoSelect.selectedIndex].text;
-            
+
             const data = {
                 tipo_alojamiento: alojamientoLabel,
                 destino: form.querySelector('[name="destino"]').value.trim(),
@@ -1313,7 +2048,7 @@
                 telefono: form.querySelector('[name="telefono"]').value.trim(),
                 estado: 'pendiente'
             };
-            
+
             if (!data.nombre_completo || !data.correo || !data.telefono || !data.destino || !data.fecha_checkin || !data.fecha_checkout) {
                 showToast(currentLang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Please fill all required fields.', 'error');
                 return;
@@ -1328,37 +2063,54 @@
             }
             if (new Date(data.fecha_checkout) < new Date(data.fecha_checkin)) {
                 showToast(
-                    currentLang === 'es' 
-                        ? 'La fecha de check-out no puede ser anterior a la de check-in.' 
-                        : 'The check-out date cannot be earlier than check-in.', 
+                    currentLang === 'es'
+                        ? 'La fecha de check-out no puede ser anterior a la de check-in.'
+                        : 'The check-out date cannot be earlier than check-in.',
                     'error'
                 );
                 return;
             }
-            
+
             try {
                 submitBtn.disabled = true;
                 submitBtn.innerText = currentLang === 'es' ? 'Enviando...' : 'Sending...';
-                
+
                 const { error } = await supabaseClient
                     .from('accommodation_requests')
                     .insert([data]);
-                    
-                if (error) throw error;
-                
+
+                if (error) console.error(error);
+
                 showToast(
-                    currentLang === 'es' 
-                        ? '¡Tu reserva de alojamiento ha sido registrada con éxito!' 
-                        : 'Your lodging reservation request has been successfully registered!', 
+                    currentLang === 'es'
+                        ? '¡Tu reserva de alojamiento ha sido registrada con éxito!'
+                        : 'Your lodging reservation request has been successfully registered!',
                     'success'
                 );
+
+                // Formatear fechas check-in / check-out a DD/MM/YYYY
+                const fmtHtl = (d) => { const p = d.split('-'); return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : d; };
+
+                // Formatear mensaje de confirmación para WhatsApp
+                const msg = `🏨 *Confirmación de Reserva de Alojamiento* 🏨\n` +
+                    `---\n` +
+                    `¡Hola, ${data.nombre_completo}! Hemos recibido tu solicitud correctamente. Aquí tienes el resumen de tu alojamiento:\n\n` +
+                    `🏨 *Hospedaje Seleccionado:* ${data.tipo_alojamiento}\n` +
+                    `📍 *Ciudad / Destino:* ${data.destino}\n` +
+                    `📅 *Fecha Check-In:* ${fmtHtl(data.fecha_checkin)}\n` +
+                    `📅 *Fecha Check-Out:* ${fmtHtl(data.fecha_checkout)}\n\n` +
+                    `En breve uno de nuestros agentes se pondrá en contacto contigo a través de este chat. ¡Gracias por elegirnos!\n\n` +
+                    `✅ Responde *CONFIRMAR* para proceder con tu solicitud.\n` +
+                    `❌ Responde *NO CONFIRMAR* si deseas cancelar.`;
+
+                sendWhatsAppMessage(data.telefono, msg);
                 form.reset();
             } catch (err) {
                 console.error('Error submitting accommodation request:', err);
                 showToast(
-                    currentLang === 'es' 
-                        ? 'Ocurrió un error al procesar tu reserva. Inténtalo de nuevo.' 
-                        : 'An error occurred while processing your request. Please try again.', 
+                    currentLang === 'es'
+                        ? 'Ocurrió un error al procesar tu reserva. Inténtalo de nuevo.'
+                        : 'An error occurred while processing your request. Please try again.',
                     'error'
                 );
             } finally {
