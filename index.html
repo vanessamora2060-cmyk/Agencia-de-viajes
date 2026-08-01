@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -941,7 +941,7 @@
 
                 <div class="grid-container" style="margin-bottom: 25px;">
                     <div class="card">
-                        <img src="img/seguro_viaje_1.svg"
+                        <img src="img/seguro_standard.png"
                             alt="Protección Global Standard">
                         <div class="card-body">
                             <h4 style="color:var(--secondary); margin-bottom:10px;">Plan Global Standard</h4>
@@ -952,7 +952,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="img/seguro_viaje_2.svg"
+                        <img src="img/seguro_schengen.png"
                             alt="Plan Schengen Premium">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Plan Schengen Premium (Obligatorio
@@ -964,7 +964,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="img/seguro_viaje_3.svg"
+                        <img src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=600&q=80"
                             alt="Plan VIP Elite">
                         <div class="card-body">
                             <h4 style="color:var(--dark); margin-bottom:10px;">Plan VIP Elite</h4>
@@ -1468,21 +1468,11 @@
                     "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=80", // Tokio (Japan)
                     "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&q=80", // Rome (Italy)
                     "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=500&q=80", // Machu Picchu (Peru)
-                    "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500&q=80", // Santorini (Greece)
-                    "https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?auto=format&fit=crop&w=500&q=80", // New York (USA)
-                    "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=500&q=80", // Barcelona (Spain)
-                    "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80", // Dubai (UAE)
-                    "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500&q=80", // Bali (Indonesia)
-                    "https://images.unsplash.com/photo-1471039497385-b6d6ba609f9c?auto=format&fit=crop&w=500&q=80", // Rome alt
-                    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80", // sightseeing
-                    "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=500&q=80", // guide pointing
-                    "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?auto=format&fit=crop&w=500&q=80" // map and guide
-                ];
                 toursGrid.innerHTML = currentData.destinos.map((dest, idx) => {
-                    const tourImg = (dest.tour && dest.tour.img) ? dest.tour.img : tourImages[idx % tourImages.length];
+                    const tourImg = (dest.tour && dest.tour.img) ? dest.tour.img : dest.img;
                     return `
                         <div class="card">
-                            <img src="${tourImg}" alt="${dest.tour.nombre}" style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;" onerror="this.style.display='none'">
+                            <img src="${tourImg}" alt="${dest.tour.nombre}" style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;" onerror="this.onerror=null;this.src='${dest.img}'">
                             <div class="card-body">
                                 <span class="price-tag" style="float:right; margin-top:0;">${dest.tour.precio}</span>
                                 <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">${dest.tour.nombre}</h4>
