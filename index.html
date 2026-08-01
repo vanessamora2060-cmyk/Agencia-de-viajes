@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<!-- saved from url=(0071)file:///C:/Users/vanes/OneDrive/Documentos/Agencia-de-viajes/index.html -->
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agencia de Viajes Naju</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="file:///C:/Users/vanes/OneDrive/Documentos/Agencia-de-viajes/manifest.json">
     <meta name="theme-color" content="#00a8cc">
     <script>
         if ('serviceWorker' in navigator) {
@@ -17,7 +19,7 @@
         }
     </script>
     <!-- Supabase JS Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./index_files/supabase-js@2"></script>
     <style>
         :root {
             --primary: #00a8cc;
@@ -309,6 +311,18 @@
             width: 100%;
             height: 180px;
             object-fit: cover;
+        }
+
+        .card.insurance-card {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .card.insurance-card img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
 
         .card-body {
@@ -620,19 +634,21 @@
         <div class="logo-container">
             <h1 class="logo-name" id="logoText">Agencia de Viajes <span>Naju</span></h1>
         </div>
-        <p class="tagline" id="taglineText">Tu agencia de viajes de confianza en Nicaragua</p>
+        <p class="tagline" id="taglineText">Agencia de viajes en Nicaragua</p>
 
         <div class="nav-buttons">
-            <button class="btn-nav" onclick="showSection('nosotros')" id="btnBtnNosotros">¿Quiénes Somos?</button>
-            <button class="btn-nav" onclick="showSection('servicios')" id="btnBtnServicios">Servicios</button>
-            <button class="btn-nav" onclick="showSection('destinos')" id="btnBtnDestinos">Destinos Turísticos</button>
+            <button class="btn-nav" onclick="showSection(&#39;nosotros&#39;)" id="btnBtnNosotros">¿Quiénes
+                Somos?</button>
+            <button class="btn-nav" onclick="showSection(&#39;servicios&#39;)" id="btnBtnServicios">Servicios</button>
+            <button class="btn-nav" onclick="showSection(&#39;destinos&#39;)" id="btnBtnDestinos">Destinos
+                Turísticos</button>
         </div>
     </header>
 
     <main class="main-content">
 
         <!-- SECCIÓN: QUIÉNES SOMOS -->
-        <section id="nosotros" class="section-panel active">
+        <section id="nosotros" class="section-panel">
             <div class="about-bg">
                 <h2 id="aboutTitle">Nuestra Historia</h2>
                 <p id="aboutDesc">En Agencia de Viajes Naju, transformamos tus sueños de viaje en realidades
@@ -643,30 +659,32 @@
         </section>
 
         <!-- SECCIÓN: SERVICIOS -->
-        <section id="servicios" class="section-panel">
+        <section id="servicios" class="section-panel active">
             <!-- Sub-Navegación de Servicios Internos -->
             <div class="services-menu">
-                <button class="btn-sub-service active" onclick="showSubService('vuelos')" id="subVuelosTab">Boletos de
+                <button class="btn-sub-service" onclick="showSubService(&#39;vuelos&#39;)" id="subVuelosTab">Boletos de
                     Avión</button>
-                <button class="btn-sub-service" onclick="showSubService('paquetes')" id="subPaquetesTab">Paquetes
+                <button class="btn-sub-service" onclick="showSubService(&#39;paquetes&#39;)"
+                    id="subPaquetesTab">Paquetes
                     Turísticos</button>
-                <button class="btn-sub-service" onclick="showSubService('tours')"
-                    id="subToursTab">Tours Locales y Guías</button>
-                <button class="btn-sub-service" onclick="showSubService('seguros')" id="subSegurosTab">Seguros de
+                <button class="btn-sub-service" onclick="showSubService(&#39;tours&#39;)" id="subToursTab">Tours Locales
+                    y Guías</button>
+                <button class="btn-sub-service" onclick="showSubService(&#39;seguros&#39;)" id="subSegurosTab">Seguros
+                    de
                     Viaje</button>
-                <button class="btn-sub-service" onclick="showSubService('hoteles')" id="subHotelesTab">Hoteles y
+                <button class="btn-sub-service active" onclick="showSubService(&#39;hoteles&#39;)"
+                    id="subHotelesTab">Hoteles y
                     Hostales</button>
             </div>
 
             <!-- SUB-SERVICIO: BOLETOS DE AVIÓN -->
-            <div id="sub-vuelos" class="service-detail-block active">
+            <div id="sub-vuelos" class="service-detail-block">
                 <h3 style="margin-bottom: 20px; color: var(--primary);">Vuelos Internacionales desde Nicaragua (MGA)
                 </h3>
 
                 <div class="grid-container" style="margin-bottom: 30px;">
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=500&q=80"
-                            alt="Avianca">
+                        <img src="./index_files/photo-1436491865332-7a61a109cc05" alt="Avianca">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Avianca</h4>
                             <p><strong>Rutas directas:</strong> Miami, San Salvador, San José.</p>
@@ -676,8 +694,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=500&q=80"
-                            alt="American Airlines">
+                        <img src="./index_files/photo-1569154941061-e231b4725ef1" alt="American Airlines">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">American Airlines</h4>
                             <p><strong>Rutas directas:</strong> Miami (Hub principal de conexiones).</p>
@@ -687,8 +704,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1483450388369-9ed95738483c?auto=format&fit=crop&w=500&q=80"
-                            alt="Copa Airlines">
+                        <img src="./index_files/photo-1483450388369-9ed95738483c" alt="Copa Airlines">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Copa Airlines</h4>
                             <p><strong>Rutas:</strong> Conexión mediante el Hub de las Américas en Panamá.</p>
@@ -699,8 +715,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?auto=format&fit=crop&w=500&q=80"
-                            alt="Iberia">
+                        <img src="./index_files/flight_iberia.png" alt="Iberia">
                         <div class="card-body">
                             <h4 style="color:var(--primary); margin-bottom:10px;">Iberia</h4>
                             <p><strong>Rutas:</strong> Conexión combinada con operadoras aliadas hacia Madrid.</p>
@@ -717,12 +732,12 @@
                     <form id="formVuelos">
                         <div class="form-grid">
                             <div class="form-group"><label id="lblOrig">Origen</label><input type="text"
-                                    name="ciudad_origen" value="Managua, Nicaragua (MGA)" readonly></div>
+                                    name="ciudad_origen" value="Managua, Nicaragua (MGA)" readonly=""></div>
                             <div class="form-group"><label id="lblDest">Destino de Interés</label><input type="text"
-                                    name="ciudad_destino" placeholder="Ej. Chicago, París, Cancún" required></div>
+                                    name="ciudad_destino" placeholder="Ej. Chicago, París, Cancún" required=""></div>
                             <div class="form-group">
                                 <label>Aerolínea de Preferencia</label>
-                                <select name="aerolinea_preferida" required>
+                                <select name="aerolinea_preferida" required="">
                                     <option value="avianca">Avianca</option>
                                     <option value="american">American Airlines</option>
                                     <option value="copa">Copa Airlines</option>
@@ -731,23 +746,23 @@
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblSalida">Fecha de Salida</label><input type="date"
-                                    name="fecha_salida" required></div>
+                                    name="fecha_salida" required=""></div>
                             <div class="form-group"><label id="lblRegreso">Fecha de Vuelta</label><input type="date"
                                     name="fecha_regreso"></div>
                             <div class="form-group">
                                 <label id="lblClase">Clase de Vuelo</label>
-                                <select id="claseVueloSelect" name="clase_vuelo" required>
-                                    <option value="economica" selected>Clase Económica ($450 - $900)</option>
+                                <select id="claseVueloSelect" name="clase_vuelo" required="">
+                                    <option value="economica" selected="">Clase Económica ($450 - $900)</option>
                                     <option value="media">Clase Media / Premium Economy ($850 - $1500)</option>
                                     <option value="alta">Clase Alta / Business Class ($1800 - $3500)</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblNombreV">Nombre del Pasajero</label><input type="text"
-                                    name="nombre_completo" required></div>
+                                    name="nombre_completo" required=""></div>
                             <div class="form-group"><label id="lblEmailV">Email</label><input type="email" name="correo"
-                                    required></div>
+                                    required=""></div>
                             <div class="form-group"><label id="lblTelV">Teléfono / WhatsApp</label><input type="tel"
-                                    name="telefono" required></div>
+                                    name="telefono" required=""></div>
                             <button type="submit" class="btn-submit btnSubmitText">Solicitar Cotización de
                                 Vuelo</button>
                         </div>
@@ -761,8 +776,7 @@
                     Incluido</h3>
                 <div class="grid-container">
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=500&q=80"
-                            alt="Cancun">
+                        <img src="./index_files/photo-1552074284-5e88ef1aef18" alt="Cancun">
                         <div class="card-body">
                             <h3>Cancún Mágico (4 Días / 3 Noches)</h3>
                             <div class="itinerary-day"><strong>Día 1:</strong> Traslado del aeropuerto al Hotel Riviera
@@ -778,8 +792,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500&q=80"
-                            alt="Paris">
+                        <img src="./index_files/photo-1502602898657-3e91760cbb34" alt="Paris">
                         <div class="card-body">
                             <h3>Europa Soñada (5 Días / 4 Noches)</h3>
                             <div class="itinerary-day"><strong>Día 1:</strong> Recibimiento en aeropuerto Charles de
@@ -797,8 +810,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80"
-                            alt="Orlando">
+                        <img src="./index_files/photo-1542314831-068cd1dbfeeb" alt="Orlando">
                         <div class="card-body">
                             <h3>Aventura Orlando (5 Días / 4 Noches)</h3>
                             <div class="itinerary-day"><strong>Día 1:</strong> Traslado de aeropuerto a Hotel Universal
@@ -816,8 +828,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=500&q=80"
-                            alt="Japon">
+                        <img src="./index_files/photo-1493976040374-85c8e12f0c0e" alt="Japon">
                         <div class="card-body">
                             <h3>Japón Fascinante (10 Días / 9 Noches)</h3>
                             <div class="itinerary-day"><strong>Día 1-3:</strong> Tokyo. Templos, modernidad y monte
@@ -832,8 +843,7 @@
                         </div>
                     </div>
                     <div class="card">
-                        <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=500&q=80"
-                            alt="Peru">
+                        <img src="./index_files/photo-1526392060635-9d6019884377" alt="Peru">
                         <div class="card-body">
                             <h3>Aventura en Perú (6 Días / 5 Noches)</h3>
                             <div class="itinerary-day"><strong>Día 1-2:</strong> Lima. Tour gastronómico y centro
@@ -856,8 +866,8 @@
                     <form id="formPaquetes">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label id="lblPqDest">Destino de Interés</label>
-                                <select name="ciudad_destino" required>
+                                <label id="lblPqDest">Destino o Paquete de Interés</label>
+                                <select name="ciudad_destino" required="">
                                     <option value="cancun">Cancún Mágico</option>
                                     <option value="europa">Europa Soñada</option>
                                     <option value="orlando">Aventura Orlando</option>
@@ -865,24 +875,24 @@
                                     <option value="peru">Aventura en Perú</option>
                                 </select>
                             </div>
-                            <div class="form-group"><label id="lblPqFecha">Fechas de Viaje</label><input type="text"
-                                    name="fechas_viaje" placeholder="Ej. Del 15 al 20 de Septiembre" required></div>
+                            <div class="form-group"><label id="lblPqFecha">Fechas Estimadas</label><input type="text"
+                                    name="fechas_viaje" placeholder="Ej. Del 15 al 20 de Septiembre" required=""></div>
                             <div class="form-group"><label id="lblPqPersonas">Número de Personas</label><input
-                                    type="number" name="cantidad_personas" min="1" value="1" required></div>
+                                    type="number" name="cantidad_personas" min="1" value="1" required=""></div>
                             <div class="form-group">
                                 <label id="lblPqHab">Tipo de Habitación</label>
-                                <select name="tipo_habitacion" required>
+                                <select name="tipo_habitacion" required="">
                                     <option value="individual">Individual</option>
-                                    <option value="doble" selected>Doble</option>
+                                    <option value="doble" selected="">Doble</option>
                                     <option value="triple">Triple</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblPqNombre">Nombre de Contacto</label><input type="text"
-                                    name="nombre_completo" required></div>
+                                    name="nombre_completo" required=""></div>
                             <div class="form-group"><label id="lblPqEmail">Email</label><input type="email"
-                                    name="correo" required></div>
+                                    name="correo" required=""></div>
                             <div class="form-group"><label id="lblPqTel">Teléfono / WhatsApp</label><input type="tel"
-                                    name="telefono" required></div>
+                                    name="telefono" required=""></div>
                             <button type="submit" class="btn-submit btnSubmitText">Apartar Mi Paquete Turístico</button>
                         </div>
                     </form>
@@ -891,10 +901,268 @@
 
             <!-- SUB-SERVICIO: TOURS LOCALES Y GUÍAS -->
             <div id="sub-tours" class="service-detail-block">
-                <h3 id="toursTitle" style="color: var(--primary); margin-bottom: 20px;">Tours Locales y Guías Turísticos Especializados</h3>
+                <h3 id="toursTitle" style="color: var(--primary); margin-bottom: 20px;">Tours Locales y Guías Turísticos
+                    Especializados</h3>
 
                 <div class="grid-container" style="margin-bottom: 25px;" id="toursGrid">
-                    <!-- Dinámicamente cargados por destino -->
+                    <div class="card">
+                        <img src="./index_files/maxresdefault.jpg" alt="Tour Arquitectónico y Gastronómico"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $95 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Arquitectónico
+                                y Gastronómico</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Chicago (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Ruta:</strong> Rascacielos ➔ Riverwalk ➔ Deep Dish Pizza</p>
+                            <p><strong>Duración:</strong> 1 Día</p>
+                            <p><strong>Amenidades:</strong> Guía bilingüe, degustación de comida y entradas a miradores.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/2-hollywood-sign-in-los-angeles.jpg"
+                            alt="Tour VIP por Hollywood y Casas de Famosos"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $110 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour VIP por
+                                Hollywood y Casas de Famosos</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Los Ángeles (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Ruta:</strong> Paseo de la Fama ➔ Beverly Hills ➔ Santa Mónica</p>
+                            <p><strong>Duración:</strong> 6 Horas</p>
+                            <p><strong>Amenidades:</strong> Transporte con aire acondicionado, guía local experto y
+                                paradas fotográficas.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/seine-night-cruise-eiffel-tower.webp"
+                            alt="Tour Nocturno por París y Paseo por el Sena"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $130 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Nocturno por
+                                París y Paseo por el Sena</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 París
+                                    (Francia)</strong></p>
+                            <p><strong>Ruta:</strong> Torre Eiffel ➔ Museo del Louvre ➔ Paseo en Barco</p>
+                            <p><strong>Duración:</strong> 5 Horas</p>
+                            <p><strong>Amenidades:</strong> Guía en español, copa de champagne y accesos rápidos.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/1-2.jpg" alt="Excursión a Chichén Itzá, Cenote y Valladolid"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $85 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Excursión a Chichén
+                                Itzá, Cenote y Valladolid</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Cancún
+                                    (México)</strong></p>
+                            <p><strong>Ruta:</strong> Zona Arqueológica Maya ➔ Cenote Saamal ➔ Ciudad Colonial</p>
+                            <p><strong>Duración:</strong> 1 Día completo</p>
+                            <p><strong>Amenidades:</strong> Almuerzo buffet, guía certificado, transporte de lujo y
+                                entradas.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/Screen-Shot-2018-06-04-at-7.10.14-PM.png"
+                            alt="Tour por Art Déco, Wynwood Walls y Yate"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $99 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour por Art Déco,
+                                Wynwood Walls y Yate</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Miami (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Ruta:</strong> South Beach ➔ Distrito Wynwood ➔ Bahía de Biscayne</p>
+                            <p><strong>Duración:</strong> 5 Horas</p>
+                            <p><strong>Amenidades:</strong> Guía local, paseo en barco por casas de famosos y agua
+                                embotellada.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/3856e3fb-edeb-408f-88b7-8b0fa36288c1_desktop.webp"
+                            alt="Tour Completo por Río: Cristo y Pan de Azúcar"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $120 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Completo por
+                                Río: Cristo y Pan de Azúcar</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Río de Janeiro
+                                    (Brasil)</strong></p>
+                            <p><strong>Ruta:</strong> Corcovado ➔ Pan de Azúcar ➔ Maracaná ➔ Selva Tijuca</p>
+                            <p><strong>Duración:</strong> 1 Día completo</p>
+                            <p><strong>Amenidades:</strong> Guía multilingüe, almuerzo churrasquería brasileña y tren de
+                                montaña.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_seoul.png" alt="Tour Cultural por Seúl: Palacios y Hanok"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $90 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Cultural por
+                                Seúl: Palacios y Hanok</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Corea del Sur (Corea
+                                    del Sur)</strong></p>
+                            <p><strong>Ruta:</strong> Palacio Gyeongbokgung ➔ Bukchon Hanok ➔ Mercado Gwangjang</p>
+                            <p><strong>Duración:</strong> 7 Horas</p>
+                            <p><strong>Amenidades:</strong> Alquiler de traje Hanbok, guía especializado y degustación
+                                street food.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_tokyo.png" alt="Tour Privado por Tokio Antiguo y Futurista"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $150 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Privado por
+                                Tokio Antiguo y Futurista</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Tokio, Japón
+                                    (Japón)</strong></p>
+                            <p><strong>Ruta:</strong> Asakusa ➔ Akihabara ➔ Cruce de Shibuya ➔ Templo Senso-ji</p>
+                            <p><strong>Duración:</strong> 1 Día</p>
+                            <p><strong>Amenidades:</strong> Guía privado local, pases de metro, ceremonia del té y Bento
+                                Box.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_rome.jpg" alt="Tour Exclusivo: Coliseo y Vaticano sin Filas"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $140 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Exclusivo:
+                                Coliseo y Vaticano sin Filas</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Roma, Italia
+                                    (Italia)</strong></p>
+                            <p><strong>Ruta:</strong> Coliseo ➔ Foros Imperiales ➔ Capilla Sixtina ➔ San Pedro</p>
+                            <p><strong>Duración:</strong> 6 Horas</p>
+                            <p><strong>Amenidades:</strong> Guía historiador de arte, entradas preferenciales y
+                                audioguía.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1587595431973-160d0d94add1"
+                            alt="Tour Guiado a Machu Picchu con Tren Vistadome"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $290 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Guiado a Machu
+                                Picchu con Tren Vistadome</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Machu Picchu, Perú
+                                    (Perú)</strong></p>
+                            <p><strong>Ruta:</strong> Cusco ➔ Ollantaytambo ➔ Aguas Calientes ➔ Ciudad Inca</p>
+                            <p><strong>Duración:</strong> 1 Día completo</p>
+                            <p><strong>Amenidades:</strong> Boletos de tren panorámico, guía privado andino, bus de
+                                subida y entradas.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/vino_oia.png" alt="Tour Gastronómico y Catas de Vino en Oia"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $115 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Gastronómico y
+                                Catas de Vino en Oia</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Santorini, Grecia
+                                    (Grecia)</strong></p>
+                            <p><strong>Ruta:</strong> Bodegas de Santorini ➔ Pyrgos ➔ Puesta de sol en Oia</p>
+                            <p><strong>Duración:</strong> 5 Horas</p>
+                            <p><strong>Amenidades:</strong> Sommelier local, maridaje con quesos griegos, transporte
+                                privado y fotos.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_ny.jpg" alt="Tour de Contrastes de NY y Estatua de la Libertad"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $105 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour de Contrastes
+                                de NY y Estatua de la Libertad</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Nueva York (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Ruta:</strong> Harlem ➔ Bronx ➔ Queens ➔ Brooklyn ➔ Ferry Libertad</p>
+                            <p><strong>Duración:</strong> 7 Horas</p>
+                            <p><strong>Amenidades:</strong> Guía en español, transporte en minibús de lujo y ticket de
+                                ferry.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_barcelona.jpg" alt="Tour Gaudí: Sagrada Familia y Parque Güell"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $110 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Gaudí: Sagrada
+                                Familia y Parque Güell</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Barcelona, España
+                                    (España)</strong></p>
+                            <p><strong>Ruta:</strong> Sagrada Familia ➔ Park Güell ➔ Casa Batlló ➔ Las Ramblas</p>
+                            <p><strong>Duración:</strong> 6 Horas</p>
+                            <p><strong>Amenidades:</strong> Entradas con acceso rápido, guía oficial de turismo y
+                                transporte.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_dubai.png" alt="Safari VIP en el Desierto y Burj Khalifa"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $160 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Safari VIP en el
+                                Desierto y Burj Khalifa</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Dubai, EAU (Emiratos
+                                    Árabes Unidos)</strong></p>
+                            <p><strong>Ruta:</strong> Dunas en 4x4 ➔ Campamento Bedel ➔ Burj Khalifa Top</p>
+                            <p><strong>Duración:</strong> 1 Día completo</p>
+                            <p><strong>Amenidades:</strong> Paseo en camello, sandboard, cena BBQ buffet y entradas al
+                                rascacielos.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/tour_bali.jpg" alt="Tour Cultural por Ubud: Templos y Cascadas"
+                            style="width:100%;height:180px;object-fit:cover;border-top-left-radius:8px;border-top-right-radius:8px;"
+                            onerror="this.style.display=&#39;none&#39;">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $65 USD</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Tour Cultural por
+                                Ubud: Templos y Cascadas</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Bali, Indonesia
+                                    (Indonesia)</strong></p>
+                            <p><strong>Ruta:</strong> Bosque Monos ➔ Terraza Tegallalang ➔ Cascada Tegenungan</p>
+                            <p><strong>Duración:</strong> 1 Día completo</p>
+                            <p><strong>Amenidades:</strong> Conductor/guía privado bilingüe, entradas y columpio
+                                balinés.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Formulario Tours -->
@@ -904,28 +1172,68 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblTourSel">Selecciona tu Tour de Interés</label>
-                                <select name="tour_seleccionado" id="tourSelect" required>
-                                    <!-- Dinámicamente cargado -->
+                                <select name="tour_seleccionado" id="tourSelect" required="">
+                                    <option value="chicago">Tour Arquitectónico y Gastronómico (Chicago)</option>
+
+                                    <option value="los ángeles">Tour VIP por Hollywood y Casas de Famosos (Los Ángeles)
+                                    </option>
+
+                                    <option value="parís">Tour Nocturno por París y Paseo por el Sena (París)</option>
+
+                                    <option value="cancún">Excursión a Chichén Itzá, Cenote y Valladolid (Cancún)
+                                    </option>
+
+                                    <option value="miami">Tour por Art Déco, Wynwood Walls y Yate (Miami)</option>
+
+                                    <option value="río de janeiro">Tour Completo por Río: Cristo y Pan de Azúcar (Río de
+                                        Janeiro)</option>
+
+                                    <option value="corea del sur">Tour Cultural por Seúl: Palacios y Hanok (Corea del
+                                        Sur)</option>
+
+                                    <option value="tokio, japón">Tour Privado por Tokio Antiguo y Futurista (Tokio,
+                                        Japón)</option>
+
+                                    <option value="roma, italia">Tour Exclusivo: Coliseo y Vaticano sin Filas (Roma,
+                                        Italia)</option>
+
+                                    <option value="machu picchu, perú">Tour Guiado a Machu Picchu con Tren Vistadome
+                                        (Machu Picchu, Perú)</option>
+
+                                    <option value="santorini, grecia">Tour Gastronómico y Catas de Vino en Oia
+                                        (Santorini, Grecia)</option>
+
+                                    <option value="nueva york">Tour de Contrastes de NY y Estatua de la Libertad (Nueva
+                                        York)</option>
+
+                                    <option value="barcelona, españa">Tour Gaudí: Sagrada Familia y Parque Güell
+                                        (Barcelona, España)</option>
+
+                                    <option value="dubai, eau">Safari VIP en el Desierto y Burj Khalifa (Dubai, EAU)
+                                    </option>
+
+                                    <option value="bali, indonesia">Tour Cultural por Ubud: Templos y Cascadas (Bali,
+                                        Indonesia)</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblTourFecha">Fecha Estimada del Tour</label><input
-                                    type="date" name="fecha_tour" required></div>
+                                    type="date" name="fecha_tour" required=""></div>
                             <div class="form-group"><label id="lblTourPersonas">Cantidad de Personas</label><input
-                                    type="number" name="cantidad_personas" min="1" value="1" required></div>
+                                    type="number" name="cantidad_personas" min="1" value="1" required=""></div>
                             <div class="form-group">
                                 <label id="lblTourPago">Forma de Pago de Interés</label>
-                                <select name="forma_pago" required>
+                                <select name="forma_pago" required="">
                                     <option value="tarjeta">Tarjeta de Crédito / Débito</option>
                                     <option value="efectivo">Efectivo / Transferencia Bancaria</option>
                                     <option value="financiamiento">Plan de Financiamiento Naju</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblTourNombre">Nombre</label><input type="text"
-                                    name="nombre_completo" required></div>
+                                    name="nombre_completo" required=""></div>
                             <div class="form-group"><label id="lblTourEmail">Email</label><input type="email"
-                                    name="correo" required></div>
+                                    name="correo" required=""></div>
                             <div class="form-group"><label id="lblTourTel">Teléfono</label><input type="tel"
-                                    name="telefono" required></div>
+                                    name="telefono" required=""></div>
                             <button type="submit" class="btn-submit btnSubmitText">Cotizar Tour</button>
                         </div>
                     </form>
@@ -938,39 +1246,14 @@
                     - Elige tu Cobertura</h3>
 
                 <div class="grid-container" style="margin-bottom: 25px;">
-                    <div class="card">
-                        <img src="img/seguro_nuevo.png"
-                            alt="Plan Global Standard">
-                        <div class="card-body">
-                            <h4 style="color:var(--secondary); margin-bottom:10px;">Plan Global Standard</h4>
-                            <p><strong>Cobertura Médica:</strong> Hasta $50,000 USD.</p>
-                            <p><strong>Incluye:</strong> Emergencias médicas básicas, repatriación sanitaria elemental,
-                                asistencia telefónica 24/7 en español.</p>
-                            <p style="margin-top:8px;">Ideal para viajes cortos en la región de Latinoamérica.</p>
-                        </div>
+                    <div class="card insurance-card">
+                        <img src="./index_files/seguro_standard.png" alt="Plan Global Standard">
                     </div>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=500&q=80"
-                            alt="Plan Schengen Premium">
-                        <div class="card-body">
-                            <h4 style="color:var(--primary); margin-bottom:10px;">Plan Schengen Premium (Obligatorio
-                                Europa)</h4>
-                            <p><strong>Cobertura Médica:</strong> Hasta $150,000 USD.</p>
-                            <p><strong>Incluye:</strong> Emergencias médicas completas, repatriación total, pérdida de
-                                equipaje documentado, reembolso por cancelación de vuelo y asistencia médica telefónica
-                                24/7 global.</p>
-                        </div>
+                    <div class="card insurance-card">
+                        <img src="./index_files/seguro_schengen.png" alt="Plan Schengen Premium">
                     </div>
-                    <div class="card">
-                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=500&q=80"
-                            alt="Plan VIP Elite">
-                        <div class="card-body">
-                            <h4 style="color:var(--dark); margin-bottom:10px;">Plan VIP Elite</h4>
-                            <p><strong>Cobertura Médica:</strong> Hasta $300,000 USD.</p>
-                            <p><strong>Incluye:</strong> Todo lo anterior con montos extendidos, cobertura de aparatos
-                                tecnológicos por robo, asistencia legal en el extranjero y cancelación de viaje sin
-                                restricciones graves.</p>
-                        </div>
+                    <div class="card insurance-card">
+                        <img src="./index_files/seguro_vip.png" alt="Plan VIP Elite">
                     </div>
                 </div>
 
@@ -981,24 +1264,24 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Selecciona el Plan de Seguro</label>
-                                <select name="tipo_seguro" required>
+                                <select name="tipo_seguro" required="">
                                     <option value="standard">Plan Global Standard</option>
                                     <option value="schengen">Plan Schengen Premium</option>
                                     <option value="vip">Plan VIP Elite</option>
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblSegPais">País de Destino</label><input type="text"
-                                    name="pais_destino" placeholder="Ej. España, Estados Unidos" required></div>
+                                    name="pais_destino" placeholder="Ej. España, Estados Unidos" required=""></div>
                             <div class="form-group"><label id="lblSegDesde">Cobertura Desde</label><input type="date"
-                                    name="fecha_inicio" required></div>
+                                    name="fecha_inicio" required=""></div>
                             <div class="form-group"><label id="lblSegHasta">Cobertura Hasta</label><input type="date"
-                                    name="fecha_fin" required></div>
+                                    name="fecha_fin" required=""></div>
                             <div class="form-group"><label id="lblSegNombre">Nombre del Asegurado</label><input
-                                    type="text" name="nombre_completo" required></div>
+                                    type="text" name="nombre_completo" required=""></div>
                             <div class="form-group"><label id="lblSegEmail">Email</label><input type="email"
-                                    name="correo" required></div>
+                                    name="correo" required=""></div>
                             <div class="form-group"><label id="lblSegTel">Teléfono</label><input type="tel"
-                                    name="telefono" required></div>
+                                    name="telefono" required=""></div>
                             <button type="submit" class="btn-submit btnSubmitText">Emitir Cotización de Seguro</button>
                         </div>
                     </form>
@@ -1006,18 +1289,391 @@
             </div>
 
             <!-- SUB-SERVICIO: HOTELES Y HOSTALES -->
-            <div id="sub-hoteles" class="service-detail-block">
+            <div id="sub-hoteles" class="service-detail-block active">
                 <h3 id="lodgingMainTitle" style="color: var(--primary); margin-bottom: 20px;">Opciones de Hospedaje
                     Elegidas para Ti</h3>
 
-                <h4 style="margin-bottom:15px; color:var(--dark);" id="lblHotelsTitle">Hoteles Premium</h4>
+                <h4 style="margin-bottom:15px; color:var(--dark);" id="lblHotelsTitle">Hoteles Premium por Destino</h4>
                 <div class="grid-container" style="margin-bottom: 30px;" id="hotelsGrid">
-                    <!-- Dinámicamente cargados -->
+                    <div class="card">
+                        <img src="./index_files/photo-1566073771259-6a8506099945" alt="The Palmer House Hilton">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $189 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">The Palmer House
+                                Hilton</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Chicago (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> WiFi premium, piscina cubierta, gimnasio 24h, desayuno buffet
+                                y valet parking.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1582719508461-905c673771fd" alt="The Hollywood Roosevelt">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $215 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">The Hollywood
+                                Roosevelt</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Los Ángeles (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel Boutique 4 Estrellas</p>
+                            <p><strong>Servicios:</strong> Piscina icónica, bar en la azotea, WiFi, concierge y desayuno
+                                continental.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1542314831-068cd1dbfeeb(1)" alt="Hôtel Plaza Athénée">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $350 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Hôtel Plaza Athénée
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 París
+                                    (Francia)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas Lujo</p>
+                            <p><strong>Servicios:</strong> Vista a la Torre Eiffel, spa Dior, restaurante Michelin y
+                                servicio de limusina.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1578683010236-d716f9a3f461" alt="Hyatt Ziva Cancún">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $280 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Hyatt Ziva Cancún
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Cancún
+                                    (México)</strong></p>
+                            <p><strong>Tipo:</strong> Resort All-Inclusive 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> Todo incluido, 6 restaurantes, 4 piscinas infinity, spa y
+                                club de playa.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1520250497591-112f2f40a3f4" alt="Fontainebleau Miami Beach">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $320 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Fontainebleau Miami
+                                Beach</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Miami (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Resort 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> 11 piscinas, nightclub LIV, spa de lujo, acceso directo a la
+                                playa y WiFi.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1555854877-bab0e564b8d5" alt="Belmond Copacabana Palace">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $380 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Belmond Copacabana
+                                Palace</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Río de Janeiro
+                                    (Brasil)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas Clásico</p>
+                            <p><strong>Servicios:</strong> Piscina semi-olímpica, spa, restaurante gourmet, vista al mar
+                                y piano bar.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1471039497385-b6d6ba609f9c" alt="Lotte Hotel Seoul">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $240 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Lotte Hotel Seoul
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Corea del Sur (Corea
+                                    del Sur)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> Centro de la ciudad, piscina cubierta, spa de lujo, 10
+                                restaurantes and duty free.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1618773928121-c32242e63f39" alt="Park Hyatt Tokyo">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $450 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Park Hyatt Tokyo
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Tokio, Japón
+                                    (Japón)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas Lujo</p>
+                            <p><strong>Servicios:</strong> Vista al Monte Fuji, piscina en piso 47, spa Zen,
+                                restaurantes Michelin y concierge bilingüe.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1590490360182-c33d57733427" alt="Hotel Hassler Roma">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $420 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Hotel Hassler Roma
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Roma, Italia
+                                    (Italia)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas Gran Lujo</p>
+                            <p><strong>Servicios:</strong> Sobre la Plaza de España, restaurante panorámico, spa, WiFi y
+                                servicio personalizado.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1455587734955-081b22074882" alt="Belmond Sanctuary Lodge">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $550 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Belmond Sanctuary
+                                Lodge</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Machu Picchu, Perú
+                                    (Perú)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> Junto a Machu Picchu, restaurante gourmet, spa andino,
+                                jardines y guía privado.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1596394516093-501ba68a0ba6" alt="Canaves Oia Suites">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $480 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Canaves Oia Suites
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Santorini, Grecia
+                                    (Grecia)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel Boutique 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> Suites con piscina privada, vista a la caldera, cena
+                                romántica, spa y traslado en helicóptero.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1496417263034-38ec4f0b665a" alt="The Plaza Hotel">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $500 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">The Plaza Hotel</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Nueva York (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel Icónico 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> Frente a Central Park, spa Guerlain, Palm Court, butler
+                                service y WiFi premium.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1520250497591-112f2f40a3f4" alt="Hotel Arts Barcelona">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $310 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Hotel Arts Barcelona
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Barcelona, España
+                                    (España)</strong></p>
+                            <p><strong>Tipo:</strong> Hotel 5 Estrellas Frente al Mar</p>
+                            <p><strong>Servicios:</strong> Playa Barceloneta, piscina exterior, 2 restaurantes Michelin,
+                                spa y club de playa.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1571896349842-33c89424de2d" alt="Atlantis The Palm">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $380 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">Atlantis The Palm
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Dubai, EAU (Emiratos
+                                    Árabes Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Resort 5 Estrellas</p>
+                            <p><strong>Servicios:</strong> Parque acuático Aquaventure, acuario Lost Chambers, 23
+                                restaurantes y playa privada.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1502672260266-1c1ef2d93688" alt="AYANA Resort Bali">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $260 USD/noche</span>
+                            <h4 style="color:var(--primary); font-size:1.15rem; margin-bottom:8px;">AYANA Resort Bali
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Bali, Indonesia
+                                    (Indonesia)</strong></p>
+                            <p><strong>Tipo:</strong> Resort 5 Estrellas Cliffside</p>
+                            <p><strong>Servicios:</strong> Rock Bar sobre el océano, spa con flores, 19 restaurantes,
+                                piscinas infinity y golf.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <h4 style="margin-bottom:15px; color:var(--dark);" id="lblHostelsTitle">Hostales Alternativos</h4>
+                <h4 style="margin-bottom:15px; color:var(--dark);" id="lblHostelsTitle">Hostales Alternativos por
+                    Destino</h4>
                 <div class="grid-container" style="margin-bottom:25px;" id="hostelsGrid">
-                    <!-- Dinámicamente cargados -->
+                    <div class="card">
+                        <img src="./index_files/photo-1522708323590-d24dbb6b0267" alt="HI Chicago Hostel">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $42 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">HI Chicago Hostel
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Chicago (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Premium</p>
+                            <p><strong>Servicios:</strong> Habitaciones compartidas y privadas, cocina comunitaria, WiFi
+                                gratuito y tours guiados gratuitos.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1505693416388-ac5ce068fe85" alt="Banana Bungalow Hollywood">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $38 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Banana Bungalow
+                                Hollywood</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Los Ángeles (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Social</p>
+                            <p><strong>Servicios:</strong> Dormitorios mixtos, tours gratuitos a Hollywood, BBQ semanal
+                                y ambiente fiestero.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1560185007-c5ca9d2c014d" alt="Books Hostel Copacabana">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $22 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Books Hostel
+                                Copacabana</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Río de Janeiro
+                                    (Brasil)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Cultural</p>
+                            <p><strong>Servicios:</strong> Terraza con vista, biblioteca, cocina comunitaria, WiFi y
+                                tours a favelas.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1564501049412-61c2a3083791" alt="Hongdae Guesthouse">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $28 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Hongdae Guesthouse
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Corea del Sur (Corea
+                                    del Sur)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal K-Style</p>
+                            <p><strong>Servicios:</strong> Habitaciones estilo ondol, WiFi ultra rápido, cerca de
+                                Hongdae, desayuno coreano incluido.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1611892440504-42a792e24d32" alt="Khaosan Tokyo Kabuki">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $30 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Khaosan Tokyo
+                                Kabuki</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Tokio, Japón
+                                    (Japón)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Temático</p>
+                            <p><strong>Servicios:</strong> Cápsulas y dormitorios, decoración kabuki, WiFi, cocina
+                                comunitaria y cerca de Asakusa.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1542314831-068cd1dbfeeb(1)" alt="The Yellow Hostel">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $32 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">The Yellow Hostel
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Roma, Italia
+                                    (Italia)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Céntrico</p>
+                            <p><strong>Servicios:</strong> Cerca de Termini, bar propio, noches de pizza, WiFi gratuito
+                                y walking tours.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1496417263034-38ec4f0b665a" alt="Pariwana Hostel Cusco">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $15 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Pariwana Hostel
+                                Cusco</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Machu Picchu, Perú
+                                    (Perú)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Aventurero</p>
+                            <p><strong>Servicios:</strong> Patio colonial, bar con happy hour, cocina compartida, WiFi y
+                                tours al Valle Sagrado.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1560185007-c5ca9d2c014d" alt="Caveland Hostel">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $35 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Caveland Hostel
+                            </h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Santorini, Grecia
+                                    (Grecia)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal en Cueva</p>
+                            <p><strong>Servicios:</strong> Dormitorios en cuevas reales, piscina, cine al aire libre,
+                                WiFi y wine tasting.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1611892440504-42a792e24d32" alt="HI NYC Hostel">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $50 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">HI NYC Hostel</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Nueva York (Estados
+                                    Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Urbano</p>
+                            <p><strong>Servicios:</strong> Upper West Side, cafetería, patio trasero, WiFi, cocina y
+                                eventos sociales nocturnos.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1471039497385-b6d6ba609f9c" alt="Casa Gracia Barcelona">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $30 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Casa Gracia
+                                Barcelona</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Barcelona, España
+                                    (España)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Boutique</p>
+                            <p><strong>Servicios:</strong> En Paseo de Gracia, terraza, cocktail bar, WiFi rápido y
+                                clases de paella.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1555854877-bab0e564b8d5" alt="Barasti Beach Hostel">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $40 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Barasti Beach
+                                Hostel</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Dubai, EAU (Emiratos
+                                    Árabes Unidos)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Moderno</p>
+                            <p><strong>Servicios:</strong> Cerca de Marina, piscina compartida, WiFi, desayuno incluido
+                                y tours al desierto.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <img src="./index_files/photo-1455587734955-081b22074882" alt="Puri Garden Hostel Ubud">
+                        <div class="card-body">
+                            <span class="price-tag" style="float:right; margin-top:0;">Desde $12 USD/noche</span>
+                            <h4 style="color:var(--secondary); font-size:1.15rem; margin-bottom:8px;">Puri Garden Hostel
+                                Ubud</h4>
+                            <p style="font-size:0.85rem; color:#888; margin-bottom:8px;"><strong>📍 Bali, Indonesia
+                                    (Indonesia)</strong></p>
+                            <p><strong>Tipo:</strong> Hostal Eco</p>
+                            <p><strong>Servicios:</strong> Rodeado de arrozales, yoga gratuito, bicicletas, cocina
+                                orgánica y WiFi.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Formulario Hoteles/Hostales -->
@@ -1027,22 +1683,22 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label id="lblHtlTipo">Elige tu Hospedaje Específico</label>
-                                <select name="tipo_alojamiento" id="alojamientoSelect" required>
+                                <select name="tipo_alojamiento" id="alojamientoSelect" required="">
                                     <!-- Dinámicamente cargado -->
                                 </select>
                             </div>
                             <div class="form-group"><label id="lblHtlCiudad">Ciudad / Destino</label><input type="text"
-                                    name="destino" placeholder="Ej. Miami, París, Cancún" required></div>
+                                    name="destino" placeholder="Ej. Miami, París, Cancún" required=""></div>
                             <div class="form-group"><label id="lblHtlCheckIn">Fecha Check-In</label><input type="date"
-                                    name="fecha_checkin" required></div>
+                                    name="fecha_checkin" required=""></div>
                             <div class="form-group"><label id="lblHtlCheckOut">Fecha Check-Out</label><input type="date"
-                                    name="fecha_checkout" required></div>
+                                    name="fecha_checkout" required=""></div>
                             <div class="form-group"><label id="lblHtlNombre">Nombre del Huésped</label><input
-                                    type="text" name="nombre_completo" required></div>
+                                    type="text" name="nombre_completo" required=""></div>
                             <div class="form-group"><label id="lblHtlEmail">Email</label><input type="email"
-                                    name="correo" required></div>
+                                    name="correo" required=""></div>
                             <div class="form-group"><label id="lblHtlTel">Teléfono / WhatsApp</label><input type="tel"
-                                    name="telefono" required></div>
+                                    name="telefono" required=""></div>
                             <button type="submit" class="btn-submit btnSubmitText">Buscar Disponibilidad</button>
                         </div>
                     </form>
@@ -1052,7 +1708,547 @@
 
         <!-- SECCIÓN: DESTINOS -->
         <section id="destinos" class="section-panel">
-            <div class="grid-container" id="destinationsGrid"></div>
+            <div class="grid-container" id="destinationsGrid">
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1477959858617-67f85cf4f1df" alt="Chicago">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Chicago</h3>
+                        <p>La espectacular ciudad del viento, sus rascacielos y el lago Michigan.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Estados Unidos</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Washington D.C.</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-si">Requiere Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Dólar estadounidense (USD)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Inglés</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Templado continental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1534190760961-74e8c1c5c3da" alt="Los Ángeles">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Los Ángeles</h3>
+                        <p>Camina por Hollywood y las playas de Santa Mónica bajo el sol de California.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Estados Unidos</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Washington D.C.</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-si">Requiere Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Dólar estadounidense (USD)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Inglés</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Mediterráneo templado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1502602898657-3e91760cbb34(1)" alt="París">
+                    </div>
+                    <div class="dest-header">
+                        <h3>París</h3>
+                        <p>Descubre la Torre Eiffel, los Campos Elíseos y museos históricos.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Francia</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">París</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Euro (EUR)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Francés</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Templado oceánico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1552074284-5e88ef1aef18(1)" alt="Cancún">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Cancún</h3>
+                        <p>Playas de arena blanca, arqueología maya y el Caribe más azul.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">México</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">CDMX</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Peso mexicano (MXN)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Español</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Cálido tropical</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1533105079780-92b9be482077" alt="Miami">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Miami</h3>
+                        <p>Sol, compras de outlets y vida nocturna vibrante en South Beach.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Estados Unidos</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Washington D.C.</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-si">Requiere Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Dólar estadounidense (USD)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Inglés y Español</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Subtropical húmedo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1483729558449-99ef09a8c325" alt="Río de Janeiro">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Río de Janeiro</h3>
+                        <p>Disfruta el Cristo Redentor, el pan de Azúcar y las playas de Copacabana.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Brasil</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Brasilia</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Real brasileño (BRL)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Portugués</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Tropical cálido</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1517154421773-0529f29ea451" alt="Corea del Sur">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Corea del Sur</h3>
+                        <p>Modernidad futurista de Seúl mezclada con templos y tradiciones ancestrales.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Corea del Sur</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Seúl</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Won surcoreano (KRW)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Coreano</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Continental templado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1540959733332-eab4deabeeaf" alt="Tokio, Japón">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Tokio, Japón</h3>
+                        <p>La capital más fascinante del mundo: anime, sushi y tecnología de punta.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Japón</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Tokio</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-si">Requiere Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Yen japonés (JPY)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Japonés</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Templado húmedo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1552832230-c0197dd311b5" alt="Roma, Italia">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Roma, Italia</h3>
+                        <p>Pasea por el Coliseo, la Fontana di Trevi y el Vaticano.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Italia</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Roma</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Euro (EUR)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Italiano</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Mediterráneo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1587595431973-160d0d94add1" alt="Machu Picchu, Perú">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Machu Picchu, Perú</h3>
+                        <p>La ciudad perdida de los Incas, una maravilla del mundo entre las nubes.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Perú</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Lima</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Sol peruano (PEN)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Español y Quechua</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Templado de montaña</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1570077188670-e3a8d69ac5ff" alt="Santorini, Grecia">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Santorini, Grecia</h3>
+                        <p>Casas blancas, puestas de sol mágicas y el mar Egeo cristalino.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Grecia</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Atenas</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Euro (EUR)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Griego</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Mediterráneo seco</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1490644658840-3f2e3f8c5625" alt="Nueva York">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Nueva York</h3>
+                        <p>La Gran Manzana: Times Square, Central Park y la Estatua de la Libertad.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Estados Unidos</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Washington D.C.</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-si">Requiere Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Dólar estadounidense (USD)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Inglés</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Continental templado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1539037116277-4db20889f2d4" alt="Barcelona, España">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Barcelona, España</h3>
+                        <p>La Sagrada Familia, Las Ramblas y las mejores tapas del Mediterráneo.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">España</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Madrid</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Euro (EUR)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Español y Catalán</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Mediterráneo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1512453979798-5ea266f8880c" alt="Dubai, EAU">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Dubai, EAU</h3>
+                        <p>Lujo sin límites: el Burj Khalifa, el desierto y los mejores malls del mundo.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Emiratos Árabes Unidos</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Abu Dabi</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Dirham de EAU (AED)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Árabe e Inglés</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Desértico cálido</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dest-card">
+                    <div style="overflow:hidden;">
+                        <img src="./index_files/photo-1537996194471-e657df975ab4" alt="Bali, Indonesia">
+                    </div>
+                    <div class="dest-header">
+                        <h3>Bali, Indonesia</h3>
+                        <p>Templos sagrados, arrozales en terrazas y playas de arena negra y dorada.</p>
+                    </div>
+                    <div class="dest-info-list">
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">País</span>
+                            <span class="dest-info-value">Indonesia</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Capital</span>
+                            <span class="dest-info-value">Yakarta</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Visa</span>
+                            <span class="dest-info-value visa-no">Sin Visa</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Moneda</span>
+                            <span class="dest-info-value">Rupia indonesia (IDR)</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Idioma</span>
+                            <span class="dest-info-value">Indonesio</span>
+                        </div>
+                        <div class="dest-info-item">
+                            <span class="dest-info-label">Clima</span>
+                            <span class="dest-info-value">Ecuatorial húmedo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -1118,21 +2314,21 @@
                     {
                         t: "Corea del Sur", d: "Modernidad futurista de Seúl mezclada con templos y tradiciones ancestrales.", img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=500&q=80",
                         pais: "Corea del Sur", capital: "Seúl", visa: "No (ETA req.)", moneda: "Won surcoreano (KRW)", idioma: "Coreano", clima: "Continental templado",
-                        tour: { nombre: "Tour Cultural por Seúl: Palacios y Hanok", ruta: "Palacio Gyeongbokgung ➔ Bukchon Hanok ➔ Mercado Gwangjang", duracion: "7 Horas", precio: "Desde $90 USD", amenidades: "Alquiler de traje Hanbok, guía especializado y degustación street food." },
+                        tour: { nombre: "Tour Cultural por Seúl: Palacios y Hanok", ruta: "Palacio Gyeongbokgung ➔ Bukchon Hanok ➔ Mercado Gwangjang", duracion: "7 Horas", precio: "Desde $90 USD", amenidades: "Alquiler de traje Hanbok, guía especializado y degustación street food.", img: "img/tour_seoul.png" },
                         hotel: { nombre: "Lotte Hotel Seoul", img: "https://images.unsplash.com/photo-1471039497385-b6d6ba609f9c?auto=format&fit=crop&w=500&q=80", tipo: "Hotel 5 Estrellas", precio: "Desde $240 USD/noche", servicios: "Centro de la ciudad, piscina cubierta, spa de lujo, 10 restaurantes and duty free." },
                         hostal: { nombre: "Hongdae Guesthouse", img: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=500&q=80", tipo: "Hostal K-Style", precio: "Desde $28 USD/noche", servicios: "Habitaciones estilo ondol, WiFi ultra rápido, cerca de Hongdae, desayuno coreano incluido." }
                     },
                     {
                         t: "Tokio, Japón", d: "La capital más fascinante del mundo: anime, sushi y tecnología de punta.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=80",
                         pais: "Japón", capital: "Tokio", visa: "Sí", moneda: "Yen japonés (JPY)", idioma: "Japonés", clima: "Templado húmedo",
-                        tour: { nombre: "Tour Privado por Tokio Antiguo y Futurista", ruta: "Asakusa ➔ Akihabara ➔ Cruce de Shibuya ➔ Templo Senso-ji", duracion: "1 Día", precio: "Desde $150 USD", amenidades: "Guía privado local, pases de metro, ceremonia del té y Bento Box." },
+                        tour: { nombre: "Tour Privado por Tokio Antiguo y Futurista", ruta: "Asakusa ➔ Akihabara ➔ Cruce de Shibuya ➔ Templo Senso-ji", duracion: "1 Día", precio: "Desde $150 USD", amenidades: "Guía privado local, pases de metro, ceremonia del té y Bento Box.", img: "img/tour_tokyo.png" },
                         hotel: { nombre: "Park Hyatt Tokyo", img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=500&q=80", tipo: "Hotel 5 Estrellas Lujo", precio: "Desde $450 USD/noche", servicios: "Vista al Monte Fuji, piscina en piso 47, spa Zen, restaurantes Michelin y concierge bilingüe." },
                         hostal: { nombre: "Khaosan Tokyo Kabuki", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=500&q=80", tipo: "Hostal Temático", precio: "Desde $30 USD/noche", servicios: "Cápsulas y dormitorios, decoración kabuki, WiFi, cocina comunitaria y cerca de Asakusa." }
                     },
                     {
                         t: "Roma, Italia", d: "Pasea por el Coliseo, la Fontana di Trevi y el Vaticano.", img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&q=80",
                         pais: "Italia", capital: "Roma", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Italiano", clima: "Mediterráneo",
-                        tour: { nombre: "Tour Exclusivo: Coliseo y Vaticano sin Filas", ruta: "Coliseo ➔ Foros Imperiales ➔ Capilla Sixtina ➔ San Pedro", duracion: "6 Horas", precio: "Desde $140 USD", amenidades: "Guía historiador de arte, entradas preferenciales y audioguía." },
+                        tour: { nombre: "Tour Exclusivo: Coliseo y Vaticano sin Filas", ruta: "Coliseo ➔ Foros Imperiales ➔ Capilla Sixtina ➔ San Pedro", duracion: "6 Horas", precio: "Desde $140 USD", amenidades: "Guía historiador de arte, entradas preferenciales y audioguía.", img: "img/tour_rome.jpg" },
                         hotel: { nombre: "Hotel Hassler Roma", img: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=500&q=80", tipo: "Hotel 5 Estrellas Gran Lujo", precio: "Desde $420 USD/noche", servicios: "Sobre la Plaza de España, restaurante panorámico, spa, WiFi y servicio personalizado." },
                         hostal: { nombre: "The Yellow Hostel", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80", tipo: "Hostal Céntrico", precio: "Desde $32 USD/noche", servicios: "Cerca de Termini, bar propio, noches de pizza, WiFi gratuito y walking tours." }
                     },
@@ -1146,35 +2342,35 @@
                     {
                         t: "Santorini, Grecia", d: "Casas blancas, puestas de sol mágicas y el mar Egeo cristalino.", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500&q=80",
                         pais: "Grecia", capital: "Atenas", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Griego", clima: "Mediterráneo seco",
-                        tour: { nombre: "Tour Gastronómico y Catas de Vino en Oia", ruta: "Bodegas de Santorini ➔ Pyrgos ➔ Puesta de sol en Oia", duracion: "5 Horas", precio: "Desde $115 USD", amenidades: "Sommelier local, maridaje con quesos griegos, transporte privado y fotos." },
+                        tour: { nombre: "Tour Gastronómico y Catas de Vino en Oia", ruta: "Bodegas de Santorini ➔ Pyrgos ➔ Puesta de sol en Oia", duracion: "5 Horas", precio: "Desde $115 USD", amenidades: "Sommelier local, maridaje con quesos griegos, transporte privado y fotos.", img: "img/vino_oia.png" },
                         hotel: { nombre: "Canaves Oia Suites", img: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=500&q=80", tipo: "Hotel Boutique 5 Estrellas", precio: "Desde $480 USD/noche", servicios: "Suites con piscina privada, vista a la caldera, cena romántica, spa y traslado en helicóptero." },
                         hostal: { nombre: "Caveland Hostel", img: "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=500&q=80", tipo: "Hostal en Cueva", precio: "Desde $35 USD/noche", servicios: "Dormitorios en cuevas reales, piscina, cine al aire libre, WiFi y wine tasting." }
                     },
                     {
                         t: "Nueva York", d: "La Gran Manzana: Times Square, Central Park y la Estatua de la Libertad.", img: "https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?auto=format&fit=crop&w=500&q=80",
                         pais: "Estados Unidos", capital: "Washington D.C.", visa: "Sí", moneda: "Dólar estadounidense (USD)", idioma: "Inglés", clima: "Continental templado",
-                        tour: { nombre: "Tour de Contrastes de NY y Estatua de la Libertad", ruta: "Harlem ➔ Bronx ➔ Queens ➔ Brooklyn ➔ Ferry Libertad", duracion: "7 Horas", precio: "Desde $105 USD", amenidades: "Guía en español, transporte en minibús de lujo y ticket de ferry." },
+                        tour: { nombre: "Tour de Contrastes de NY y Estatua de la Libertad", ruta: "Harlem ➔ Bronx ➔ Queens ➔ Brooklyn ➔ Ferry Libertad", duracion: "7 Horas", precio: "Desde $105 USD", amenidades: "Guía en español, transporte en minibús de lujo y ticket de ferry.", img: "img/tour_ny.jpg" },
                         hotel: { nombre: "The Plaza Hotel", img: "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?auto=format&fit=crop&w=500&q=80", tipo: "Hotel Icónico 5 Estrellas", precio: "Desde $500 USD/noche", servicios: "Frente a Central Park, spa Guerlain, Palm Court, butler service y WiFi premium." },
                         hostal: { nombre: "HI NYC Hostel", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=500&q=80", tipo: "Hostal Urbano", precio: "Desde $50 USD/noche", servicios: "Upper West Side, cafetería, patio trasero, WiFi, cocina y eventos sociales nocturnos." }
                     },
                     {
                         t: "Barcelona, España", d: "La Sagrada Familia, Las Ramblas y las mejores tapas del Mediterráneo.", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=500&q=80",
                         pais: "España", capital: "Madrid", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Español y Catalán", clima: "Mediterráneo",
-                        tour: { nombre: "Tour Gaudí: Sagrada Familia y Parque Güell", ruta: "Sagrada Familia ➔ Park Güell ➔ Casa Batlló ➔ Las Ramblas", duracion: "6 Horas", precio: "Desde $110 USD", amenidades: "Entradas con acceso rápido, guía oficial de turismo y transporte." },
+                        tour: { nombre: "Tour Gaudí: Sagrada Familia y Parque Güell", ruta: "Sagrada Familia ➔ Park Güell ➔ Casa Batlló ➔ Las Ramblas", duracion: "6 Horas", precio: "Desde $110 USD", amenidades: "Entradas con acceso rápido, guía oficial de turismo y transporte.", img: "img/tour_barcelona.jpg" },
                         hotel: { nombre: "Hotel Arts Barcelona", img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=500&q=80", tipo: "Hotel 5 Estrellas Frente al Mar", precio: "Desde $310 USD/noche", servicios: "Playa Barceloneta, piscina exterior, 2 restaurantes Michelin, spa y club de playa." },
                         hostal: { nombre: "Casa Gracia Barcelona", img: "https://images.unsplash.com/photo-1471039497385-b6d6ba609f9c?auto=format&fit=crop&w=500&q=80", tipo: "Hostal Boutique", precio: "Desde $30 USD/noche", servicios: "En Paseo de Gracia, terraza, cocktail bar, WiFi rápido y clases de paella." }
                     },
                     {
                         t: "Dubai, EAU", d: "Lujo sin límites: el Burj Khalifa, el desierto y los mejores malls del mundo.", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
                         pais: "Emiratos Árabes Unidos", capital: "Abu Dabi", visa: "No (30 días)", moneda: "Dirham de EAU (AED)", idioma: "Árabe e Inglés", clima: "Desértico cálido",
-                        tour: { nombre: "Safari VIP en el Desierto y Burj Khalifa", ruta: "Dunas en 4x4 ➔ Campamento Bedel ➔ Burj Khalifa Top", duracion: "1 Día completo", precio: "Desde $160 USD", amenidades: "Paseo en camello, sandboard, cena BBQ buffet y entradas al rascacielos." },
+                        tour: { nombre: "Safari VIP en el Desierto y Burj Khalifa", ruta: "Dunas en 4x4 ➔ Campamento Bedel ➔ Burj Khalifa Top", duracion: "1 Día completo", precio: "Desde $160 USD", amenidades: "Paseo en camello, sandboard, cena BBQ buffet y entradas al rascacielos.", img: "img/tour_dubai.png" },
                         hotel: { nombre: "Atlantis The Palm", img: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=500&q=80", tipo: "Resort 5 Estrellas", precio: "Desde $380 USD/noche", servicios: "Parque acuático Aquaventure, acuario Lost Chambers, 23 restaurantes y playa privada." },
                         hostal: { nombre: "Barasti Beach Hostel", img: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80", tipo: "Hostal Moderno", precio: "Desde $40 USD/noche", servicios: "Cerca de Marina, piscina compartida, WiFi, desayuno incluido y tours al desierto." }
                     },
                     {
                         t: "Bali, Indonesia", d: "Templos sagrados, arrozales en terrazas y playas de arena negra y dorada.", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500&q=80",
                         pais: "Indonesia", capital: "Yakarta", visa: "No (VoA)", moneda: "Rupia indonesia (IDR)", idioma: "Indonesio", clima: "Ecuatorial húmedo",
-                        tour: { nombre: "Tour Cultural por Ubud: Templos y Cascadas", ruta: "Bosque Monos ➔ Terraza Tegallalang ➔ Cascada Tegenungan", duracion: "1 Día completo", precio: "Desde $65 USD", amenidades: "Conductor/guía privado bilingüe, entradas y columpio balinés." },
+                        tour: { nombre: "Tour Cultural por Ubud: Templos y Cascadas", ruta: "Bosque Monos ➔ Terraza Tegallalang ➔ Cascada Tegenungan", duracion: "1 Día completo", precio: "Desde $65 USD", amenidades: "Conductor/guía privado bilingüe, entradas y columpio balinés.", img: "img/tour_bali.jpg" },
                         hotel: { nombre: "AYANA Resort Bali", img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80", tipo: "Resort 5 Estrellas Cliffside", precio: "Desde $260 USD/noche", servicios: "Rock Bar sobre el océano, spa con flores, 19 restaurantes, piscinas infinity y golf." },
                         hostal: { nombre: "Puri Garden Hostel Ubud", img: "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=500&q=80", tipo: "Hostal Eco", precio: "Desde $12 USD/noche", servicios: "Rodeado de arrozales, yoga gratuito, bicicletas, cocina orgánica y WiFi." }
                     }
@@ -1239,21 +2435,21 @@
                     {
                         t: "South Korea", d: "Futuristic Seoul combined with ancient temples and K-culture.", img: "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=500&q=80",
                         pais: "South Korea", capital: "Seoul", visa: "No (ETA req.)", moneda: "South Korean Won (KRW)", idioma: "Korean", clima: "Temperate continental",
-                        tour: { nombre: "Seoul Cultural Tour: Palaces & Hanok Village", ruta: "Gyeongbokgung Palace ➔ Bukchon Hanok ➔ Gwangjang Market", duracion: "7 Hours", precio: "From $90 USD", amenidades: "Hanbok costume rental, expert guide and street food tasting." },
+                        tour: { nombre: "Seoul Cultural Tour: Palaces & Hanok Village", ruta: "Gyeongbokgung Palace ➔ Bukchon Hanok ➔ Gwangjang Market", duracion: "7 Hours", precio: "From $90 USD", amenidades: "Hanbok costume rental, expert guide and street food tasting.", img: "img/tour_seoul.png" },
                         hotel: { nombre: "Lotte Hotel Seoul", tipo: "5-Star Hotel", precio: "From $240 USD/night", servicios: "City center, indoor pool, luxury spa, 10 restaurants and duty free." },
                         hostal: { nombre: "Hongdae Guesthouse", img: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=500&q=80", tipo: "K-Style Hostel", precio: "From $28 USD/night", servicios: "Ondol-style rooms, ultra-fast WiFi, near Hongdae, Korean breakfast included." }
                     },
                     {
                         t: "Tokyo, Japan", d: "The world's most fascinating capital: anime, sushi, and cutting-edge technology.", img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=80",
                         pais: "Japan", capital: "Tokyo", visa: "Yes", moneda: "Japanese Yen (JPY)", idioma: "Japanese", clima: "Humid temperate",
-                        tour: { nombre: "Private Old & Futuristic Tokyo Tour", ruta: "Asakusa ➔ Akihabara ➔ Shibuya Crossing ➔ Senso-ji Temple", duracion: "1 Day", precio: "From $150 USD", amenidades: "Private local guide, subway passes, tea ceremony and Bento Box." },
+                        tour: { nombre: "Private Old & Futuristic Tokyo Tour", ruta: "Asakusa ➔ Akihabara ➔ Shibuya Crossing ➔ Senso-ji Temple", duracion: "1 Day", precio: "From $150 USD", amenidades: "Private local guide, subway passes, tea ceremony and Bento Box.", img: "img/tour_tokyo.png" },
                         hotel: { nombre: "Park Hyatt Tokyo", tipo: "5-Star Luxury Hotel", precio: "From $450 USD/night", servicios: "Mount Fuji view, 47th-floor pool, Zen spa, Michelin restaurants and bilingual concierge." },
                         hostal: { nombre: "Khaosan Tokyo Kabuki", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=500&q=80", tipo: "Themed Hostel", precio: "From $30 USD/night", servicios: "Capsules and dorms, kabuki decor, WiFi, community kitchen and near Asakusa." }
                     },
                     {
                         t: "Rome, Italy", d: "Stroll past the Colosseum, Trevi Fountain, and Vatican City.", img: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500&q=80",
                         pais: "Italy", capital: "Rome", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Italian", clima: "Mediterranean",
-                        tour: { nombre: "Exclusive Tour: Colosseum & Vatican Skip-the-Line", ruta: "Colosseum ➔ Imperial Fora ➔ Sistine Chapel ➔ St. Peter's", duracion: "6 Hours", precio: "From $140 USD", amenidades: "Art historian guide, skip-the-line tickets and headsets." },
+                        tour: { nombre: "Exclusive Tour: Colosseum & Vatican Skip-the-Line", ruta: "Colosseum ➔ Imperial Fora ➔ Sistine Chapel ➔ St. Peter's", duracion: "6 Hours", precio: "From $140 USD", amenidades: "Art historian guide, skip-the-line tickets and headsets.", img: "img/tour_rome.jpg" },
                         hotel: { nombre: "Hotel Hassler Roma", tipo: "5-Star Grand Luxury Hotel", precio: "From $420 USD/night", servicios: "Above Spanish Steps, panoramic restaurant, spa, WiFi and personalized service." },
                         hostal: { nombre: "The Yellow Hostel", img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80", tipo: "Central Hostel", precio: "From $32 USD/night", servicios: "Near Termini, own bar, pizza nights, free WiFi and walking tours." }
                     },
@@ -1267,35 +2463,35 @@
                     {
                         t: "Santorini, Greece", d: "White-washed houses, magical sunsets and crystal-clear Aegean sea.", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500&q=80",
                         pais: "Greece", capital: "Athens", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Greek", clima: "Dry Mediterranean",
-                        tour: { nombre: "Sunset Food & Wine Tasting Tour in Oia", ruta: "Santorini Wineries ➔ Pyrgos ➔ Sunset in Oia", duracion: "5 Hours", precio: "From $115 USD", amenidades: "Local sommelier, Greek cheese pairings, private transport and photos." },
+                        tour: { nombre: "Sunset Food & Wine Tasting Tour in Oia", ruta: "Santorini Wineries ➔ Pyrgos ➔ Sunset in Oia", duracion: "5 Hours", precio: "From $115 USD", amenidades: "Local sommelier, Greek cheese pairings, private transport and photos.", img: "img/vino_oia.png" },
                         hotel: { nombre: "Canaves Oia Suites", tipo: "5-Star Boutique Hotel", precio: "From $480 USD/night", servicios: "Suites with private pool, caldera view, romantic dinner, spa and helicopter transfer." },
                         hostal: { nombre: "Caveland Hostel", img: "https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&w=500&q=80", tipo: "Cave Hostel", precio: "From $35 USD/night", servicios: "Dorms in real caves, pool, outdoor cinema, WiFi and wine tasting." }
                     },
                     {
                         t: "New York City", d: "The Big Apple: Times Square, Central Park and the Statue of Liberty.", img: "https://images.unsplash.com/photo-1490644658840-3f2e3f8c5625?auto=format&fit=crop&w=500&q=80",
                         pais: "United States", capital: "Washington D.C.", visa: "Yes", moneda: "US Dollar (USD)", idioma: "English", clima: "Temperate continental",
-                        tour: { nombre: "NYC Contrasts & Statue of Liberty Guided Tour", ruta: "Harlem ➔ Bronx ➔ Queens ➔ Brooklyn ➔ Liberty Ferry", duracion: "7 Hours", precio: "From $105 USD", amenidades: "English guide, luxury minibus transport and ferry ticket." },
+                        tour: { nombre: "NYC Contrasts & Statue of Liberty Guided Tour", ruta: "Harlem ➔ Bronx ➔ Queens ➔ Brooklyn ➔ Liberty Ferry", duracion: "7 Hours", precio: "From $105 USD", amenidades: "English guide, luxury minibus transport and ferry ticket.", img: "img/tour_ny.jpg" },
                         hotel: { nombre: "The Plaza Hotel", tipo: "Iconic 5-Star Hotel", precio: "From $500 USD/night", servicios: "Facing Central Park, Guerlain spa, Palm Court, butler service and premium WiFi." },
                         hostal: { nombre: "HI NYC Hostel", img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=500&q=80", tipo: "Urban Hostel", precio: "From $50 USD/night", servicios: "Upper West Side, café, backyard, WiFi, kitchen and nightly social events." }
                     },
                     {
                         t: "Barcelona, Spain", d: "Sagrada Familia, Las Ramblas and the best tapas in the Mediterranean.", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=500&q=80",
                         pais: "Spain", capital: "Madrid", visa: "No (Schengen)", moneda: "Euro (EUR)", idioma: "Spanish & Catalan", clima: "Mediterranean",
-                        tour: { nombre: "Gaudí Tour: Sagrada Familia & Park Güell", ruta: "Sagrada Familia ➔ Park Güell ➔ Casa Batlló ➔ Las Ramblas", duracion: "6 Hours", precio: "From $110 USD", amenidades: "Fast-track entry tickets, official tour guide and transport." },
+                        tour: { nombre: "Gaudí Tour: Sagrada Familia & Park Güell", ruta: "Sagrada Familia ➔ Park Güell ➔ Casa Batlló ➔ Las Ramblas", duracion: "6 Hours", precio: "From $110 USD", amenidades: "Fast-track entry tickets, official tour guide and transport.", img: "img/tour_barcelona.jpg" },
                         hotel: { nombre: "Hotel Arts Barcelona", tipo: "5-Star Beachfront Hotel", precio: "From $310 USD/night", servicios: "Barceloneta beach, outdoor pool, 2 Michelin restaurants, spa and beach club." },
                         hostal: { nombre: "Casa Gracia Barcelona", img: "https://images.unsplash.com/photo-1471039497385-b6d6ba609f9c?auto=format&fit=crop&w=500&q=80", tipo: "Boutique Hostel", precio: "From $30 USD/night", servicios: "On Paseo de Gracia, terrace, cocktail bar, fast WiFi and paella classes." }
                     },
                     {
                         t: "Dubai, UAE", d: "Limitless luxury: Burj Khalifa, desert safaris and world-class malls.", img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500&q=80",
                         pais: "United Arab Emirates", capital: "Abu Dhabi", visa: "No (30 days)", moneda: "UAE Dirham (AED)", idioma: "Arabic & English", clima: "Hot desert",
-                        tour: { nombre: "Desert VIP Safari with Show Dinner & Burj Khalifa", ruta: "4x4 Dune Bashing ➔ Bedouin Camp ➔ Burj Khalifa Top", duracion: "Full Day", precio: "From $160 USD", amenidades: "Camel ride, sandboarding, BBQ dinner buffet and skyscraper tickets." },
+                        tour: { nombre: "Desert VIP Safari with Show Dinner & Burj Khalifa", ruta: "4x4 Dune Bashing ➔ Bedouin Camp ➔ Burj Khalifa Top", duracion: "Full Day", precio: "From $160 USD", amenidades: "Camel ride, sandboarding, BBQ dinner buffet and skyscraper tickets.", img: "img/tour_dubai.png" },
                         hotel: { nombre: "Atlantis The Palm", tipo: "5-Star Resort", precio: "From $380 USD/night", servicios: "Aquaventure waterpark, Lost Chambers aquarium, 23 restaurants and private beach." },
                         hostal: { nombre: "Barasti Beach Hostel", img: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=500&q=80", tipo: "Modern Hostel", precio: "From $40 USD/night", servicios: "Near Marina, shared pool, WiFi, breakfast included and desert tours." }
                     },
                     {
                         t: "Bali, Indonesia", d: "Sacred temples, rice terraces and stunning black and golden sand beaches.", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500&q=80",
                         pais: "Indonesia", capital: "Jakarta", visa: "No (VoA)", moneda: "Indonesian Rupiah (IDR)", idioma: "Indonesian", clima: "Humid equatorial",
-                        tour: { nombre: "Ubud Cultural Tour: Temples & Waterfalls", ruta: "Monkey Forest ➔ Tegallalang Terrace ➔ Tegenungan Waterfall", duracion: "Full Day", precio: "From $65 USD", amenidades: "Private driver/guide, entrance fees and Balinese swing." },
+                        tour: { nombre: "Ubud Cultural Tour: Temples & Waterfalls", ruta: "Monkey Forest ➔ Tegallalang Terrace ➔ Tegenungan Waterfall", duracion: "Full Day", precio: "From $65 USD", amenidades: "Private driver/guide, entrance fees and Balinese swing.", img: "img/tour_bali.jpg" },
                         hotel: { nombre: "AYANA Resort Bali", tipo: "5-Star Cliffside Resort", precio: "From $260 USD/night", servicios: "Rock Bar over the ocean, flower spa, 19 restaurants, infinity pools and golf." },
                         hostal: { nombre: "Puri Garden Hostel Ubud", img: "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=500&q=80", tipo: "Eco Hostel", precio: "From $12 USD/night", servicios: "Surrounded by rice paddies, free yoga, bikes, organic kitchen and WiFi." }
                     }
@@ -1453,7 +2649,7 @@
 
             // 2. Render Tours Locales y Guías en Servicios
             const toursGrid = document.getElementById('toursGrid');
-                if (toursGrid) {
+            if (toursGrid) {
                 // imágenes representativas de tours y guías (únicas, sin repetir)
                 const tourImages = [
                     "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=500&q=80", // walking tour (Chicago)
@@ -2135,6 +3331,9 @@
         document.getElementById('formSeguros').addEventListener('submit', submitInsuranceForm);
         document.getElementById('formHoteles').addEventListener('submit', submitHotelForm);
     </script>
+
+
+    <div id="toast-container" class="toast-container"></div>
 </body>
 
 </html>
